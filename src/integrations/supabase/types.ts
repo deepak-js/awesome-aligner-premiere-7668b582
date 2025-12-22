@@ -14,7 +14,168 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      case_studies: {
+        Row: {
+          after_image_url: string | null
+          before_image_url: string | null
+          case_type: string
+          clinic_name: string | null
+          created_at: string
+          description: string | null
+          doctor_name: string | null
+          featured: boolean | null
+          id: string
+          patient_age: number | null
+          patient_gender: string | null
+          testimonial: string | null
+          title: string
+          treatment_duration: string | null
+        }
+        Insert: {
+          after_image_url?: string | null
+          before_image_url?: string | null
+          case_type: string
+          clinic_name?: string | null
+          created_at?: string
+          description?: string | null
+          doctor_name?: string | null
+          featured?: boolean | null
+          id?: string
+          patient_age?: number | null
+          patient_gender?: string | null
+          testimonial?: string | null
+          title: string
+          treatment_duration?: string | null
+        }
+        Update: {
+          after_image_url?: string | null
+          before_image_url?: string | null
+          case_type?: string
+          clinic_name?: string | null
+          created_at?: string
+          description?: string | null
+          doctor_name?: string | null
+          featured?: boolean | null
+          id?: string
+          patient_age?: number | null
+          patient_gender?: string | null
+          testimonial?: string | null
+          title?: string
+          treatment_duration?: string | null
+        }
+        Relationships: []
+      }
+      doctor_applications: {
+        Row: {
+          city: string | null
+          clinic_address: string | null
+          clinic_name: string
+          created_at: string
+          current_aligner_brand: string | null
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+          message: string | null
+          partnership_tier: string | null
+          patients_per_month: number | null
+          phone: string
+          specialty: string | null
+          state: string | null
+          status: string | null
+          years_experience: number | null
+        }
+        Insert: {
+          city?: string | null
+          clinic_address?: string | null
+          clinic_name: string
+          created_at?: string
+          current_aligner_brand?: string | null
+          email: string
+          first_name: string
+          id?: string
+          last_name: string
+          message?: string | null
+          partnership_tier?: string | null
+          patients_per_month?: number | null
+          phone: string
+          specialty?: string | null
+          state?: string | null
+          status?: string | null
+          years_experience?: number | null
+        }
+        Update: {
+          city?: string | null
+          clinic_address?: string | null
+          clinic_name?: string
+          created_at?: string
+          current_aligner_brand?: string | null
+          email?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          message?: string | null
+          partnership_tier?: string | null
+          patients_per_month?: number | null
+          phone?: string
+          specialty?: string | null
+          state?: string | null
+          status?: string | null
+          years_experience?: number | null
+        }
+        Relationships: []
+      }
+      quiz_leads: {
+        Row: {
+          age_range: string | null
+          alignment_issues: string[] | null
+          budget_range: string | null
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+          phone: string | null
+          previous_treatment: boolean | null
+          primary_concern: string | null
+          quiz_score: number | null
+          recommendation: string | null
+          treatment_timeline: string | null
+        }
+        Insert: {
+          age_range?: string | null
+          alignment_issues?: string[] | null
+          budget_range?: string | null
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          last_name: string
+          phone?: string | null
+          previous_treatment?: boolean | null
+          primary_concern?: string | null
+          quiz_score?: number | null
+          recommendation?: string | null
+          treatment_timeline?: string | null
+        }
+        Update: {
+          age_range?: string | null
+          alignment_issues?: string[] | null
+          budget_range?: string | null
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          phone?: string | null
+          previous_treatment?: boolean | null
+          primary_concern?: string | null
+          quiz_score?: number | null
+          recommendation?: string | null
+          treatment_timeline?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

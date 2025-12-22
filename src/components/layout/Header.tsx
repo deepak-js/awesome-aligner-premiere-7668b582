@@ -5,8 +5,10 @@ import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
   { href: "/how-it-works", label: "How It Works" },
+  { href: "/results", label: "Results" },
   { href: "/about", label: "About Us" },
   { href: "/faq", label: "FAQs" },
+  { href: "/for-doctors", label: "For Doctors" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -43,11 +45,11 @@ const Header = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="heroGhost" size="sm">
-            Log In
+          <Button variant="heroGhost" size="sm" asChild>
+            <Link to="/quiz">Take Quiz</Link>
           </Button>
-          <Button variant="hero" size="sm">
-            Get Started
+          <Button variant="hero" size="sm" asChild>
+            <Link to="/contact">Get Started</Link>
           </Button>
         </div>
 
