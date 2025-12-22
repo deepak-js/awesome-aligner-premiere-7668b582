@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import beforeAfterImage from "@/assets/before-after.jpg";
+import { Link } from "react-router-dom";
+import teethBefore from "@/assets/teeth-before-1.jpg";
+import teethAfter from "@/assets/teeth-after-1.jpg";
 
 const BeforeAfter = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -14,6 +16,9 @@ const BeforeAfter = () => {
     <section id="results" className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="text-center mb-16">
+          <span className="inline-block px-4 py-2 mb-4 text-sm font-medium rounded-full bg-primary/10 text-primary">
+            Real Results
+          </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             See the Transformation
           </h2>
@@ -24,35 +29,45 @@ const BeforeAfter = () => {
 
         <div className="max-w-4xl mx-auto">
           {/* Slider Container */}
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-10">
-            <div className="relative aspect-video">
-              {/* Before/After Image */}
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-10 border border-border">
+            <div className="relative aspect-[4/3]">
+              {/* After Image (Background) */}
               <img
-                src={beforeAfterImage}
-                alt="Before and after dental alignment"
-                className="w-full h-full object-cover"
+                src={teethAfter}
+                alt="After dental alignment - beautiful straight teeth"
+                className="absolute inset-0 w-full h-full object-cover"
               />
               
-              {/* Slider Overlay */}
+              {/* Before Image (Clipped) */}
               <div
-                className="absolute inset-0 bg-primary/90 flex items-center justify-center"
+                className="absolute inset-0 overflow-hidden"
                 style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
               >
-                <div className="text-center text-primary-foreground px-4">
-                  <div className="text-2xl md:text-4xl font-bold mb-2">Before</div>
-                  <div className="text-primary-foreground/70">Slide to reveal</div>
-                </div>
+                <img
+                  src={teethBefore}
+                  alt="Before dental alignment"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Labels */}
+              <div className="absolute top-4 left-4 px-3 py-1.5 bg-background/90 backdrop-blur-sm rounded-full text-sm font-medium">
+                Before
+              </div>
+              <div className="absolute top-4 right-4 px-3 py-1.5 bg-primary text-primary-foreground rounded-full text-sm font-medium">
+                After
               </div>
 
               {/* Slider Line */}
               <div
-                className="absolute top-0 bottom-0 w-1 bg-primary-foreground shadow-lg"
-                style={{ left: `${sliderPosition}%` }}
+                className="absolute top-0 bottom-0 w-1 bg-white shadow-lg"
+                style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
               >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary-foreground rounded-full flex items-center justify-center shadow-lg">
-                  <div className="flex gap-0.5">
-                    <div className="w-1 h-4 bg-primary rounded-full" />
-                    <div className="w-1 h-4 bg-primary rounded-full" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-xl cursor-ew-resize">
+                  <div className="flex gap-1">
+                    <div className="w-0.5 h-4 bg-primary rounded-full" />
+                    <div className="w-0.5 h-4 bg-primary rounded-full" />
+                    <div className="w-0.5 h-4 bg-primary rounded-full" />
                   </div>
                 </div>
               </div>
@@ -71,24 +86,29 @@ const BeforeAfter = () => {
 
           {/* Stats Row */}
           <div className="grid grid-cols-3 gap-6 mb-10">
-            <div className="text-center">
+            <div className="text-center p-6 rounded-2xl bg-card border border-border">
               <div className="text-3xl md:text-4xl font-bold text-primary mb-1">10,000+</div>
               <div className="text-sm text-muted-foreground">Smiles Transformed</div>
             </div>
-            <div className="text-center">
+            <div className="text-center p-6 rounded-2xl bg-card border border-border">
               <div className="text-3xl md:text-4xl font-bold text-primary mb-1">98%</div>
               <div className="text-sm text-muted-foreground">Success Rate</div>
             </div>
-            <div className="text-center">
+            <div className="text-center p-6 rounded-2xl bg-card border border-border">
               <div className="text-3xl md:text-4xl font-bold text-primary mb-1">50+</div>
               <div className="text-sm text-muted-foreground">Countries Served</div>
             </div>
           </div>
 
-          <div className="text-center">
-            <Button variant="default" size="lg" className="group">
-              See More Cases
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button variant="default" size="lg" className="group" asChild>
+              <Link to="/results">
+                See More Cases
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/quiz">Am I a Candidate?</Link>
             </Button>
           </div>
         </div>
