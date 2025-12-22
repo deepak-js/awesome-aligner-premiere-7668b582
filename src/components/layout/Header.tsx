@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
+  { href: "/", label: "Home" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/results", label: "Results" },
   { href: "/about", label: "About Us" },
@@ -81,8 +82,12 @@ const Header = () => {
               </Link>
             ))}
             <div className="flex flex-col gap-3 mt-4">
-              <Button variant="heroOutline" className="w-full">Log In</Button>
-              <Button variant="hero" className="w-full">Get Started</Button>
+              <Button variant="heroOutline" className="w-full" asChild>
+                <Link to="/quiz" onClick={() => setIsMobileMenuOpen(false)}>Take Quiz</Link>
+              </Button>
+              <Button variant="hero" className="w-full" asChild>
+                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
+              </Button>
             </div>
           </div>
         </div>

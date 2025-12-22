@@ -12,6 +12,8 @@ import DoctorPartnership from "./pages/DoctorPartnership";
 import Quiz from "./pages/Quiz";
 import QuizResults from "./pages/QuizResults";
 import Results from "./pages/Results";
+import Auth from "./pages/Auth";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +34,8 @@ const App = () => (
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/quiz-results" element={<QuizResults />} />
           <Route path="/results" element={<Results />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-smiles.jpg";
+import { ArrowRight, Play } from "lucide-react";
+import { Link } from "react-router-dom";
+import heroImage from "@/assets/hero-smile-main.jpg";
+import diverseSmiles from "@/assets/diverse-smiles.jpg";
 
 const HeroSection = () => {
   return (
@@ -33,19 +35,27 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="xl" className="group">
-                Get a Consultation
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Button variant="hero" size="xl" className="group" asChild>
+                <Link to="/contact">
+                  Get a Consultation
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </Button>
-              <Button variant="heroOutline" size="xl">
-                Become a Doctor
+              <Button variant="heroOutline" size="xl" asChild>
+                <Link to="/for-doctors">Become a Doctor</Link>
               </Button>
             </div>
 
-            <button className="flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors group">
+            <Link 
+              to="/quiz" 
+              className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors group"
+            >
+              <div className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center group-hover:bg-primary-foreground/20 transition-colors">
+                <Play className="w-4 h-4 fill-current" />
+              </div>
               <span className="text-sm font-medium">Take the Smile Assessment</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
           </div>
 
           {/* Right Content - Image */}
@@ -53,7 +63,7 @@ const HeroSection = () => {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
                 src={heroImage}
-                alt="Happy patients with beautiful smiles"
+                alt="Happy patient with beautiful smile wearing clear aligners"
                 className="w-full h-auto object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
@@ -68,6 +78,30 @@ const HeroSection = () => {
             <div className="absolute -top-6 -right-6 glass-card rounded-2xl p-4 animate-fade-in-up delay-400">
               <div className="text-3xl font-bold text-secondary">6-12</div>
               <div className="text-sm text-muted-foreground">Months Average</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Diverse Patients Row */}
+        <div className="mt-16 pt-16 border-t border-primary-foreground/10">
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            <div className="flex-shrink-0">
+              <img 
+                src={diverseSmiles} 
+                alt="Diverse group of happy patients" 
+                className="w-64 h-40 object-cover rounded-2xl shadow-lg"
+              />
+            </div>
+            <div className="text-center lg:text-left">
+              <p className="text-primary-foreground/60 text-sm mb-2">Join our global community</p>
+              <p className="text-primary-foreground text-xl font-semibold">
+                Patients from all backgrounds trust Awesome Aligners for their smile journey
+              </p>
+            </div>
+            <div className="flex gap-4 flex-wrap justify-center lg:justify-start">
+              <Button variant="heroGhost" size="sm" asChild>
+                <Link to="/results">View Success Stories</Link>
+              </Button>
             </div>
           </div>
         </div>
