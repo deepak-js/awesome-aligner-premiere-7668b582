@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const locations = [
   { city: "New York", address: "123 Manhattan Ave, NY 10001" },
@@ -8,9 +8,23 @@ const locations = [
 ];
 
 const links = {
-  company: ["About Us", "Careers", "Press", "Blog"],
-  support: ["Help Center", "Contact Us", "FAQs", "Book a Call"],
-  legal: ["Privacy Policy", "Terms of Service", "Cookie Policy"],
+  company: [
+    { label: "About Us", href: "/about" },
+    { label: "Careers", href: "#" },
+    { label: "Press", href: "#" },
+    { label: "Blog", href: "#" },
+  ],
+  support: [
+    { label: "Help Center", href: "/faq" },
+    { label: "Contact Us", href: "/contact" },
+    { label: "FAQs", href: "/faq" },
+    { label: "Book a Call", href: "/contact" },
+  ],
+  legal: [
+    { label: "Privacy Policy", href: "#" },
+    { label: "Terms of Service", href: "#" },
+    { label: "Cookie Policy", href: "#" },
+  ],
 };
 
 const socialLinks = [
@@ -28,9 +42,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <div className="text-2xl font-bold mb-4">
+            <Link to="/" className="text-2xl font-bold mb-4 inline-block">
               Awesome<span className="font-light">Aligners</span>
-            </div>
+            </Link>
             <p className="text-primary-foreground/70 mb-6 max-w-sm">
               Transforming smiles worldwide with cutting-edge clear aligner technology 
               and personalized care.
@@ -54,10 +68,13 @@ const Footer = () => {
             <h3 className="font-semibold mb-4">Company</h3>
             <ul className="space-y-3">
               {links.company.map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
-                    {link}
-                  </a>
+                <li key={link.label}>
+                  <Link
+                    to={link.href}
+                    className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -68,10 +85,13 @@ const Footer = () => {
             <h3 className="font-semibold mb-4">Support</h3>
             <ul className="space-y-3">
               {links.support.map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm">
-                    {link}
-                  </a>
+                <li key={link.label}>
+                  <Link
+                    to={link.href}
+                    className="text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm"
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -118,13 +138,13 @@ const Footer = () => {
           </p>
           <div className="flex gap-6">
             {links.legal.map((link) => (
-              <a
-                key={link}
-                href="#"
+              <Link
+                key={link.label}
+                to={link.href}
                 className="text-primary-foreground/60 hover:text-primary-foreground transition-colors text-sm"
               >
-                {link}
-              </a>
+                {link.label}
+              </Link>
             ))}
           </div>
         </div>
