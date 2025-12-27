@@ -12,6 +12,10 @@ import {
   Cpu,
   Users,
   Clock,
+  Wrench,
+  RefreshCw,
+  Eye,
+  Shield,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -19,67 +23,106 @@ const steps = [
   {
     number: "01",
     icon: Search,
-    title: "Book Your Consultation",
-    description: "Start your journey with a free consultation at one of our certified provider locations.",
+    title: "Consultation & Pre-Qualification",
+    description: "Clinical evaluation of teeth, bite, gums, and oral health. Alignment goals clarified. Case suitability confirmed.",
     details: [
-      "Find a certified provider near you",
-      "Schedule your free 30-minute consultation",
-      "Discuss your smile goals with an expert",
-      "Get answers to all your questions",
+      "Complete oral health assessment",
+      "Teeth, bite, and gum evaluation",
+      "Discuss your smile goals",
+      "Confirm case suitability",
     ],
-    timeline: "Day 1",
+    timeline: "Stage 1",
   },
   {
     number: "02",
     icon: Scan,
-    title: "3D Digital Scan",
-    description: "Experience cutting-edge technology with our painless, precision 3D scanning process.",
+    title: "Digital Scan & Treatment Planning",
+    description: "High-precision 3D scans capture exact tooth positions. A customized, step-by-step movement plan is digitally designed and approved.",
     details: [
-      "Quick 5-minute scanning process",
-      "No messy impressions needed",
-      "Sub-millimeter accuracy",
-      "Instant digital preview of your teeth",
+      "High-precision 3D scanning",
+      "Capture exact tooth positions",
+      "Customized movement plan design",
+      "Digital approval process",
     ],
-    timeline: "Day 1",
+    timeline: "Stage 2",
   },
   {
     number: "03",
-    icon: Palette,
-    title: "Custom Treatment Plan",
-    description: "Our AI-powered software creates a personalized treatment plan just for you.",
+    icon: Wrench,
+    title: "Preparation Procedures (If Required)",
+    description: "Minor preparatory procedures performed when necessary to ensure predictable tooth movement and optimal results.",
     details: [
-      "AI-optimized tooth movement planning",
-      "See your smile transformation preview",
-      "Review timeline and milestones",
-      "Approve your treatment plan",
+      "Assessment for preparation needs",
+      "Minor preparatory procedures",
+      "Ensure predictable movement",
+      "Optimize treatment outcomes",
     ],
-    timeline: "Week 1",
+    timeline: "Stage 3",
   },
   {
     number: "04",
     icon: Package,
-    title: "Receive Your Aligners",
-    description: "Your custom-made aligners arrive, precision-crafted for your unique smile.",
+    title: "Aligner Fabrication",
+    description: "Custom clear aligners manufactured using advanced aligner technology based on the approved treatment plan.",
     details: [
-      "Medical-grade, BPA-free materials",
-      "Complete set of aligners delivered",
-      "Detailed wearing instructions",
-      "Carrying case and care kit included",
+      "Advanced manufacturing technology",
+      "Custom-fit for your teeth",
+      "Based on approved treatment plan",
+      "Medical-grade materials",
     ],
-    timeline: "Week 2-3",
+    timeline: "Stage 4",
   },
   {
     number: "05",
-    icon: Sparkles,
-    title: "Reveal Your New Smile",
-    description: "Watch your smile transform as you progress through your treatment journey.",
+    icon: Clock,
+    title: "Receiving & Wearing Aligners",
+    description: "First set of aligners delivered. Aligners worn 20–22 hours per day. New sets changed every 1–2 weeks as prescribed.",
     details: [
-      "Change aligners every 1-2 weeks",
-      "Regular check-ins with your provider",
-      "Track progress with our app",
-      "Celebrate your perfect smile!",
+      "First aligner set delivered",
+      "Wear 20–22 hours per day",
+      "Change sets every 1–2 weeks",
+      "Follow prescribed schedule",
     ],
-    timeline: "6-12 Months",
+    timeline: "Stage 5",
+  },
+  {
+    number: "06",
+    icon: Eye,
+    title: "Follow-Up & Progress Monitoring",
+    description: "Periodic reviews track progress against the plan. Adjustments or refinements made if required to stay on course.",
+    details: [
+      "Periodic progress reviews",
+      "Track against treatment plan",
+      "Adjustments when needed",
+      "Stay on course to goals",
+    ],
+    timeline: "Stage 6",
+  },
+  {
+    number: "07",
+    icon: Sparkles,
+    title: "Finishing & Refinement",
+    description: "Final aligner stages complete tooth alignment and bite correction to the planned outcome.",
+    details: [
+      "Final alignment stages",
+      "Complete bite correction",
+      "Achieve planned outcome",
+      "Perfect your smile",
+    ],
+    timeline: "Stage 7",
+  },
+  {
+    number: "08",
+    icon: Shield,
+    title: "Retainer Installation & Maintenance",
+    description: "Retainers prescribed to stabilize results and maintain the new smile long term.",
+    details: [
+      "Custom retainer fitting",
+      "Stabilize treatment results",
+      "Long-term maintenance plan",
+      "Preserve your new smile",
+    ],
+    timeline: "Stage 8",
   },
 ];
 
@@ -120,13 +163,13 @@ const HowItWorks = () => {
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-in-up">
-            Your Journey to a
+            Awesome Aligners
             <br />
-            <span className="text-gradient">Perfect Smile</span>
+            <span className="text-gradient">End-to-End Treatment Process</span>
           </h1>
 
           <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed animate-fade-in-up delay-100">
-            From consultation to celebration, here's exactly what to expect on your smile transformation journey.
+            Your complete journey from consultation to a perfect smile, guided by certified professionals every step of the way.
           </p>
         </div>
       </section>
