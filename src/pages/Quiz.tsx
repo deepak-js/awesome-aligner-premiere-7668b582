@@ -228,6 +228,24 @@ const Quiz = () => {
 
       if (error) throw error;
 
+      // Send notification email (fire and forget)
+      const recommendationText = recommendation === "excellent" 
+        ? "You're an excellent candidate for Awesome Aligners! Our clear aligners can help you achieve your dream smile."
+        : recommendation === "good"
+        ? "You're a good candidate for clear aligners. A quick consultation will help us create the perfect plan for you."
+        : "We recommend scheduling a consultation with our specialists to explore your best treatment options.";
+
+      supabase.functions.invoke("send-notification-email", {
+        body: {
+          type: "quiz_completion",
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          recommendation: recommendationText,
+          quizScore: score
+        }
+      }).catch(err => console.error("Email notification failed:", err));
+
       // Navigate to results with state
       navigate("/quiz-results", { 
         state: { 
