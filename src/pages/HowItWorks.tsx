@@ -1,5 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ComparisonSection from "@/components/sections/ComparisonSection";
 import { Button } from "@/components/ui/button";
 import {
   Search,
@@ -220,6 +221,9 @@ const HowItWorks = () => {
           </div>
         </div>
       </section>
+
+      {/* Comparison Section */}
+      <ComparisonSection />
 
       {/* Technology Showcase */}
       <section className="py-20 bg-muted">
