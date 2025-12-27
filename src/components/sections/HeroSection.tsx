@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-smile-main.jpg";
 import diverseSmiles from "@/assets/diverse-smiles.jpg";
+import QuizModal from "@/components/quiz/QuizModal";
 
 const HeroSection = () => {
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen hero-gradient overflow-hidden">
       {/* Background decorative elements */}
@@ -46,8 +50,8 @@ const HeroSection = () => {
               </Button>
             </div>
 
-            <Link 
-              to="/quiz" 
+            <button 
+              onClick={() => setIsQuizOpen(true)}
               className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors group"
             >
               <div className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center group-hover:bg-primary-foreground/20 transition-colors">
@@ -55,7 +59,7 @@ const HeroSection = () => {
               </div>
               <span className="text-sm font-medium">Take the Smile Assessment</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </button>
           </div>
 
           {/* Right Content - Image */}
@@ -113,6 +117,9 @@ const HeroSection = () => {
           <div className="w-1.5 h-3 bg-primary-foreground/50 rounded-full" />
         </div>
       </div>
+
+      {/* Quiz Modal */}
+      <QuizModal isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} />
     </section>
   );
 };

@@ -44,6 +44,19 @@ import oneMonthImg from "@/assets/quiz-one-month.jpg";
 import threeMonthsImg from "@/assets/quiz-three-months.jpg";
 import researchingImg from "@/assets/quiz-researching.jpg";
 
+// Question 3 images - Age groups
+import age1825Img from "@/assets/quiz-age-18-25.jpg";
+import age2635Img from "@/assets/quiz-age-26-35.jpg";
+import age3645Img from "@/assets/quiz-age-36-45.jpg";
+import age4655Img from "@/assets/quiz-age-46-55.jpg";
+import age55PlusImg from "@/assets/quiz-age-55-plus.jpg";
+
+// Question 6 images - Budget
+import budgetLowImg from "@/assets/quiz-budget-low.jpg";
+import budgetMidImg from "@/assets/quiz-budget-mid.jpg";
+import budgetPremiumImg from "@/assets/quiz-budget-premium.jpg";
+import budgetEmiImg from "@/assets/quiz-budget-emi.jpg";
+
 interface QuizModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -86,13 +99,13 @@ const questions = [
     id: 3,
     question: "Your age group?",
     type: "single",
-    hasImages: false,
+    hasImages: true,
     options: [
-      { value: "18_25", label: "18-25 years" },
-      { value: "26_35", label: "26-35 years" },
-      { value: "36_45", label: "36-45 years" },
-      { value: "46_55", label: "46-55 years" },
-      { value: "over_55", label: "55+ years" }
+      { value: "18_25", label: "18-25 years", image: age1825Img },
+      { value: "26_35", label: "26-35 years", image: age2635Img },
+      { value: "36_45", label: "36-45 years", image: age3645Img },
+      { value: "46_55", label: "46-55 years", image: age4655Img },
+      { value: "over_55", label: "55+ years", image: age55PlusImg }
     ]
   },
   {
@@ -123,12 +136,12 @@ const questions = [
     id: 6,
     question: "Your budget preference?",
     type: "single",
-    hasImages: false,
+    hasImages: true,
     options: [
-      { value: "under_50k", label: "Under ₹50,000" },
-      { value: "50k_80k", label: "₹50,000 - ₹80,000" },
-      { value: "80k_120k", label: "₹80,000 - ₹1,20,000" },
-      { value: "flexible", label: "Flexible with EMI options" }
+      { value: "under_50k", label: "Under ₹50,000", image: budgetLowImg },
+      { value: "50k_80k", label: "₹50,000 - ₹80,000", image: budgetMidImg },
+      { value: "80k_120k", label: "₹80,000 - ₹1,20,000", image: budgetPremiumImg },
+      { value: "flexible", label: "Flexible with EMI", image: budgetEmiImg }
     ]
   }
 ];
