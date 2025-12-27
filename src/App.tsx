@@ -19,8 +19,11 @@ import CookiePolicy from "./pages/CookiePolicy";
 import Pricing from "./pages/Pricing";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import CostCalculator from "./pages/CostCalculator";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
+import LiveChat from "./components/LiveChat";
+import ExitIntentPopup from "./components/ExitIntentPopup";
 
 const queryClient = new QueryClient();
 
@@ -47,10 +50,13 @@ const App = () => (
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:postId" element={<BlogPost />} />
+          <Route path="/cost-calculator" element={<CostCalculator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
         <CookieConsent />
+        <LiveChat />
+        <ExitIntentPopup />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
