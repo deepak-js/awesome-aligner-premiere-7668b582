@@ -74,7 +74,7 @@ const QuizResults = () => {
 
   // Redirect if no state (direct access)
   if (!state) {
-    return <Navigate to="/quiz" replace />;
+    return <Navigate to="/" replace />;
   }
 
   const result = recommendations[state.recommendation];

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import QuizModal from "@/components/quiz/QuizModal";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -16,6 +17,7 @@ const navLinks = [
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
   const location = useLocation();
 
   return (
@@ -47,8 +49,8 @@ const Header = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="heroGhost" size="sm" asChild>
-            <Link to="/quiz">Take Quiz</Link>
+          <Button variant="heroGhost" size="sm" onClick={() => setIsQuizOpen(true)}>
+            Take Quiz
           </Button>
           <Button variant="hero" size="sm" asChild>
             <Link to="/contact">Get Started</Link>
@@ -83,8 +85,8 @@ const Header = () => {
               </Link>
             ))}
             <div className="flex flex-col gap-3 mt-4">
-              <Button variant="heroOutline" className="w-full" asChild>
-                <Link to="/quiz" onClick={() => setIsMobileMenuOpen(false)}>Take Quiz</Link>
+              <Button variant="heroOutline" className="w-full" onClick={() => { setIsMobileMenuOpen(false); setIsQuizOpen(true); }}>
+                Take Quiz
               </Button>
               <Button variant="hero" className="w-full" asChild>
                 <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
@@ -93,6 +95,8 @@ const Header = () => {
           </div>
         </div>
       )}
+
+      <QuizModal isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} />
     </header>
   );
 };
