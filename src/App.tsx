@@ -9,7 +9,6 @@ import Contact from "./pages/Contact";
 import FAQ from "./pages/FAQ";
 import HowItWorks from "./pages/HowItWorks";
 import DoctorPartnership from "./pages/DoctorPartnership";
-import Quiz from "./pages/Quiz";
 import QuizResults from "./pages/QuizResults";
 import Results from "./pages/Results";
 import Auth from "./pages/Auth";
@@ -38,7 +37,6 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/for-doctors" element={<DoctorPartnership />} />
-          <Route path="/quiz" element={<Quiz />} />
           <Route path="/quiz-results" element={<QuizResults />} />
           <Route path="/results" element={<Results />} />
           <Route path="/auth" element={<Auth />} />
