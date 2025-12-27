@@ -2,20 +2,13 @@ import { Shield, Award, CheckCircle, BadgeCheck } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { useCountUp } from '@/hooks/useCountUp';
 import { cn } from '@/lib/utils';
+import BrandLogosSlider from '@/components/BrandLogosSlider';
 
 const certifications = [
   { icon: Shield, label: 'FDA Cleared', description: 'Safe & Approved' },
   { icon: Award, label: 'ISO 13485', description: 'Quality Certified' },
   { icon: CheckCircle, label: 'CE Marked', description: 'European Standard' },
   { icon: BadgeCheck, label: 'BPA Free', description: 'Medical Grade' },
-];
-
-const pressLogos = [
-  { name: 'Forbes', opacity: 0.7 },
-  { name: 'TechCrunch', opacity: 0.7 },
-  { name: 'Healthline', opacity: 0.7 },
-  { name: 'WebMD', opacity: 0.7 },
-  { name: 'Business Insider', opacity: 0.7 },
 ];
 
 const StatCard = ({ 
@@ -111,24 +104,12 @@ const TrustBadgesSection = () => {
           </div>
         </div>
 
-        {/* As Seen In */}
+        {/* As Seen In - Auto-scrolling slider */}
         <div className={cn(
           "transition-all duration-700 delay-300",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <h3 className="text-center text-sm font-medium text-muted-foreground mb-8 uppercase tracking-wider">
-            As Featured In
-          </h3>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
-            {pressLogos.map((logo) => (
-              <div
-                key={logo.name}
-                className="text-2xl md:text-3xl font-bold text-foreground/30 hover:text-foreground/50 transition-colors cursor-default"
-              >
-                {logo.name}
-              </div>
-            ))}
-          </div>
+          <BrandLogosSlider />
         </div>
 
         {/* Trust Statement */}
