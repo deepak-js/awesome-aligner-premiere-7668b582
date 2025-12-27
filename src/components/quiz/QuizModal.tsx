@@ -25,6 +25,25 @@ import underbiteImg from "@/assets/comparison-smooth-edge.jpg";
 import alignmentImg from "@/assets/before-after.jpg";
 import smileImg from "@/assets/diverse-smiles.jpg";
 
+// Question 2 images
+import frontTeethImg from "@/assets/quiz-front-teeth.jpg";
+import shySmileImg from "@/assets/quiz-shy-smile.jpg";
+import biteImg from "@/assets/quiz-bite.jpg";
+import cleaningImg from "@/assets/quiz-cleaning.jpg";
+import confidenceImg from "@/assets/quiz-confidence.jpg";
+
+// Question 4 images
+import firstTimeImg from "@/assets/quiz-first-time.jpg";
+import bracesImg from "@/assets/quiz-braces.jpg";
+import alignersImg from "@/assets/quiz-aligners.jpg";
+import retainerImg from "@/assets/quiz-retainer.jpg";
+
+// Question 5 images
+import asapImg from "@/assets/quiz-asap.jpg";
+import oneMonthImg from "@/assets/quiz-one-month.jpg";
+import threeMonthsImg from "@/assets/quiz-three-months.jpg";
+import researchingImg from "@/assets/quiz-researching.jpg";
+
 interface QuizModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -54,13 +73,13 @@ const questions = [
     id: 2,
     question: "What bothers you most?",
     type: "multiple",
-    hasImages: false,
+    hasImages: true,
     options: [
-      { value: "front_teeth", label: "Front teeth look crooked" },
-      { value: "smile_photos", label: "Don't like smiling in photos" },
-      { value: "bite", label: "Bite feels uncomfortable" },
-      { value: "cleaning", label: "Hard to clean properly" },
-      { value: "confidence", label: "Affects my confidence" }
+      { value: "front_teeth", label: "Crooked front teeth", image: frontTeethImg },
+      { value: "smile_photos", label: "Shy in photos", image: shySmileImg },
+      { value: "bite", label: "Uncomfortable bite", image: biteImg },
+      { value: "cleaning", label: "Hard to clean", image: cleaningImg },
+      { value: "confidence", label: "Affects confidence", image: confidenceImg }
     ]
   },
   {
@@ -80,24 +99,24 @@ const questions = [
     id: 4,
     question: "Any previous orthodontic treatment?",
     type: "single",
-    hasImages: false,
+    hasImages: true,
     options: [
-      { value: "never", label: "No, first time! 🎉" },
-      { value: "braces", label: "Yes, had braces before" },
-      { value: "aligners", label: "Tried aligners before" },
-      { value: "retainer", label: "Used a retainer" }
+      { value: "never", label: "No, first time!", image: firstTimeImg },
+      { value: "braces", label: "Had braces before", image: bracesImg },
+      { value: "aligners", label: "Tried aligners", image: alignersImg },
+      { value: "retainer", label: "Used a retainer", image: retainerImg }
     ]
   },
   {
     id: 5,
     question: "When do you want to start?",
     type: "single",
-    hasImages: false,
+    hasImages: true,
     options: [
-      { value: "asap", label: "Right away! 🚀" },
-      { value: "1_month", label: "Within a month" },
-      { value: "3_months", label: "In a few months" },
-      { value: "researching", label: "Just exploring" }
+      { value: "asap", label: "Right away!", image: asapImg },
+      { value: "1_month", label: "Within a month", image: oneMonthImg },
+      { value: "3_months", label: "In a few months", image: threeMonthsImg },
+      { value: "researching", label: "Just exploring", image: researchingImg }
     ]
   },
   {
@@ -315,11 +334,19 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
               {questions[currentStep].hasImages ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {questions[currentStep].options.map((option) => {
-                    const isSelected = getCurrentAnswer(questions[currentStep].id) === option.value;
+                    const currentAnswer = getCurrentAnswer(questions[currentStep].id);
+                    const isMultiple = questions[currentStep].type === "multiple";
+                    const isSelected = isMultiple
+                      ? (currentAnswer as string[] || []).includes(option.value)
+                      : currentAnswer === option.value;
                     return (
                       <button
                         key={option.value}
-                        onClick={() => handleSingleSelect(questions[currentStep].id, option.value)}
+                        onClick={() => 
+                          isMultiple
+                            ? handleMultiSelect(questions[currentStep].id, option.value)
+                            : handleSingleSelect(questions[currentStep].id, option.value)
+                        }
                         className={`relative group rounded-xl overflow-hidden border-2 transition-all duration-200 ${
                           isSelected
                             ? "border-primary ring-2 ring-primary/30 scale-[1.02]"
@@ -336,7 +363,7 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
                         <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent`} />
                         <div className="absolute bottom-0 left-0 right-0 p-3">
                           <div className="flex items-center gap-2">
-                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                            <div className={`w-4 h-4 ${isMultiple ? 'rounded-sm' : 'rounded-full'} border-2 flex items-center justify-center flex-shrink-0 ${
                               isSelected ? "border-primary bg-primary" : "border-white/80"
                             }`}>
                               {isSelected && <CheckCircle className="h-2.5 w-2.5 text-primary-foreground" />}
