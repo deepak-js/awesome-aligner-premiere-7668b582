@@ -164,6 +164,18 @@ const DoctorPartnership = () => {
 
       if (error) throw error;
 
+      // Send notification email (fire and forget)
+      supabase.functions.invoke("send-notification-email", {
+        body: {
+          type: "doctor_application",
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          clinicName: formData.clinicName,
+          phone: formData.phone
+        }
+      }).catch(err => console.error("Email notification failed:", err));
+
       toast({
         title: "Application Submitted!",
         description: "Our partnership team will contact you within 24-48 hours.",
