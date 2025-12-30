@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -5,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import BlogCardSkeleton from '@/components/skeletons/BlogCardSkeleton';
 
 const blogPosts = [
   {
@@ -72,8 +74,15 @@ const blogPosts = [
 const categories = ["All", "Treatment Options", "Care Tips", "Lifestyle"];
 
 const Blog = () => {
+  const [loading, setLoading] = useState(true);
   const featuredPosts = blogPosts.filter(post => post.featured);
   const regularPosts = blogPosts.filter(post => !post.featured);
+
+  useEffect(() => {
+    // Simulate loading for better UX
+    const timer = setTimeout(() => setLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <main className="min-h-screen">
@@ -115,6 +124,13 @@ const Blog = () => {
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <h2 className="text-2xl font-bold text-foreground mb-8">Featured Articles</h2>
+          {loading ? (
+            <div className="grid md:grid-cols-2 gap-8">
+              {[1, 2].map((i) => (
+                <BlogCardSkeleton key={i} featured />
+              ))}
+            </div>
+          ) : (
           <div className="grid md:grid-cols-2 gap-8">
             {featuredPosts.map((post) => (
               <Card key={post.id} className="overflow-hidden group hover:shadow-lg transition-shadow">
@@ -156,6 +172,7 @@ const Blog = () => {
               </Card>
             ))}
           </div>
+          )}
         </div>
       </section>
 
@@ -163,6 +180,13 @@ const Blog = () => {
       <section className="py-16 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <h2 className="text-2xl font-bold text-foreground mb-8">Latest Articles</h2>
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4].map((i) => (
+                <BlogCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {regularPosts.map((post) => (
               <Card key={post.id} className="overflow-hidden group hover:shadow-lg transition-shadow">
@@ -201,6 +225,7 @@ const Blog = () => {
               </Card>
             ))}
           </div>
+          )}
         </div>
       </section>
 
