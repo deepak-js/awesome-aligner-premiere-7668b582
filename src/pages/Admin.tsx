@@ -4,8 +4,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import type { User, Session } from "@supabase/supabase-js";
+import CaseStudyForm from "@/components/admin/CaseStudyForm";
 import {
   LogOut,
   Users,
@@ -18,7 +20,10 @@ import {
   TrendingUp,
   Target,
   DollarSign,
-  RefreshCw
+  RefreshCw,
+  Image,
+  Plus,
+  Trash2
 } from "lucide-react";
 
 interface QuizLead {
@@ -58,6 +63,17 @@ interface DoctorApplication {
   created_at: string;
 }
 
+interface CaseStudy {
+  id: string;
+  title: string;
+  case_type: string;
+  treatment_duration: string | null;
+  before_image_url: string | null;
+  after_image_url: string | null;
+  featured: boolean | null;
+  created_at: string;
+}
+
 const Admin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -66,7 +82,9 @@ const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [quizLeads, setQuizLeads] = useState<QuizLead[]>([]);
   const [doctorApps, setDoctorApps] = useState<DoctorApplication[]>([]);
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [showCaseForm, setShowCaseForm] = useState(false);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -97,18 +115,43 @@ const Admin = () => {
   const fetchData = async () => {
     setRefreshing(true);
     try {
-      const [leadsRes, appsRes] = await Promise.all([
+      const [leadsRes, appsRes, casesRes] = await Promise.all([
         supabase.from("quiz_leads").select("*").order("created_at", { ascending: false }),
-        supabase.from("doctor_applications").select("*").order("created_at", { ascending: false })
+        supabase.from("doctor_applications").select("*").order("created_at", { ascending: false }),
+        supabase.from("case_studies").select("*").order("featured", { ascending: false }).order("created_at", { ascending: false })
       ]);
 
       if (leadsRes.data) setQuizLeads(leadsRes.data);
       if (appsRes.data) setDoctorApps(appsRes.data);
+      if (casesRes.data) setCaseStudies(casesRes.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
       setRefreshing(false);
+    }
+  };
+
+  const handleDeleteCase = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this case study?")) return;
+    
+    try {
+      const { error } = await supabase.from("case_studies").delete().eq("id", id);
+      if (error) throw error;
+      
+      toast({
+        title: "Case study deleted",
+        description: "The case study has been removed.",
+      });
+      
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting case:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete case study.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -221,6 +264,9 @@ const Admin = () => {
               </TabsTrigger>
               <TabsTrigger value="doctors" className="gap-2">
                 <Stethoscope className="h-4 w-4" /> Doctor Applications
+              </TabsTrigger>
+              <TabsTrigger value="cases" className="gap-2">
+                <Image className="h-4 w-4" /> Case Studies
               </TabsTrigger>
             </TabsList>
             
@@ -401,7 +447,116 @@ const Admin = () => {
               </div>
             )}
           </TabsContent>
+
+          <TabsContent value="cases" className="space-y-4">
+            <div className="flex justify-end mb-4">
+              <Button onClick={() => setShowCaseForm(true)}>
+                <Plus className="h-4 w-4 mr-2" /> Add Case Study
+              </Button>
+            </div>
+            
+            {caseStudies.length === 0 ? (
+              <div className="text-center py-16 bg-card rounded-xl border border-border">
+                <Image className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2">No case studies yet</h3>
+                <p className="text-muted-foreground mb-4">Add before/after transformation photos to showcase results.</p>
+                <Button onClick={() => setShowCaseForm(true)}>
+                  <Plus className="h-4 w-4 mr-2" /> Add First Case Study
+                </Button>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {caseStudies.map((caseStudy) => (
+                  <div key={caseStudy.id} className="bg-card rounded-xl border border-border overflow-hidden">
+                    <div className="relative aspect-video">
+                      <div className="absolute inset-0 flex">
+                        <div className="w-1/2 relative overflow-hidden">
+                          {caseStudy.before_image_url ? (
+                            <img
+                              src={caseStudy.before_image_url}
+                              alt="Before"
+                              className="absolute inset-0 w-[200%] h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-muted flex items-center justify-center">
+                              <span className="text-xs text-muted-foreground">No before image</span>
+                            </div>
+                          )}
+                          <div className="absolute bottom-2 left-2 px-2 py-1 bg-background/80 rounded text-xs font-medium">
+                            Before
+                          </div>
+                        </div>
+                        <div className="w-1/2 relative overflow-hidden">
+                          {caseStudy.after_image_url ? (
+                            <img
+                              src={caseStudy.after_image_url}
+                              alt="After"
+                              className="absolute inset-0 w-[200%] h-full object-cover"
+                              style={{ left: "-100%" }}
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-muted flex items-center justify-center">
+                              <span className="text-xs text-muted-foreground">No after image</span>
+                            </div>
+                          )}
+                          <div className="absolute bottom-2 right-2 px-2 py-1 bg-primary text-primary-foreground rounded text-xs font-medium">
+                            After
+                          </div>
+                        </div>
+                        <div className="absolute inset-y-0 left-1/2 w-0.5 bg-white/80" />
+                      </div>
+                      
+                      {caseStudy.featured && (
+                        <Badge className="absolute top-2 left-2 bg-primary">Featured</Badge>
+                      )}
+                    </div>
+                    
+                    <div className="p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <Badge variant="outline">{caseStudy.case_type}</Badge>
+                        {caseStudy.treatment_duration && (
+                          <span className="text-xs text-muted-foreground flex items-center gap-1">
+                            <Clock className="h-3 w-3" /> {caseStudy.treatment_duration}
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="font-semibold mb-2">{caseStudy.title}</h3>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-muted-foreground">
+                          {formatDate(caseStudy.created_at)}
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteCase(caseStudy.id)}
+                          className="text-destructive hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </TabsContent>
         </Tabs>
+
+        {/* Case Study Form Modal */}
+        <Dialog open={showCaseForm} onOpenChange={setShowCaseForm}>
+          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Add New Case Study</DialogTitle>
+            </DialogHeader>
+            <CaseStudyForm
+              onSuccess={() => {
+                setShowCaseForm(false);
+                fetchData();
+              }}
+              onCancel={() => setShowCaseForm(false)}
+            />
+          </DialogContent>
+        </Dialog>
       </main>
     </div>
   );
