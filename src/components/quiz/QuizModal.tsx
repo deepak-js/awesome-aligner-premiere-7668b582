@@ -18,6 +18,15 @@ import {
   Baby
 } from "lucide-react";
 
+// Import dental condition images
+import crowdedTeethImg from "@/assets/quiz-crowded-teeth.png";
+import gapTeethImg from "@/assets/quiz-gap-teeth.png";
+import overbiteImg from "@/assets/quiz-overbite.png";
+import underbiteImg from "@/assets/quiz-underbite.png";
+import crossbiteImg from "@/assets/quiz-crossbite.png";
+import openbiteImg from "@/assets/quiz-openbite.png";
+import straightenImg from "@/assets/quiz-straighten.png";
+
 interface QuizModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -44,14 +53,15 @@ const questions = [
     id: 2,
     question: "What are you looking to fix?",
     type: "multiple",
+    hasImages: true,
     options: [
-      { value: "crowded", label: "Crowded teeth" },
-      { value: "gaps", label: "Gap between teeth" },
-      { value: "overbite", label: "Overbite" },
-      { value: "underbite", label: "Underbite" },
-      { value: "crossbite", label: "Crossbite" },
-      { value: "open_bite", label: "Open bite" },
-      { value: "straighten", label: "Generally straighten teeth" },
+      { value: "crowded", label: "Crowded teeth", image: crowdedTeethImg },
+      { value: "gaps", label: "Gap between teeth", image: gapTeethImg },
+      { value: "overbite", label: "Overbite", image: overbiteImg },
+      { value: "underbite", label: "Underbite", image: underbiteImg },
+      { value: "crossbite", label: "Crossbite", image: crossbiteImg },
+      { value: "open_bite", label: "Open bite", image: openbiteImg },
+      { value: "straighten", label: "Generally straighten", image: straightenImg },
     ]
   },
   {
@@ -234,9 +244,12 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
     onClose();
   };
 
+  const currentQuestion = questions[currentStep];
+  const hasImages = currentQuestion?.hasImages;
+
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto p-0 gap-0">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 gap-0">
         {/* Header with progress */}
         <div className="sticky top-0 z-10 bg-card border-b border-border p-4">
           <div className="flex items-center justify-between mb-3">
@@ -261,60 +274,98 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="p-4 md:p-6">
           {currentStep < questions.length ? (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="text-xl md:text-2xl font-bold mb-6 text-foreground">
-                {questions[currentStep].question}
+              <h2 className="text-xl md:text-2xl font-bold mb-6 text-foreground text-center">
+                {currentQuestion.question}
               </h2>
               
-              <div className="space-y-3">
-                {questions[currentStep].options.map((option) => {
-                  const currentAnswer = getCurrentAnswer(questions[currentStep].id);
-                  const isMultiple = questions[currentStep].type === "multiple";
-                  const isSelected = isMultiple
-                    ? (currentAnswer as string[] || []).includes(option.value)
-                    : currentAnswer === option.value;
-                  const Icon = (option as any).icon;
+              {/* Image grid for dental conditions */}
+              {hasImages ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {currentQuestion.options.map((option: any) => {
+                    const currentAnswer = getCurrentAnswer(currentQuestion.id);
+                    const isSelected = (currentAnswer as string[] || []).includes(option.value);
 
-                  return (
-                    <button
-                      key={option.value}
-                      onClick={() => 
-                        isMultiple
-                          ? handleMultiSelect(questions[currentStep].id, option.value)
-                          : handleSingleSelect(questions[currentStep].id, option.value)
-                      }
-                      className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 ${
-                        isSelected
-                          ? "border-primary bg-primary/10 scale-[1.02]"
-                          : "border-border hover:border-primary/50 bg-card"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        {Icon && (
-                          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                            isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
-                          }`}>
-                            <Icon className="h-5 w-5" />
-                          </div>
-                        )}
-                        {!Icon && (
-                          <div className={`w-5 h-5 ${isMultiple ? 'rounded-md' : 'rounded-full'} border-2 flex items-center justify-center flex-shrink-0 ${
-                            isSelected ? "border-primary bg-primary" : "border-muted-foreground"
-                          }`}>
-                            {isSelected && <CheckCircle className="h-3 w-3 text-primary-foreground" />}
-                          </div>
-                        )}
-                        <span className="text-foreground font-medium">{option.label}</span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+                    return (
+                      <button
+                        key={option.value}
+                        onClick={() => handleMultiSelect(currentQuestion.id, option.value)}
+                        className={`flex flex-col items-center p-3 rounded-xl border-2 transition-all duration-200 hover:scale-105 ${
+                          isSelected
+                            ? "border-primary bg-primary/10 shadow-md"
+                            : "border-border hover:border-primary/50 bg-card"
+                        }`}
+                      >
+                        <div className="relative w-full aspect-square mb-2 rounded-lg overflow-hidden bg-muted">
+                          <img
+                            src={option.image}
+                            alt={option.label}
+                            className="w-full h-full object-contain p-1"
+                          />
+                          {isSelected && (
+                            <div className="absolute top-1 right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+                              <CheckCircle className="h-3 w-3 text-primary-foreground" />
+                            </div>
+                          )}
+                        </div>
+                        <span className="text-xs md:text-sm font-medium text-center text-foreground leading-tight">
+                          {option.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {currentQuestion.options.map((option: any) => {
+                    const currentAnswer = getCurrentAnswer(currentQuestion.id);
+                    const isMultiple = currentQuestion.type === "multiple";
+                    const isSelected = isMultiple
+                      ? (currentAnswer as string[] || []).includes(option.value)
+                      : currentAnswer === option.value;
+                    const Icon = option.icon;
+
+                    return (
+                      <button
+                        key={option.value}
+                        onClick={() => 
+                          isMultiple
+                            ? handleMultiSelect(currentQuestion.id, option.value)
+                            : handleSingleSelect(currentQuestion.id, option.value)
+                        }
+                        className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 ${
+                          isSelected
+                            ? "border-primary bg-primary/10 scale-[1.02]"
+                            : "border-border hover:border-primary/50 bg-card"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          {Icon && (
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                              isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                            }`}>
+                              <Icon className="h-5 w-5" />
+                            </div>
+                          )}
+                          {!Icon && (
+                            <div className={`w-5 h-5 ${isMultiple ? 'rounded-md' : 'rounded-full'} border-2 flex items-center justify-center flex-shrink-0 ${
+                              isSelected ? "border-primary bg-primary" : "border-muted-foreground"
+                            }`}>
+                              {isSelected && <CheckCircle className="h-3 w-3 text-primary-foreground" />}
+                            </div>
+                          )}
+                          <span className="text-foreground font-medium">{option.label}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
               
-              {questions[currentStep].type === "multiple" && (
-                <p className="text-sm text-muted-foreground mt-4">
+              {currentQuestion.type === "multiple" && (
+                <p className="text-sm text-muted-foreground mt-4 text-center">
                   ✨ Select all that apply
                 </p>
               )}
@@ -331,7 +382,7 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-4 max-w-md mx-auto">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="firstName">First Name</Label>
@@ -415,7 +466,7 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
             )}
             
             {currentStep < questions.length ? (
-              questions[currentStep].type === "multiple" && (
+              currentQuestion.type === "multiple" && (
                 <Button
                   onClick={() => setCurrentStep(prev => prev + 1)}
                   disabled={!canProceed()}

@@ -1,21 +1,121 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star, Users, Globe, ThumbsUp, Award } from "lucide-react";
 import { Link } from "react-router-dom";
-import teethBefore from "@/assets/teeth-before-1.jpg";
-import teethAfter from "@/assets/teeth-after-1.jpg";
 
-const BeforeAfter = () => {
+// Import before/after images
+import before1 from "@/assets/before-1.jpg";
+import after1 from "@/assets/after-1.jpg";
+import before2 from "@/assets/before-2.jpg";
+import after2 from "@/assets/after-2.jpg";
+import before3 from "@/assets/before-3.jpg";
+import after3 from "@/assets/after-3.jpg";
+import before4 from "@/assets/before-4.jpg";
+import after4 from "@/assets/after-4.jpg";
+import before5 from "@/assets/before-5.jpg";
+import after5 from "@/assets/after-5.jpg";
+import before6 from "@/assets/before-6.jpg";
+import after6 from "@/assets/after-6.jpg";
+
+interface TransformationCase {
+  id: number;
+  before: string;
+  after: string;
+  label: string;
+}
+
+const transformations: TransformationCase[] = [
+  { id: 1, before: before1, after: after1, label: "Crowding Correction" },
+  { id: 2, before: before2, after: after2, label: "Gap Closure" },
+  { id: 3, before: before3, after: after3, label: "Overbite Fix" },
+  { id: 4, before: before4, after: after4, label: "Underbite Correction" },
+  { id: 5, before: before5, after: after5, label: "Crossbite Alignment" },
+  { id: 6, before: before6, after: after6, label: "Open Bite Repair" },
+];
+
+const stats = [
+  { value: "10,000+", label: "Happy Patients", icon: Users },
+  { value: "4.9/5", label: "Average Rating", icon: Star },
+  { value: "98%", label: "Recommend Us", icon: ThumbsUp },
+  { value: "98%", label: "Success Rate", icon: Award },
+  { value: "50+", label: "Countries Served", icon: Globe },
+];
+
+interface SliderCardProps {
+  transformation: TransformationCase;
+}
+
+const SliderCard = ({ transformation }: SliderCardProps) => {
   const [sliderPosition, setSliderPosition] = useState(50);
 
-  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSliderPosition(Number(e.target.value));
-  };
-
   return (
-    <section id="results" className="py-24 bg-background">
+    <div className="group relative rounded-2xl overflow-hidden shadow-lg border border-border bg-card hover:shadow-xl transition-shadow duration-300">
+      <div className="relative aspect-[4/3]">
+        {/* After Image (Background) */}
+        <img
+          src={transformation.after}
+          alt={`After ${transformation.label}`}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        
+        {/* Before Image (Clipped) */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+        >
+          <img
+            src={transformation.before}
+            alt={`Before ${transformation.label}`}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Labels */}
+        <div className="absolute top-2 left-2 px-2 py-1 bg-background/90 backdrop-blur-sm rounded-full text-xs font-medium text-foreground">
+          Before
+        </div>
+        <div className="absolute top-2 right-2 px-2 py-1 bg-primary text-primary-foreground rounded-full text-xs font-medium">
+          After
+        </div>
+
+        {/* Slider Line */}
+        <div
+          className="absolute top-0 bottom-0 w-0.5 bg-primary/80 shadow-lg"
+          style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
+        >
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-xl cursor-ew-resize border-2 border-primary-foreground">
+            <div className="flex gap-0.5">
+              <div className="w-0.5 h-3 bg-primary-foreground rounded-full" />
+              <div className="w-0.5 h-3 bg-primary-foreground rounded-full" />
+            </div>
+          </div>
+        </div>
+
+        {/* Range Input */}
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={sliderPosition}
+          onChange={(e) => setSliderPosition(Number(e.target.value))}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize"
+        />
+      </div>
+      
+      {/* Label */}
+      <div className="p-3 text-center bg-card">
+        <span className="text-sm font-medium text-foreground">{transformation.label}</span>
+      </div>
+    </div>
+  );
+};
+
+const BeforeAfter = () => {
+  return (
+    <section id="results" className="py-16 md:py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="text-center mb-16">
+        {/* Header */}
+        <div className="text-center mb-12">
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium rounded-full bg-primary/10 text-primary">
             Real Results
           </span>
@@ -27,90 +127,47 @@ const BeforeAfter = () => {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          {/* Slider Container */}
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-10 border border-border">
-            <div className="relative aspect-[4/3]">
-              {/* After Image (Background) */}
-              <img
-                src={teethAfter}
-                alt="After dental alignment - beautiful straight teeth"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              
-              {/* Before Image (Clipped) */}
-              <div
-                className="absolute inset-0 overflow-hidden"
-                style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
-              >
-                <img
-                  src={teethBefore}
-                  alt="Before dental alignment"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+        {/* 6 Before/After Cards - 2 columns, 3 rows */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-12 max-w-5xl mx-auto">
+          {transformations.map((transformation) => (
+            <SliderCard key={transformation.id} transformation={transformation} />
+          ))}
+        </div>
 
-              {/* Labels */}
-              <div className="absolute top-4 left-4 px-3 py-1.5 bg-background/90 backdrop-blur-sm rounded-full text-sm font-medium">
-                Before
-              </div>
-              <div className="absolute top-4 right-4 px-3 py-1.5 bg-primary text-primary-foreground rounded-full text-sm font-medium">
-                After
-              </div>
-
-              {/* Slider Line */}
-              <div
-                className="absolute top-0 bottom-0 w-1 bg-white shadow-lg"
-                style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
-              >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-xl cursor-ew-resize">
-                  <div className="flex gap-1">
-                    <div className="w-0.5 h-4 bg-primary rounded-full" />
-                    <div className="w-0.5 h-4 bg-primary rounded-full" />
-                    <div className="w-0.5 h-4 bg-primary rounded-full" />
+        {/* Stats Row */}
+        <div className="mb-12">
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+            {stats.map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <div 
+                  key={index} 
+                  className="flex items-center gap-3 px-4 py-3 md:px-6 md:py-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors"
+                >
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <div className="text-xl md:text-2xl font-bold text-primary">{stat.value}</div>
+                    <div className="text-xs text-muted-foreground whitespace-nowrap">{stat.label}</div>
                   </div>
                 </div>
-              </div>
-
-              {/* Range Input */}
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={sliderPosition}
-                onChange={handleSliderChange}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize"
-              />
-            </div>
+              );
+            })}
           </div>
+        </div>
 
-          {/* Stats Row */}
-          <div className="grid grid-cols-3 gap-6 mb-10">
-            <div className="text-center p-6 rounded-2xl bg-card border border-border">
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-1">10,000+</div>
-              <div className="text-sm text-muted-foreground">Smiles Transformed</div>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-card border border-border">
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-1">98%</div>
-              <div className="text-sm text-muted-foreground">Success Rate</div>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-card border border-border">
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-1">50+</div>
-              <div className="text-sm text-muted-foreground">Countries Served</div>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="default" size="lg" className="group" asChild>
-              <Link to="/results">
-                See More Cases
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/quiz">Am I a Candidate?</Link>
-            </Button>
-          </div>
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button variant="default" size="lg" className="group" asChild>
+            <Link to="/results">
+              See More Cases
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
+          <Button variant="outline" size="lg" asChild>
+            <Link to="/quiz">Am I a Candidate?</Link>
+          </Button>
         </div>
       </div>
     </section>
