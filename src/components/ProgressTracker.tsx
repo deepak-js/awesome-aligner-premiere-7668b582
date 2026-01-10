@@ -1,4 +1,4 @@
-import { Check, Calendar, Scan, Package, Smile, Clock } from 'lucide-react';
+import { Check, Calendar, Scan, Package, Smile, Clock, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ProgressStep {
@@ -24,15 +24,15 @@ const steps: ProgressStep[] = [
   },
   {
     id: 2,
-    title: '3D Scan',
+    title: '3D Scan & Planning',
     description: 'Precise digital impression of your teeth',
     icon: Scan,
     status: 'upcoming',
   },
   {
     id: 3,
-    title: 'Custom Aligners',
-    description: 'Your personalized aligners are crafted',
+    title: 'Aligner Fabrication',
+    description: 'Your custom aligners are crafted',
     icon: Package,
     status: 'upcoming',
   },
@@ -45,6 +45,13 @@ const steps: ProgressStep[] = [
   },
   {
     id: 5,
+    title: 'Progress Monitoring',
+    description: 'Regular check-ins with your doctor',
+    icon: Sparkles,
+    status: 'upcoming',
+  },
+  {
+    id: 6,
     title: 'Perfect Smile',
     description: 'Reveal your transformed smile!',
     icon: Smile,
@@ -61,7 +68,7 @@ const ProgressTracker = ({ currentStep = 1, className }: ProgressTrackerProps) =
 
   return (
     <div className={cn('w-full py-8', className)}>
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-4">
         <h3 className="text-center text-lg font-semibold text-foreground mb-8">
           Your Smile Journey
         </h3>
@@ -97,12 +104,12 @@ const ProgressTracker = ({ currentStep = 1, className }: ProgressTrackerProps) =
                 </div>
                 <div className="mt-3 text-center">
                   <p className={cn(
-                    'text-sm font-medium',
+                    'text-xs font-medium',
                     status === 'current' ? 'text-primary' : 'text-foreground'
                   )}>
                     {step.title}
                   </p>
-                  <p className="text-xs text-muted-foreground max-w-[120px]">
+                  <p className="text-[10px] text-muted-foreground max-w-[100px] hidden lg:block">
                     {step.description}
                   </p>
                 </div>

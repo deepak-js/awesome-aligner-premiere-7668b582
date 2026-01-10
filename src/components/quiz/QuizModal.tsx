@@ -12,50 +12,11 @@ import {
   ArrowLeft, 
   CheckCircle,
   Smile,
-  Clock,
-  Target,
-  X
+  X,
+  User,
+  Users,
+  Baby
 } from "lucide-react";
-
-// Import images for quiz options
-import crowdingImg from "@/assets/comparison-hazy-aligner.jpg";
-import spacingImg from "@/assets/comparison-clear-aligner.jpg";
-import overbiteImg from "@/assets/comparison-sharp-edge.jpg";
-import underbiteImg from "@/assets/comparison-smooth-edge.jpg";
-import alignmentImg from "@/assets/before-after.jpg";
-import smileImg from "@/assets/diverse-smiles.jpg";
-
-// Question 2 images
-import frontTeethImg from "@/assets/quiz-front-teeth.jpg";
-import shySmileImg from "@/assets/quiz-shy-smile.jpg";
-import biteImg from "@/assets/quiz-bite.jpg";
-import cleaningImg from "@/assets/quiz-cleaning.jpg";
-import confidenceImg from "@/assets/quiz-confidence.jpg";
-
-// Question 4 images
-import firstTimeImg from "@/assets/quiz-first-time.jpg";
-import bracesImg from "@/assets/quiz-braces.jpg";
-import alignersImg from "@/assets/quiz-aligners.jpg";
-import retainerImg from "@/assets/quiz-retainer.jpg";
-
-// Question 5 images
-import asapImg from "@/assets/quiz-asap.jpg";
-import oneMonthImg from "@/assets/quiz-one-month.jpg";
-import threeMonthsImg from "@/assets/quiz-three-months.jpg";
-import researchingImg from "@/assets/quiz-researching.jpg";
-
-// Question 3 images - Age groups
-import age1825Img from "@/assets/quiz-age-18-25.jpg";
-import age2635Img from "@/assets/quiz-age-26-35.jpg";
-import age3645Img from "@/assets/quiz-age-36-45.jpg";
-import age4655Img from "@/assets/quiz-age-46-55.jpg";
-import age55PlusImg from "@/assets/quiz-age-55-plus.jpg";
-
-// Question 6 images - Budget
-import budgetLowImg from "@/assets/quiz-budget-low.jpg";
-import budgetMidImg from "@/assets/quiz-budget-mid.jpg";
-import budgetPremiumImg from "@/assets/quiz-budget-premium.jpg";
-import budgetEmiImg from "@/assets/quiz-budget-emi.jpg";
 
 interface QuizModalProps {
   isOpen: boolean;
@@ -67,83 +28,52 @@ interface QuizAnswer {
   answer: string | string[];
 }
 
+// Invisalign-style simplified questions
 const questions = [
   {
     id: 1,
-    question: "What's your main smile goal?",
+    question: "Tell us who you are",
     type: "single",
-    hasImages: true,
     options: [
-      { value: "crowding", label: "Fix crowded teeth", image: crowdingImg },
-      { value: "spacing", label: "Close gaps", image: spacingImg },
-      { value: "overbite", label: "Correct overbite", image: overbiteImg },
-      { value: "underbite", label: "Fix underbite", image: underbiteImg },
-      { value: "general", label: "Overall alignment", image: alignmentImg },
-      { value: "cosmetic", label: "Perfect my smile", image: smileImg }
+      { value: "adult", label: "I'm an Adult", icon: User },
+      { value: "teen", label: "I'm a Teen", icon: Users },
+      { value: "parent", label: "I'm a Parent (looking for my child)", icon: Baby },
     ]
   },
   {
     id: 2,
-    question: "What bothers you most?",
+    question: "What are you looking to fix?",
     type: "multiple",
-    hasImages: true,
     options: [
-      { value: "front_teeth", label: "Crooked front teeth", image: frontTeethImg },
-      { value: "smile_photos", label: "Shy in photos", image: shySmileImg },
-      { value: "bite", label: "Uncomfortable bite", image: biteImg },
-      { value: "cleaning", label: "Hard to clean", image: cleaningImg },
-      { value: "confidence", label: "Affects confidence", image: confidenceImg }
+      { value: "crowded", label: "Crowded teeth" },
+      { value: "gaps", label: "Gap between teeth" },
+      { value: "overbite", label: "Overbite" },
+      { value: "underbite", label: "Underbite" },
+      { value: "crossbite", label: "Crossbite" },
+      { value: "open_bite", label: "Open bite" },
+      { value: "straighten", label: "Generally straighten teeth" },
     ]
   },
   {
     id: 3,
-    question: "Your age group?",
+    question: "Have you had orthodontic treatment before?",
     type: "single",
-    hasImages: true,
     options: [
-      { value: "18_25", label: "18-25 years", image: age1825Img },
-      { value: "26_35", label: "26-35 years", image: age2635Img },
-      { value: "36_45", label: "36-45 years", image: age3645Img },
-      { value: "46_55", label: "46-55 years", image: age4655Img },
-      { value: "over_55", label: "55+ years", image: age55PlusImg }
+      { value: "yes", label: "Yes" },
+      { value: "no", label: "No" },
     ]
   },
   {
     id: 4,
-    question: "Any previous orthodontic treatment?",
+    question: "When are you looking to start treatment?",
     type: "single",
-    hasImages: true,
     options: [
-      { value: "never", label: "No, first time!", image: firstTimeImg },
-      { value: "braces", label: "Had braces before", image: bracesImg },
-      { value: "aligners", label: "Tried aligners", image: alignersImg },
-      { value: "retainer", label: "Used a retainer", image: retainerImg }
+      { value: "asap", label: "As soon as possible" },
+      { value: "1_3_months", label: "Within 1-3 months" },
+      { value: "6_months", label: "Within 6 months" },
+      { value: "researching", label: "Just researching" },
     ]
   },
-  {
-    id: 5,
-    question: "When do you want to start?",
-    type: "single",
-    hasImages: true,
-    options: [
-      { value: "asap", label: "Right away!", image: asapImg },
-      { value: "1_month", label: "Within a month", image: oneMonthImg },
-      { value: "3_months", label: "In a few months", image: threeMonthsImg },
-      { value: "researching", label: "Just exploring", image: researchingImg }
-    ]
-  },
-  {
-    id: 6,
-    question: "Your budget preference?",
-    type: "single",
-    hasImages: true,
-    options: [
-      { value: "under_50k", label: "Under ₹50,000", image: budgetLowImg },
-      { value: "50k_80k", label: "₹50,000 - ₹80,000", image: budgetMidImg },
-      { value: "80k_120k", label: "₹80,000 - ₹1,20,000", image: budgetPremiumImg },
-      { value: "flexible", label: "Flexible with EMI", image: budgetEmiImg }
-    ]
-  }
 ];
 
 const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
@@ -156,7 +86,8 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
     firstName: "",
     lastName: "",
     email: "",
-    phone: ""
+    phone: "",
+    city: ""
   });
 
   const totalSteps = questions.length + 1;
@@ -172,11 +103,13 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
       return [...filtered, { questionId, answer: value }];
     });
     // Auto-advance for single select
-    if (currentStep < questions.length - 1) {
-      setTimeout(() => setCurrentStep(prev => prev + 1), 300);
-    } else if (currentStep === questions.length - 1) {
-      setTimeout(() => setCurrentStep(questions.length), 300);
-    }
+    setTimeout(() => {
+      if (currentStep < questions.length - 1) {
+        setCurrentStep(prev => prev + 1);
+      } else {
+        setCurrentStep(questions.length);
+      }
+    }, 300);
   };
 
   const handleMultiSelect = (questionId: number, value: string) => {
@@ -207,23 +140,17 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
   };
 
   const calculateScore = () => {
-    let score = 0;
-    answers.forEach(answer => {
-      if (answer.questionId === 1) {
-        if (["crowding", "spacing", "general", "cosmetic"].includes(answer.answer as string)) score += 20;
-        else score += 15;
-      }
-      if (answer.questionId === 3) {
-        if (["18_25", "26_35", "36_45"].includes(answer.answer as string)) score += 15;
-        else score += 10;
-      }
-      if (answer.questionId === 5) {
-        if (["asap", "1_month"].includes(answer.answer as string)) score += 15;
-        else if (answer.answer === "3_months") score += 10;
-        else score += 5;
-      }
-    });
-    return Math.min(score + 40, 95);
+    let score = 50; // Base score
+    const timeline = answers.find(a => a.questionId === 4)?.answer;
+    if (timeline === "asap") score += 25;
+    else if (timeline === "1_3_months") score += 20;
+    else if (timeline === "6_months") score += 10;
+    
+    const previousTreatment = answers.find(a => a.questionId === 3)?.answer;
+    if (previousTreatment === "no") score += 15;
+    else score += 10;
+
+    return Math.min(score + 10, 95);
   };
 
   const getRecommendation = (score: number) => {
@@ -238,26 +165,23 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
     const recommendation = getRecommendation(score);
 
     try {
-      const primaryConcern = answers.find(a => a.questionId === 1)?.answer as string;
       const alignmentIssues = answers.find(a => a.questionId === 2)?.answer as string[];
-      const ageRange = answers.find(a => a.questionId === 3)?.answer as string;
-      const previousTreatment = answers.find(a => a.questionId === 4)?.answer;
-      const timeline = answers.find(a => a.questionId === 5)?.answer as string;
-      const budget = answers.find(a => a.questionId === 6)?.answer as string;
+      const previousTreatment = answers.find(a => a.questionId === 3)?.answer;
+      const timeline = answers.find(a => a.questionId === 4)?.answer as string;
+      const userType = answers.find(a => a.questionId === 1)?.answer as string;
 
       const { error } = await supabase.from("quiz_leads").insert({
         first_name: formData.firstName,
         last_name: formData.lastName,
         email: formData.email,
         phone: formData.phone,
-        age_range: ageRange,
-        primary_concern: primaryConcern,
+        primary_concern: alignmentIssues?.[0] || "general",
         alignment_issues: alignmentIssues || [],
-        previous_treatment: previousTreatment !== "never",
+        previous_treatment: previousTreatment === "yes",
         treatment_timeline: timeline,
-        budget_range: budget,
         quiz_score: score,
-        recommendation
+        recommendation,
+        age_range: userType === "teen" ? "teen" : userType === "parent" ? "parent" : "adult"
       });
 
       if (error) throw error;
@@ -281,7 +205,7 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
 
       onClose();
       navigate("/quiz-results", { 
-        state: { score, recommendation, name: formData.firstName, primaryConcern, timeline } 
+        state: { score, recommendation, name: formData.firstName, primaryConcern: alignmentIssues?.[0], timeline } 
       });
     } catch (error) {
       toast({
@@ -301,7 +225,7 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
   const resetQuiz = () => {
     setCurrentStep(0);
     setAnswers([]);
-    setFormData({ firstName: "", lastName: "", email: "", phone: "" });
+    setFormData({ firstName: "", lastName: "", email: "", phone: "", city: "" });
     setIsSubmitting(false);
   };
 
@@ -312,7 +236,7 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 gap-0">
+      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto p-0 gap-0">
         {/* Header with progress */}
         <div className="sticky top-0 z-10 bg-card border-b border-border p-4">
           <div className="flex items-center justify-between mb-3">
@@ -331,7 +255,7 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
           </div>
           <Progress value={progress} className="h-2" />
           <div className="flex justify-between text-xs text-muted-foreground mt-2">
-            <span>Question {Math.min(currentStep + 1, questions.length)} of {questions.length}</span>
+            <span>Step {Math.min(currentStep + 1, totalSteps)} of {totalSteps}</span>
             <span>{Math.round(progress)}%</span>
           </div>
         </div>
@@ -344,85 +268,50 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
                 {questions[currentStep].question}
               </h2>
               
-              {questions[currentStep].hasImages ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {questions[currentStep].options.map((option) => {
-                    const currentAnswer = getCurrentAnswer(questions[currentStep].id);
-                    const isMultiple = questions[currentStep].type === "multiple";
-                    const isSelected = isMultiple
-                      ? (currentAnswer as string[] || []).includes(option.value)
-                      : currentAnswer === option.value;
-                    return (
-                      <button
-                        key={option.value}
-                        onClick={() => 
-                          isMultiple
-                            ? handleMultiSelect(questions[currentStep].id, option.value)
-                            : handleSingleSelect(questions[currentStep].id, option.value)
-                        }
-                        className={`relative group rounded-xl overflow-hidden border-2 transition-all duration-200 ${
-                          isSelected
-                            ? "border-primary ring-2 ring-primary/30 scale-[1.02]"
-                            : "border-border hover:border-primary/50"
-                        }`}
-                      >
-                        <div className="aspect-square overflow-hidden">
-                          <img 
-                            src={(option as any).image} 
-                            alt={option.label}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                          />
-                        </div>
-                        <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent`} />
-                        <div className="absolute bottom-0 left-0 right-0 p-3">
-                          <div className="flex items-center gap-2">
-                            <div className={`w-4 h-4 ${isMultiple ? 'rounded-sm' : 'rounded-full'} border-2 flex items-center justify-center flex-shrink-0 ${
-                              isSelected ? "border-primary bg-primary" : "border-white/80"
-                            }`}>
-                              {isSelected && <CheckCircle className="h-2.5 w-2.5 text-primary-foreground" />}
-                            </div>
-                            <span className="text-white text-sm font-medium">{option.label}</span>
-                          </div>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  {questions[currentStep].options.map((option) => {
-                    const currentAnswer = getCurrentAnswer(questions[currentStep].id);
-                    const isSelected = questions[currentStep].type === "multiple"
-                      ? (currentAnswer as string[] || []).includes(option.value)
-                      : currentAnswer === option.value;
+              <div className="space-y-3">
+                {questions[currentStep].options.map((option) => {
+                  const currentAnswer = getCurrentAnswer(questions[currentStep].id);
+                  const isMultiple = questions[currentStep].type === "multiple";
+                  const isSelected = isMultiple
+                    ? (currentAnswer as string[] || []).includes(option.value)
+                    : currentAnswer === option.value;
+                  const Icon = (option as any).icon;
 
-                    return (
-                      <button
-                        key={option.value}
-                        onClick={() => 
-                          questions[currentStep].type === "multiple"
-                            ? handleMultiSelect(questions[currentStep].id, option.value)
-                            : handleSingleSelect(questions[currentStep].id, option.value)
-                        }
-                        className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 ${
-                          isSelected
-                            ? "border-primary bg-primary/10 scale-[1.01]"
-                            : "border-border hover:border-primary/50 bg-card"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                  return (
+                    <button
+                      key={option.value}
+                      onClick={() => 
+                        isMultiple
+                          ? handleMultiSelect(questions[currentStep].id, option.value)
+                          : handleSingleSelect(questions[currentStep].id, option.value)
+                      }
+                      className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 ${
+                        isSelected
+                          ? "border-primary bg-primary/10 scale-[1.02]"
+                          : "border-border hover:border-primary/50 bg-card"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        {Icon && (
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                            isSelected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                          }`}>
+                            <Icon className="h-5 w-5" />
+                          </div>
+                        )}
+                        {!Icon && (
+                          <div className={`w-5 h-5 ${isMultiple ? 'rounded-md' : 'rounded-full'} border-2 flex items-center justify-center flex-shrink-0 ${
                             isSelected ? "border-primary bg-primary" : "border-muted-foreground"
                           }`}>
                             {isSelected && <CheckCircle className="h-3 w-3 text-primary-foreground" />}
                           </div>
-                          <span className="text-foreground">{option.label}</span>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
+                        )}
+                        <span className="text-foreground font-medium">{option.label}</span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
               
               {questions[currentStep].type === "multiple" && (
                 <p className="text-sm text-muted-foreground mt-4">
@@ -436,15 +325,15 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                   <Smile className="h-8 w-8 text-primary" />
                 </div>
-                <h2 className="text-2xl font-bold mb-2 text-foreground">You're Almost There! 🎉</h2>
+                <h2 className="text-2xl font-bold mb-2 text-foreground">Almost There! 🎉</h2>
                 <p className="text-muted-foreground">
-                  Enter your details to see your personalized results.
+                  Enter your details to see your personalized smile assessment.
                 </p>
               </div>
-              
+
               <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-2">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
                     <Label htmlFor="firstName">First Name</Label>
                     <Input
                       id="firstName"
@@ -452,10 +341,10 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
                       placeholder="John"
                       value={formData.firstName}
                       onChange={handleInputChange}
-                      className="h-11"
+                      className="mt-1"
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div>
                     <Label htmlFor="lastName">Last Name</Label>
                     <Input
                       id="lastName"
@@ -463,12 +352,12 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
                       placeholder="Doe"
                       value={formData.lastName}
                       onChange={handleInputChange}
-                      className="h-11"
+                      className="mt-1"
                     />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                <div>
+                  <Label htmlFor="email">Email Address</Label>
                   <Input
                     id="email"
                     name="email"
@@ -476,11 +365,11 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
                     placeholder="john@example.com"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="h-11"
+                    className="mt-1"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone</Label>
+                <div>
+                  <Label htmlFor="phone">Phone Number</Label>
                   <Input
                     id="phone"
                     name="phone"
@@ -488,48 +377,71 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
                     placeholder="+91 98765 43210"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="h-11"
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="city">City (Optional)</Label>
+                  <Input
+                    id="city"
+                    name="city"
+                    placeholder="Mumbai"
+                    value={formData.city}
+                    onChange={handleInputChange}
+                    className="mt-1"
                   />
                 </div>
               </div>
-              
+
               <p className="text-xs text-muted-foreground mt-4 text-center">
-                🔒 Your information is secure and will never be shared.
+                By submitting, you agree to our Privacy Policy and consent to be contacted about your smile journey.
               </p>
             </div>
           )}
         </div>
 
-        {/* Footer with navigation */}
+        {/* Footer Navigation */}
         <div className="sticky bottom-0 bg-card border-t border-border p-4">
-          <div className="flex justify-between items-center">
-            <Button
-              variant="ghost"
-              onClick={() => setCurrentStep(prev => prev - 1)}
-              disabled={currentStep === 0}
-              className="gap-2"
-            >
-              <ArrowLeft className="h-4 w-4" /> Back
-            </Button>
+          <div className="flex justify-between gap-4">
+            {currentStep > 0 && (
+              <Button
+                variant="outline"
+                onClick={() => setCurrentStep(prev => prev - 1)}
+                className="flex-1"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back
+              </Button>
+            )}
             
             {currentStep < questions.length ? (
               questions[currentStep].type === "multiple" && (
                 <Button
                   onClick={() => setCurrentStep(prev => prev + 1)}
                   disabled={!canProceed()}
-                  className="gap-2"
+                  className="flex-1"
                 >
-                  Next <ArrowRight className="h-4 w-4" />
+                  Next
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               )
             ) : (
               <Button
                 onClick={handleSubmit}
                 disabled={!canProceed() || isSubmitting}
-                className="gap-2"
+                className="flex-1"
               >
-                {isSubmitting ? "Submitting..." : "See My Results"} 
-                <ArrowRight className="h-4 w-4" />
+                {isSubmitting ? (
+                  <span className="flex items-center gap-2">
+                    <span className="animate-spin">⏳</span>
+                    Processing...
+                  </span>
+                ) : (
+                  <>
+                    See My Results
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
               </Button>
             )}
           </div>
