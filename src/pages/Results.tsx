@@ -30,7 +30,7 @@ import before6 from "@/assets/before-6.jpg";
 import after6 from "@/assets/after-6.jpg";
 
 // Default images mapping for cases without custom images
-const defaultImages = {
+const defaultImages: Record<string, { before: string; after: string }> = {
   crowding: { before: before1, after: after1 },
   spacing: { before: before2, after: after2 },
   overbite: { before: before3, after: after3 },
@@ -159,6 +159,107 @@ const sampleCases: CaseStudy[] = [
   }
 ];
 
+// Slider component for case cards
+const CaseSliderCard = ({ caseStudy, onClick }: { caseStudy: CaseStudy; onClick: () => void }) => {
+  const [sliderPosition, setSliderPosition] = useState(50);
+  
+  const beforeImg = caseStudy.before_image_url || defaultImages[caseStudy.case_type]?.before || before1;
+  const afterImg = caseStudy.after_image_url || defaultImages[caseStudy.case_type]?.after || after1;
+
+  const formatCaseType = (type: string) => {
+    return type.charAt(0).toUpperCase() + type.slice(1);
+  };
+
+  return (
+    <div className="group cursor-pointer" onClick={onClick}>
+      <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-4 border border-border shadow-md hover:shadow-xl transition-shadow">
+        {/* After Image (Background) */}
+        <img
+          src={afterImg}
+          alt="After treatment"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        
+        {/* Before Image (Clipped) */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+        >
+          <img
+            src={beforeImg}
+            alt="Before treatment"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Labels */}
+        <div className="absolute top-2 left-2 px-2 py-1 bg-background/90 backdrop-blur-sm rounded-full text-xs font-medium">
+          Before
+        </div>
+        <div className="absolute top-2 right-2 px-2 py-1 bg-primary text-primary-foreground rounded-full text-xs font-medium">
+          After
+        </div>
+
+        {/* Slider Line */}
+        <div
+          className="absolute top-0 bottom-0 w-0.5 bg-primary shadow-lg"
+          style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
+        >
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-primary rounded-full flex items-center justify-center shadow-xl cursor-ew-resize border-2 border-primary-foreground">
+            <div className="flex gap-0.5">
+              <div className="w-0.5 h-2 bg-primary-foreground rounded-full" />
+              <div className="w-0.5 h-2 bg-primary-foreground rounded-full" />
+            </div>
+          </div>
+        </div>
+
+        {/* Range Input */}
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={sliderPosition}
+          onChange={(e) => {
+            e.stopPropagation();
+            setSliderPosition(Number(e.target.value));
+          }}
+          onClick={(e) => e.stopPropagation()}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize"
+        />
+        
+        {caseStudy.featured && (
+          <Badge className="absolute top-2 left-1/2 -translate-x-1/2 bg-primary">Featured</Badge>
+        )}
+        
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4 pointer-events-none">
+          <Button size="sm" variant="secondary" className="pointer-events-auto">
+            View Details
+          </Button>
+        </div>
+      </div>
+      
+      <div>
+        <div className="flex items-center gap-2 mb-2 flex-wrap">
+          <Badge variant="outline">{formatCaseType(caseStudy.case_type)}</Badge>
+          {caseStudy.treatment_duration && (
+            <span className="text-sm text-muted-foreground flex items-center gap-1">
+              <Clock className="h-3 w-3" /> {caseStudy.treatment_duration}
+            </span>
+          )}
+        </div>
+        <h3 className="font-semibold group-hover:text-primary transition-colors">
+          {caseStudy.title}
+        </h3>
+        {caseStudy.doctor_name && (
+          <p className="text-sm text-muted-foreground mt-1">
+            by {caseStudy.doctor_name}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const Results = () => {
   const [cases, setCases] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
@@ -180,18 +281,17 @@ const Results = () => {
 
       if (error) throw error;
       
-      // Combine database cases with sample cases, using sample images as fallback
+      // Combine database cases with sample cases
       const dbCases = (data || []).map(c => ({
         ...c,
-        before_image_url: c.before_image_url || defaultImages[c.case_type as keyof typeof defaultImages]?.before || before1,
-        after_image_url: c.after_image_url || defaultImages[c.case_type as keyof typeof defaultImages]?.after || after1,
+        before_image_url: c.before_image_url || defaultImages[c.case_type]?.before || before1,
+        after_image_url: c.after_image_url || defaultImages[c.case_type]?.after || after1,
       }));
       
-      // If no database cases, use sample cases
+      // Use sample cases if no database cases
       setCases(dbCases.length > 0 ? dbCases : sampleCases);
     } catch (error) {
       console.error("Error fetching cases:", error);
-      // Use sample cases on error
       setCases(sampleCases);
     } finally {
       setLoading(false);
@@ -204,6 +304,14 @@ const Results = () => {
 
   const formatCaseType = (type: string) => {
     return type.charAt(0).toUpperCase() + type.slice(1);
+  };
+
+  const getSelectedCaseImages = () => {
+    if (!selectedCase) return { before: '', after: '' };
+    return {
+      before: selectedCase.before_image_url || defaultImages[selectedCase.case_type]?.before || before1,
+      after: selectedCase.after_image_url || defaultImages[selectedCase.case_type]?.after || after1,
+    };
   };
 
   return (
@@ -224,7 +332,7 @@ const Results = () => {
             </h1>
             <p className="text-xl text-primary-foreground/80">
               Explore real before-and-after results from patients who transformed their smiles 
-              with Awesome Aligners. See what's possible for you!
+              with Awesome Aligners. Drag the slider to see the difference!
             </p>
           </div>
         </div>
@@ -268,68 +376,11 @@ const Results = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {filteredCases.map((caseStudy) => (
-                <div
-                  key={caseStudy.id}
-                  className="group cursor-pointer"
+                <CaseSliderCard 
+                  key={caseStudy.id} 
+                  caseStudy={caseStudy} 
                   onClick={() => setSelectedCase(caseStudy)}
-                >
-                  <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-4 border border-border shadow-md hover:shadow-xl transition-shadow">
-                    {/* Before/After Slider Preview */}
-                    <div className="absolute inset-0 flex">
-                      <div className="w-1/2 relative overflow-hidden">
-                        <img
-                          src={caseStudy.before_image_url || before1}
-                          alt="Before"
-                          className="absolute inset-0 w-[200%] h-full object-cover"
-                        />
-                        <div className="absolute bottom-2 left-2 px-2 py-1 bg-background/80 backdrop-blur-sm rounded text-xs font-medium">
-                          Before
-                        </div>
-                      </div>
-                      <div className="w-1/2 relative overflow-hidden">
-                        <img
-                          src={caseStudy.after_image_url || after1}
-                          alt="After"
-                          className="absolute inset-0 w-[200%] h-full object-cover"
-                          style={{ left: "-100%" }}
-                        />
-                        <div className="absolute bottom-2 right-2 px-2 py-1 bg-primary text-primary-foreground rounded text-xs font-medium">
-                          After
-                        </div>
-                      </div>
-                      <div className="absolute inset-y-0 left-1/2 w-0.5 bg-primary shadow-lg" />
-                    </div>
-                    
-                    {caseStudy.featured && (
-                      <Badge className="absolute top-3 left-3 bg-primary">Featured</Badge>
-                    )}
-                    
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                      <Button size="sm" variant="secondary">
-                        View Details
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div className="flex items-center gap-2 mb-2 flex-wrap">
-                      <Badge variant="outline">{formatCaseType(caseStudy.case_type)}</Badge>
-                      {caseStudy.treatment_duration && (
-                        <span className="text-sm text-muted-foreground flex items-center gap-1">
-                          <Clock className="h-3 w-3" /> {caseStudy.treatment_duration}
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="font-semibold group-hover:text-primary transition-colors">
-                      {caseStudy.title}
-                    </h3>
-                    {caseStudy.doctor_name && (
-                      <p className="text-sm text-muted-foreground mt-1">
-                        by {caseStudy.doctor_name}
-                      </p>
-                    )}
-                  </div>
-                </div>
+                />
               ))}
             </div>
           )}
@@ -351,7 +402,7 @@ const Results = () => {
               {/* Image Viewer */}
               <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-muted">
                 <img
-                  src={imageView === "before" ? selectedCase.before_image_url || "" : selectedCase.after_image_url || ""}
+                  src={imageView === "before" ? getSelectedCaseImages().before : getSelectedCaseImages().after}
                   alt={imageView === "before" ? "Before treatment" : "After treatment"}
                   className="w-full h-full object-cover"
                 />

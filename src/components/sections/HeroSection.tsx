@@ -28,7 +28,7 @@ const HeroSection = () => {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 rounded-full border border-primary-foreground/20">
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
               <span className="text-primary-foreground/90 text-sm font-medium">
-                Trusted by 10,000+ patients worldwide
+                Premium Clear Aligner Technology
               </span>
             </div>
 
@@ -77,15 +77,15 @@ const HeroSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
             </div>
 
-            {/* Floating stats cards */}
+            {/* Floating feature cards */}
             <div className="absolute -bottom-6 -left-6 glass-card rounded-2xl p-4 animate-fade-in-up delay-300">
-              <div className="text-3xl font-bold text-primary">98%</div>
-              <div className="text-sm text-muted-foreground">Patient Satisfaction</div>
+              <div className="text-2xl font-bold text-primary">FDA Cleared</div>
+              <div className="text-sm text-muted-foreground">Safe & Approved</div>
             </div>
 
             <div className="absolute -top-6 -right-6 glass-card rounded-2xl p-4 animate-fade-in-up delay-400">
-              <div className="text-3xl font-bold text-secondary">6-12</div>
-              <div className="text-sm text-muted-foreground">Months Average</div>
+              <div className="text-2xl font-bold text-secondary">6-12 mo</div>
+              <div className="text-sm text-muted-foreground">Average Treatment</div>
             </div>
           </div>
         </div>
