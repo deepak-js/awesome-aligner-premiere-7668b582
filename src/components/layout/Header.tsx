@@ -42,7 +42,7 @@ const Header = () => {
       <nav className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Awesome Aligners" className="h-10 md:h-12 w-auto" />
+          <img src={logo} alt="Awesome Aligners" className="h-12 md:h-14 lg:h-16 w-auto" />
         </Link>
 
         {/* Desktop Navigation */}
