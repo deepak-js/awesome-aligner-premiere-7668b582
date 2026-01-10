@@ -6,47 +6,61 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
-import type { User, Session } from "@supabase/supabase-js";
+import logo from "@/assets/header-logo.png";
 
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
-    confirmPassword: ""
+    password: ""
   });
 
+  const checkAdminRole = async (userId: string) => {
+    const { data, error } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    
+    return !error && data !== null;
+  };
+
   useEffect(() => {
-    // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
+      async (event, session) => {
         if (session?.user) {
-          navigate("/admin");
+          const isAdmin = await checkAdminRole(session.user.id);
+          if (isAdmin) {
+            navigate("/admin");
+          } else {
+            await supabase.auth.signOut();
+            toast({
+              title: "Access Denied",
+              description: "You don't have admin privileges.",
+              variant: "destructive"
+            });
+          }
         }
       }
     );
 
-    // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session?.user) {
-        navigate("/admin");
+        const isAdmin = await checkAdminRole(session.user.id);
+        if (isAdmin) {
+          navigate("/admin");
+        } else {
+          await supabase.auth.signOut();
+        }
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, toast]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -58,48 +72,28 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
-      if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: formData.email,
-          password: formData.password
-        });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password
+      });
 
-        if (error) throw error;
+      if (error) throw error;
 
-        toast({
-          title: "Welcome back!",
-          description: "You've been logged in successfully."
-        });
-      } else {
-        if (formData.password !== formData.confirmPassword) {
-          throw new Error("Passwords do not match");
+      if (data.user) {
+        const isAdmin = await checkAdminRole(data.user.id);
+        if (!isAdmin) {
+          await supabase.auth.signOut();
+          throw new Error("Access denied. Admin privileges required.");
         }
-
-        if (formData.password.length < 6) {
-          throw new Error("Password must be at least 6 characters");
-        }
-
-        const redirectUrl = `${window.location.origin}/admin`;
-
-        const { error } = await supabase.auth.signUp({
-          email: formData.email,
-          password: formData.password,
-          options: {
-            emailRedirectTo: redirectUrl
-          }
-        });
-
-        if (error) throw error;
-
-        toast({
-          title: "Account created!",
-          description: "You can now log in with your credentials."
-        });
-        setIsLogin(true);
       }
+
+      toast({
+        title: "Welcome back!",
+        description: "You've been logged in successfully."
+      });
     } catch (error: any) {
       toast({
-        title: isLogin ? "Login failed" : "Signup failed",
+        title: "Login failed",
         description: error.message || "Please check your credentials and try again.",
         variant: "destructive"
       });
@@ -112,15 +106,13 @@ const Auth = () => {
     <div className="min-h-screen bg-gradient-to-br from-[#072D57] via-[#0a3d6e] to-[#0B4F8A] flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
-            Awesome<span className="font-light">Aligners</span>
-          </h1>
+          <img src={logo} alt="Awesome Aligners" className="h-16 mx-auto mb-4" />
           <p className="text-white/70">Admin Portal</p>
         </div>
 
         <div className="bg-card rounded-2xl p-8 shadow-xl border border-border">
           <h2 className="text-2xl font-bold mb-6 text-center">
-            {isLogin ? "Welcome Back" : "Create Account"}
+            Welcome Back
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -165,39 +157,10 @@ const Auth = () => {
               </div>
             </div>
 
-            {!isLogin && (
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="••••••••"
-                    value={formData.confirmPassword}
-                    onChange={handleInputChange}
-                    className="pl-10"
-                    required
-                  />
-                </div>
-              </div>
-            )}
-
             <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
-              {isLoading ? "Please wait..." : isLogin ? "Sign In" : "Create Account"}
+              {isLoading ? "Please wait..." : "Sign In"}
             </Button>
           </form>
-
-          <div className="mt-6 text-center">
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
-            </button>
-          </div>
         </div>
 
         <p className="text-center text-white/50 text-sm mt-6">
