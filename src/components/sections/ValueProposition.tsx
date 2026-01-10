@@ -1,7 +1,7 @@
 import { Scan, Clock, UserCheck, Heart, Shield, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import doctorAligner from "@/assets/doctor-aligner.jpg";
+import doctorPatientConsultation from "@/assets/doctor-patient-consultation.jpg";
 
 const features = [
   {
@@ -63,8 +63,8 @@ const ValueProposition = () => {
           </div>
           <div className="relative">
             <img 
-              src={doctorAligner} 
-              alt="Certified doctor holding clear aligners" 
+              src={doctorPatientConsultation} 
+              alt="Doctor consulting with patient about clear aligners" 
               className="rounded-2xl shadow-xl w-full"
             />
             <div className="absolute -bottom-6 -left-6 bg-card p-4 rounded-xl shadow-lg border border-border">

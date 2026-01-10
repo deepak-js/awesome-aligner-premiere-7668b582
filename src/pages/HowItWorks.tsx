@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Search,
   Scan,
-  Palette,
   Package,
   Sparkles,
   ArrowRight,
@@ -13,12 +12,17 @@ import {
   Cpu,
   Users,
   Clock,
-  Wrench,
-  RefreshCw,
   Eye,
-  Shield,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+
+// Import step images
+import consultationImg from "@/assets/doctor-patient-consultation.jpg";
+import scanImg from "@/assets/step-3d-scan.jpg";
+import fabricationImg from "@/assets/step-fabrication.jpg";
+import receiveImg from "@/assets/step-receive-aligners.jpg";
+import progressImg from "@/assets/step-progress-checkup.jpg";
+import smileImg from "@/assets/step-perfect-smile.jpg";
 
 const steps = [
   {
@@ -33,6 +37,7 @@ const steps = [
       "Confirm case suitability",
     ],
     timeline: "Stage 1",
+    image: consultationImg,
   },
   {
     number: "02",
@@ -46,22 +51,10 @@ const steps = [
       "Digital approval process",
     ],
     timeline: "Stage 2",
+    image: scanImg,
   },
   {
     number: "03",
-    icon: Wrench,
-    title: "Preparation Procedures (If Required)",
-    description: "Minor preparatory procedures performed when necessary to ensure predictable tooth movement and optimal results.",
-    details: [
-      "Assessment for preparation needs",
-      "Minor preparatory procedures",
-      "Ensure predictable movement",
-      "Optimize treatment outcomes",
-    ],
-    timeline: "Stage 3",
-  },
-  {
-    number: "04",
     icon: Package,
     title: "Aligner Fabrication",
     description: "Custom clear aligners manufactured using advanced aligner technology based on the approved treatment plan.",
@@ -71,10 +64,11 @@ const steps = [
       "Based on approved treatment plan",
       "Medical-grade materials",
     ],
-    timeline: "Stage 4",
+    timeline: "Stage 3",
+    image: fabricationImg,
   },
   {
-    number: "05",
+    number: "04",
     icon: Clock,
     title: "Receiving & Wearing Aligners",
     description: "First set of aligners delivered. Aligners worn 20–22 hours per day. New sets changed every 1–2 weeks as prescribed.",
@@ -84,10 +78,11 @@ const steps = [
       "Change sets every 1–2 weeks",
       "Follow prescribed schedule",
     ],
-    timeline: "Stage 5",
+    timeline: "Stage 4",
+    image: receiveImg,
   },
   {
-    number: "06",
+    number: "05",
     icon: Eye,
     title: "Follow-Up & Progress Monitoring",
     description: "Periodic reviews track progress against the plan. Adjustments or refinements made if required to stay on course.",
@@ -97,10 +92,11 @@ const steps = [
       "Adjustments when needed",
       "Stay on course to goals",
     ],
-    timeline: "Stage 6",
+    timeline: "Stage 5",
+    image: progressImg,
   },
   {
-    number: "07",
+    number: "06",
     icon: Sparkles,
     title: "Finishing & Refinement",
     description: "Final aligner stages complete tooth alignment and bite correction to the planned outcome.",
@@ -110,20 +106,8 @@ const steps = [
       "Achieve planned outcome",
       "Perfect your smile",
     ],
-    timeline: "Stage 7",
-  },
-  {
-    number: "08",
-    icon: Shield,
-    title: "Retainer Installation & Maintenance",
-    description: "Retainers prescribed to stabilize results and maintain the new smile long term.",
-    details: [
-      "Custom retainer fitting",
-      "Stabilize treatment results",
-      "Long-term maintenance plan",
-      "Preserve your new smile",
-    ],
-    timeline: "Stage 8",
+    timeline: "Stage 6",
+    image: smileImg,
   },
 ];
 
@@ -175,49 +159,79 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* Detailed Steps */}
+      {/* Timeline Section */}
       <section className="py-20 bg-background">
-        <div className="max-w-5xl mx-auto px-4 md:px-8">
-          <div className="space-y-16">
-            {steps.map((step, index) => (
-              <div
-                key={step.number}
-                className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center animate-fade-in-up ${
-                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {/* Icon/Number Side */}
-                <div className="flex-shrink-0">
-                  <div className="relative">
-                    <div className="w-32 h-32 rounded-3xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                      <step.icon className="w-16 h-16 text-primary-foreground" />
-                    </div>
-                    <div className="absolute -top-3 -right-3 w-12 h-12 rounded-full bg-accent flex items-center justify-center">
-                      <span className="text-accent-foreground font-bold text-sm">{step.number}</span>
-                    </div>
-                  </div>
-                </div>
+        <div className="max-w-6xl mx-auto px-4 md:px-8">
+          {/* Timeline Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Your Treatment Timeline
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              A step-by-step journey to your perfect smile, typically completed in 6-12 months.
+            </p>
+          </div>
 
-                {/* Content Side */}
-                <div className="flex-1 text-center lg:text-left">
-                  <div className="inline-block px-3 py-1 bg-muted rounded-full text-sm text-muted-foreground mb-3">
-                    {step.timeline}
+          {/* Timeline */}
+          <div className="relative">
+            {/* Vertical Timeline Line (Desktop) */}
+            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-secondary to-accent rounded-full" />
+
+            {/* Steps */}
+            <div className="space-y-12 lg:space-y-0">
+              {steps.map((step, index) => (
+                <div
+                  key={step.number}
+                  className={`relative lg:grid lg:grid-cols-2 lg:gap-16 lg:py-12 ${
+                    index % 2 === 0 ? '' : 'lg:direction-rtl'
+                  }`}
+                >
+                  {/* Timeline Node (Desktop) */}
+                  <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                    <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg border-4 border-background">
+                      <span className="text-primary-foreground font-bold text-xl">{step.number}</span>
+                    </div>
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground mb-6 text-lg">{step.description}</p>
-                  
-                  <ul className="space-y-3">
-                    {step.details.map((detail, i) => (
-                      <li key={i} className="flex items-center gap-3 justify-center lg:justify-start">
-                        <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
-                        <span className="text-foreground">{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
+
+                  {/* Image Side */}
+                  <div className={`mb-6 lg:mb-0 ${index % 2 === 0 ? 'lg:pr-8' : 'lg:pl-8 lg:order-2'}`}>
+                    <div className="relative rounded-2xl overflow-hidden shadow-xl group">
+                      <img
+                        src={step.image}
+                        alt={step.title}
+                        className="w-full h-64 lg:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+                      
+                      {/* Mobile Step Number */}
+                      <div className="lg:hidden absolute top-4 left-4">
+                        <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-lg">
+                          <span className="text-primary-foreground font-bold">{step.number}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content Side */}
+                  <div className={`${index % 2 === 0 ? 'lg:pl-8 lg:text-left' : 'lg:pr-8 lg:text-right lg:order-1'}`}>
+                    <div className={`inline-block px-3 py-1 bg-muted rounded-full text-sm text-muted-foreground mb-3`}>
+                      {step.timeline}
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{step.title}</h3>
+                    <p className="text-muted-foreground mb-6 text-lg">{step.description}</p>
+                    
+                    <ul className={`space-y-3 ${index % 2 === 0 ? '' : 'lg:flex lg:flex-col lg:items-end'}`}>
+                      {step.details.map((detail, i) => (
+                        <li key={i} className={`flex items-center gap-3 ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>
+                          <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
+                          <span className="text-foreground">{detail}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
