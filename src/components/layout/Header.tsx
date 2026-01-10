@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import QuizModal from "@/components/quiz/QuizModal";
 import logo from "@/assets/header-logo.png";
+import gsap from "gsap";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -21,28 +22,57 @@ const Header = () => {
   const [isQuizOpen, setIsQuizOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const headerRef = useRef<HTMLElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrolled = window.scrollY > 20;
+      setIsScrolled(scrolled);
+      
+      // Animate logo on scroll
+      if (logoRef.current) {
+        gsap.to(logoRef.current, {
+          scale: scrolled ? 0.9 : 1,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Animate header on mount
+  useEffect(() => {
+    if (headerRef.current) {
+      gsap.fromTo(
+        headerRef.current,
+        { y: -100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.2 }
+      );
+    }
+  }, []);
+
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-3 transition-all duration-300 ${
+      ref={headerRef}
+      className={`fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-3 transition-all duration-500 ${
         isScrolled 
-          ? "bg-background shadow-lg" 
+          ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border/50" 
           : "bg-transparent"
       }`}
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center">
-          <img src={logo} alt="Awesome Aligners" className="h-12 md:h-14 lg:h-16 w-auto" />
+        <Link to="/" className="flex items-center group">
+          <img 
+            ref={logoRef}
+            src={logo} 
+            alt="Awesome Aligners" 
+            className="h-12 md:h-14 lg:h-16 w-auto transition-transform duration-300 group-hover:scale-105" 
+          />
         </Link>
 
         {/* Desktop Navigation */}
@@ -51,7 +81,7 @@ const Header = () => {
             <Link
               key={link.href}
               to={link.href}
-              className={`text-sm font-medium transition-colors ${
+              className={`relative text-sm font-medium transition-colors duration-300 group ${
                 isScrolled
                   ? location.pathname === link.href
                     ? "text-primary"
@@ -62,6 +92,14 @@ const Header = () => {
               }`}
             >
               {link.label}
+              {/* Animated underline */}
+              <span 
+                className={`absolute -bottom-1 left-0 h-0.5 transition-all duration-300 ease-out ${
+                  isScrolled ? 'bg-primary' : 'bg-primary-foreground'
+                } ${
+                  location.pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}
+              />
             </Link>
           ))}
         </div>

@@ -6,9 +6,13 @@ import heroImage from "@/assets/hero-smile-main.jpg";
 import diverseSmiles from "@/assets/diverse-smiles.jpg";
 import heroGradientBg from "@/assets/hero-gradient-bg.jpeg";
 import QuizModal from "@/components/quiz/QuizModal";
+import FloatingShapes from "@/components/decorative/FloatingShapes";
+import ParticleField from "@/components/decorative/ParticleField";
+import { useHeroAnimation } from "@/hooks/useGSAPAnimations";
 
 const HeroSection = () => {
   const [isQuizOpen, setIsQuizOpen] = useState(false);
+  const heroRef = useHeroAnimation();
 
   return (
     <section className="relative min-h-screen overflow-hidden">
@@ -21,44 +25,60 @@ const HeroSection = () => {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pt-32 pb-20">
+      {/* Floating decorative elements */}
+      <FloatingShapes variant="hero" />
+      
+      {/* Particle field */}
+      <ParticleField />
+
+      <div ref={heroRef} className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pt-32 pb-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[calc(100vh-200px)]">
           {/* Left Content */}
-          <div className="space-y-8 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 rounded-full border border-primary-foreground/20">
+          <div className="space-y-8">
+            <div 
+              data-hero-badge
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 rounded-full border border-primary-foreground/20 backdrop-blur-sm"
+            >
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
               <span className="text-primary-foreground/90 text-sm font-medium">
                 Premium Clear Aligner Technology
               </span>
             </div>
 
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight">
+            <h1 
+              data-hero-title
+              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight"
+            >
               Your Smile,
               <br />
               <span className="text-gradient">Aligned to Perfection.</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-primary-foreground/80 max-w-lg leading-relaxed">
+            <p 
+              data-hero-text
+              className="text-lg md:text-xl text-primary-foreground/80 max-w-lg leading-relaxed"
+            >
               World-class clear aligners designed for comfort, precision, and confidence. Experience the future of orthodontic care.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="xl" className="group" asChild>
+            <div data-hero-cta className="flex flex-col sm:flex-row gap-4">
+              <Button variant="hero" size="xl" className="group magnetic-hover" asChild>
                 <Link to="/contact">
                   Get a Consultation
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
-              <Button variant="heroOutline" size="xl" asChild>
+              <Button variant="heroOutline" size="xl" className="magnetic-hover" asChild>
                 <Link to="/for-doctors">Become a Doctor</Link>
               </Button>
             </div>
 
             <button 
+              data-hero-cta
               onClick={() => setIsQuizOpen(true)}
               className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors group"
             >
-              <div className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center group-hover:bg-primary-foreground/20 transition-colors">
+              <div className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center group-hover:bg-primary-foreground/20 transition-colors group-hover:scale-110 duration-300">
                 <Play className="w-4 h-4 fill-current" />
               </div>
               <span className="text-sm font-medium">Take the Smile Assessment</span>
@@ -67,8 +87,8 @@ const HeroSection = () => {
           </div>
 
           {/* Right Content - Image */}
-          <div className="relative animate-fade-in delay-200">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+          <div data-hero-image className="relative">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
               <img
                 src={heroImage}
                 alt="Happy patient with beautiful smile wearing clear aligners"
@@ -78,12 +98,18 @@ const HeroSection = () => {
             </div>
 
             {/* Floating feature cards */}
-            <div className="absolute -bottom-6 -left-6 glass-card rounded-2xl p-4 animate-fade-in-up delay-300">
+            <div 
+              data-hero-float
+              className="absolute -bottom-6 -left-6 glass-card rounded-2xl p-4 hover:scale-105 transition-transform duration-300"
+            >
               <div className="text-2xl font-bold text-primary">FDA Cleared</div>
               <div className="text-sm text-muted-foreground">Safe & Approved</div>
             </div>
 
-            <div className="absolute -top-6 -right-6 glass-card rounded-2xl p-4 animate-fade-in-up delay-400">
+            <div 
+              data-hero-float
+              className="absolute -top-6 -right-6 glass-card rounded-2xl p-4 hover:scale-105 transition-transform duration-300"
+            >
               <div className="text-2xl font-bold text-secondary">6-12 mo</div>
               <div className="text-sm text-muted-foreground">Average Treatment</div>
             </div>

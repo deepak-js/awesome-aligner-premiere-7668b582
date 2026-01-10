@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useScrollReveal, useStaggerCards } from "@/hooks/useGSAPAnimations";
 
 // Import before/after images
 import before1 from "@/assets/before-1.jpg";
@@ -103,11 +104,15 @@ const SliderCard = ({ transformation }: SliderCardProps) => {
 };
 
 const BeforeAfter = () => {
+  const headerRef = useScrollReveal({ y: 40 });
+  const cardsRef = useStaggerCards(0.1);
+  const ctaRef = useScrollReveal({ y: 30, delay: 0.2 });
+
   return (
     <section id="results" className="py-16 md:py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div ref={headerRef} className="text-center mb-12">
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium rounded-full bg-primary/10 text-primary">
             Real Results
           </span>
@@ -120,21 +125,23 @@ const BeforeAfter = () => {
         </div>
 
         {/* 6 Before/After Cards - 2 columns, 3 rows */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-12 max-w-5xl mx-auto">
+        <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-12 max-w-5xl mx-auto">
           {transformations.map((transformation) => (
-            <SliderCard key={transformation.id} transformation={transformation} />
+            <div key={transformation.id} data-animate-card>
+              <SliderCard transformation={transformation} />
+            </div>
           ))}
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button variant="default" size="lg" className="group" asChild>
+        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button variant="default" size="lg" className="group magnetic-hover" asChild>
             <Link to="/results">
               See More Cases
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
-          <Button variant="outline" size="lg" asChild>
+          <Button variant="outline" size="lg" className="magnetic-hover" asChild>
             <Link to="/quiz">Am I a Candidate?</Link>
           </Button>
         </div>
