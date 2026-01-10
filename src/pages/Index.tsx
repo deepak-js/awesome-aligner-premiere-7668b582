@@ -2,7 +2,6 @@ import Header from "@/components/layout/Header";
 import HeroSection from "@/components/sections/HeroSection";
 import ValueProposition from "@/components/sections/ValueProposition";
 import TrustBadgesSection from "@/components/sections/TrustBadgesSection";
-import ProcessSteps from "@/components/sections/ProcessSteps";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import BeforeAfter from "@/components/sections/BeforeAfter";
 import QuizCTA from "@/components/sections/QuizCTA";
@@ -17,7 +16,6 @@ const Index = () => {
       <ValueProposition />
       <TrustBadgesSection />
       <ProgressTracker currentStep={1} className="bg-muted/30" />
-      <ProcessSteps />
       <TestimonialsSection />
       <BeforeAfter />
       <QuizCTA />
