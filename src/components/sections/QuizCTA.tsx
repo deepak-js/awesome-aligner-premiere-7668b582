@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import QuizModal from "@/components/quiz/QuizModal";
+import { useScrollReveal } from "@/hooks/useGSAPAnimations";
+import FloatingShapes from "@/components/decorative/FloatingShapes";
 
 const benefits = [
   "Quick 30-second assessment",
@@ -11,18 +13,16 @@ const benefits = [
 
 const QuizCTA = () => {
   const [isQuizOpen, setIsQuizOpen] = useState(false);
+  const contentRef = useScrollReveal({ y: 50 });
 
   return (
     <>
       <section className="py-24 hero-gradient relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-secondary/10 rounded-full blur-3xl" />
-        </div>
+        {/* Floating decorative elements */}
+        <FloatingShapes variant="hero" />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 rounded-full border border-primary-foreground/20 mb-8">
+        <div ref={contentRef} className="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 rounded-full border border-primary-foreground/20 mb-8 backdrop-blur-sm">
             <span className="text-primary-foreground/90 text-sm font-medium">
               Free Smile Assessment
             </span>
@@ -41,8 +41,8 @@ const QuizCTA = () => {
 
           <div className="flex flex-wrap justify-center gap-6 mb-10">
             {benefits.map((benefit) => (
-              <div key={benefit} className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-accent" />
+              <div key={benefit} className="flex items-center gap-2 group">
+                <CheckCircle className="w-5 h-5 text-accent group-hover:scale-110 transition-transform duration-300" />
                 <span className="text-primary-foreground/80 text-sm">{benefit}</span>
               </div>
             ))}
@@ -51,7 +51,7 @@ const QuizCTA = () => {
           <Button 
             variant="hero" 
             size="xl" 
-            className="group"
+            className="group magnetic-hover glow-effect"
             onClick={() => setIsQuizOpen(true)}
           >
             Start Quiz

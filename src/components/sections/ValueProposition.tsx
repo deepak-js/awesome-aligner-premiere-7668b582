@@ -2,6 +2,8 @@ import { Scan, Clock, UserCheck, Heart, Shield, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import doctorPatientConsultation from "@/assets/doctor-patient-consultation.jpg";
+import { useScrollReveal, useStaggerCards, useParallax } from "@/hooks/useGSAPAnimations";
+import FloatingShapes from "@/components/decorative/FloatingShapes";
 
 const features = [
   {
@@ -37,10 +39,16 @@ const features = [
 ];
 
 const ValueProposition = () => {
+  const headerRef = useScrollReveal({ y: 40 });
+  const cardsRef = useStaggerCards(0.12);
+  const imageRef = useParallax(0.3);
+
   return (
-    <section className="py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+    <section className="py-24 bg-background relative overflow-hidden">
+      <FloatingShapes />
+      
+      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+        <div ref={headerRef} className="grid lg:grid-cols-2 gap-16 items-center mb-20">
           <div>
             <span className="inline-block px-4 py-2 mb-4 text-sm font-medium rounded-full bg-primary/10 text-primary">
               Why Choose Us
@@ -53,35 +61,35 @@ const ValueProposition = () => {
               Our certified doctors and premium materials ensure the best outcomes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild>
+              <Button className="magnetic-hover" asChild>
                 <Link to="/how-it-works">Learn How It Works</Link>
               </Button>
-              <Button variant="outline" asChild>
+              <Button variant="outline" className="magnetic-hover" asChild>
                 <Link to="/for-doctors">For Dental Professionals</Link>
               </Button>
             </div>
           </div>
-          <div className="relative">
+          <div ref={imageRef} className="relative">
             <img 
               src={doctorPatientConsultation} 
               alt="Doctor consulting with patient about clear aligners" 
-              className="rounded-2xl shadow-xl w-full"
+              className="rounded-2xl shadow-xl w-full transform hover:scale-[1.02] transition-transform duration-500"
             />
-            <div className="absolute -bottom-6 -left-6 bg-card p-4 rounded-xl shadow-lg border border-border">
+            <div className="absolute -bottom-6 -left-6 bg-card p-4 rounded-xl shadow-lg border border-border hover:scale-105 transition-transform duration-300">
               <p className="text-2xl font-bold text-primary">500+</p>
               <p className="text-sm text-muted-foreground">Certified Doctors</p>
             </div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
+        <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((feature) => (
             <div
               key={feature.title}
+              data-animate-card
               className="group glass-card rounded-2xl p-6 hover-lift cursor-pointer"
-              style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
                 <feature.icon className="w-7 h-7 text-primary" strokeWidth={1.5} />
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">

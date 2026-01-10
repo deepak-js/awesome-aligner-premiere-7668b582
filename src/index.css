@@ -246,4 +246,86 @@
   .delay-300 { animation-delay: 300ms; }
   .delay-400 { animation-delay: 400ms; }
   .delay-500 { animation-delay: 500ms; }
+
+  /* Premium micro-interactions */
+  .magnetic-hover {
+    @apply transition-transform duration-300 ease-out;
+  }
+
+  .magnetic-hover:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Spring hover effect */
+  .spring-hover {
+    @apply transition-all duration-300;
+  }
+
+  .spring-hover:hover {
+    transform: scale(1.02) translateY(-2px);
+  }
+
+  /* Shimmer effect for premium elements */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* Floating animation for decorative elements */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Premium glass morphism */
+  .glass-premium {
+    @apply bg-card/60 backdrop-blur-xl border border-border/30;
+    box-shadow: 
+      0 4px 30px rgba(0, 0, 0, 0.1),
+      inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  }
+
+  /* Glow pulse for CTAs */
+  .glow-pulse {
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--accent) / 0.5);
+    }
+  }
 }
