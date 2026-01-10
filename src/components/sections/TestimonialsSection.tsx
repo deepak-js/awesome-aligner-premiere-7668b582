@@ -92,7 +92,7 @@ const TestimonialsSection = () => {
           <span className="inline-block px-4 py-2 mb-4 text-sm font-medium rounded-full bg-primary/10 text-primary">
             Patient Stories
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
             Loved by Thousands of Happy Patients
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

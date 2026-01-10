@@ -28,7 +28,7 @@ const QuizCTA = () => {
             </span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6 leading-tight">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6 leading-tight">
             Not sure if you're a candidate?
             <br />
             <span className="text-primary-foreground/80">Take our 30-second assessment.</span>

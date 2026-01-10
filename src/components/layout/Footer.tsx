@@ -42,7 +42,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link to="/" className="text-2xl font-bold mb-4 inline-block">
+            <Link to="/" className="font-display text-2xl font-bold mb-4 inline-block">
               Awesome<span className="font-light">Aligners</span>
             </Link>
             <p className="text-primary-foreground/70 mb-6 max-w-sm">
