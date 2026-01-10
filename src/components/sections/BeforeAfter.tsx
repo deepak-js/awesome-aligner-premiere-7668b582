@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Users, Globe, ThumbsUp, Award } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Import before/after images
@@ -31,14 +31,6 @@ const transformations: TransformationCase[] = [
   { id: 4, before: before4, after: after4, label: "Underbite Correction" },
   { id: 5, before: before5, after: after5, label: "Crossbite Alignment" },
   { id: 6, before: before6, after: after6, label: "Open Bite Repair" },
-];
-
-const stats = [
-  { value: "10,000+", label: "Happy Patients", icon: Users },
-  { value: "4.9/5", label: "Average Rating", icon: Star },
-  { value: "98%", label: "Recommend Us", icon: ThumbsUp },
-  { value: "98%", label: "Success Rate", icon: Award },
-  { value: "50+", label: "Countries Served", icon: Globe },
 ];
 
 interface SliderCardProps {
@@ -132,29 +124,6 @@ const BeforeAfter = () => {
           {transformations.map((transformation) => (
             <SliderCard key={transformation.id} transformation={transformation} />
           ))}
-        </div>
-
-        {/* Stats Row */}
-        <div className="mb-12">
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div 
-                  key={index} 
-                  className="flex items-center gap-3 px-4 py-3 md:px-6 md:py-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors"
-                >
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-xl md:text-2xl font-bold text-primary">{stat.value}</div>
-                    <div className="text-xs text-muted-foreground whitespace-nowrap">{stat.label}</div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
 
         {/* CTA Buttons */}
