@@ -56,7 +56,7 @@ const ComparisonRow = ({
     >
       <div className="bg-card rounded-2xl p-6 md:p-8 shadow-sm border border-border/50">
         <div className="text-center mb-6">
-          <h3 className="text-2xl md:text-3xl font-bold text-primary mb-2">
+          <h3 className="font-display text-2xl md:text-3xl font-bold text-primary mb-2">
             {heading}
           </h3>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -137,7 +137,7 @@ const ComparisonSection = () => {
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Why Patients Choose{" "}
             <span className="text-primary">Awesome Aligners</span>
           </h2>
