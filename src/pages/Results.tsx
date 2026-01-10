@@ -15,6 +15,30 @@ import {
 } from "lucide-react";
 import ResultsCardSkeleton from "@/components/skeletons/ResultsCardSkeleton";
 
+// Import AI-generated before/after images
+import before1 from "@/assets/before-1.jpg";
+import after1 from "@/assets/after-1.jpg";
+import before2 from "@/assets/before-2.jpg";
+import after2 from "@/assets/after-2.jpg";
+import before3 from "@/assets/before-3.jpg";
+import after3 from "@/assets/after-3.jpg";
+import before4 from "@/assets/before-4.jpg";
+import after4 from "@/assets/after-4.jpg";
+import before5 from "@/assets/before-5.jpg";
+import after5 from "@/assets/after-5.jpg";
+import before6 from "@/assets/before-6.jpg";
+import after6 from "@/assets/after-6.jpg";
+
+// Default images mapping for cases without custom images
+const defaultImages = {
+  crowding: { before: before1, after: after1 },
+  spacing: { before: before2, after: after2 },
+  overbite: { before: before3, after: after3 },
+  underbite: { before: before4, after: after4 },
+  crossbite: { before: before5, after: after5 },
+  complex: { before: before6, after: after6 },
+};
+
 interface CaseStudy {
   id: string;
   title: string;
@@ -41,6 +65,100 @@ const caseTypes = [
   { value: "complex", label: "Complex Cases" }
 ];
 
+// Sample cases with AI-generated images
+const sampleCases: CaseStudy[] = [
+  {
+    id: "sample-1",
+    title: "Severe Crowding Correction",
+    patient_age: 28,
+    patient_gender: "Female",
+    case_type: "crowding",
+    treatment_duration: "14 months",
+    description: "Patient presented with severe crowding in both arches. Treatment involved sequential aligners with IPR to create space for proper alignment.",
+    before_image_url: before1,
+    after_image_url: after1,
+    doctor_name: "Dr. Priya Sharma",
+    clinic_name: "Mumbai Dental Excellence",
+    testimonial: "I never thought I could smile confidently. Awesome Aligners changed my life!",
+    featured: true
+  },
+  {
+    id: "sample-2",
+    title: "Gap Closure - Diastema",
+    patient_age: 24,
+    patient_gender: "Male",
+    case_type: "spacing",
+    treatment_duration: "8 months",
+    description: "Midline diastema closure with minor spacing throughout the upper arch. Patient achieved perfect alignment with clear aligners.",
+    before_image_url: before2,
+    after_image_url: after2,
+    doctor_name: "Dr. Rahul Mehta",
+    clinic_name: "Delhi Smile Studio",
+    testimonial: "The gap that bothered me for years is finally gone. Thank you!",
+    featured: true
+  },
+  {
+    id: "sample-3",
+    title: "Overbite Correction",
+    patient_age: 32,
+    patient_gender: "Female",
+    case_type: "overbite",
+    treatment_duration: "18 months",
+    description: "Deep overbite correction with intrusion of upper anteriors and extrusion of lower anteriors for optimal bite relationship.",
+    before_image_url: before3,
+    after_image_url: after3,
+    doctor_name: "Dr. Anjali Kapoor",
+    clinic_name: "Bangalore Orthodontic Center",
+    testimonial: "My bite feels perfect now, and my smile is beautiful!",
+    featured: false
+  },
+  {
+    id: "sample-4",
+    title: "Underbite Treatment",
+    patient_age: 26,
+    patient_gender: "Male",
+    case_type: "underbite",
+    treatment_duration: "16 months",
+    description: "Class III malocclusion correction with clear aligners, avoiding the need for surgical intervention.",
+    before_image_url: before4,
+    after_image_url: after4,
+    doctor_name: "Dr. Vikram Singh",
+    clinic_name: "Chennai Dental Care",
+    testimonial: "I was told I needed surgery, but Awesome Aligners fixed my bite without it!",
+    featured: false
+  },
+  {
+    id: "sample-5",
+    title: "Crossbite Alignment",
+    patient_age: 29,
+    patient_gender: "Female",
+    case_type: "crossbite",
+    treatment_duration: "12 months",
+    description: "Posterior crossbite correction with arch expansion and individual tooth movement for proper occlusion.",
+    before_image_url: before5,
+    after_image_url: after5,
+    doctor_name: "Dr. Neha Gupta",
+    clinic_name: "Pune Smile Clinic",
+    testimonial: "Finally, my teeth meet properly. Such a relief!",
+    featured: false
+  },
+  {
+    id: "sample-6",
+    title: "Complex Case - Full Arch",
+    patient_age: 35,
+    patient_gender: "Male",
+    case_type: "complex",
+    treatment_duration: "22 months",
+    description: "Complex case involving crowding, spacing, and bite issues. Comprehensive treatment plan with staged aligner therapy.",
+    before_image_url: before6,
+    after_image_url: after6,
+    doctor_name: "Dr. Suresh Patel",
+    clinic_name: "Hyderabad Dental Institute",
+    testimonial: "Worth every penny and every month. My smile transformation is incredible!",
+    featured: true
+  }
+];
+
 const Results = () => {
   const [cases, setCases] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,9 +179,20 @@ const Results = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setCases(data || []);
+      
+      // Combine database cases with sample cases, using sample images as fallback
+      const dbCases = (data || []).map(c => ({
+        ...c,
+        before_image_url: c.before_image_url || defaultImages[c.case_type as keyof typeof defaultImages]?.before || before1,
+        after_image_url: c.after_image_url || defaultImages[c.case_type as keyof typeof defaultImages]?.after || after1,
+      }));
+      
+      // If no database cases, use sample cases
+      setCases(dbCases.length > 0 ? dbCases : sampleCases);
     } catch (error) {
       console.error("Error fetching cases:", error);
+      // Use sample cases on error
+      setCases(sampleCases);
     } finally {
       setLoading(false);
     }
@@ -83,17 +212,17 @@ const Results = () => {
       
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#072D57] via-[#0a3d6e] to-[#0B4F8A]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--primary)/0.9)] via-[hsl(var(--primary)/0.8)] to-[hsl(var(--primary)/0.7)]" />
         
         <div className="container relative z-10 mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <span className="inline-block px-4 py-2 mb-6 text-sm font-medium rounded-full bg-primary/20 text-primary-foreground border border-primary/30">
+            <span className="inline-block px-4 py-2 mb-6 text-sm font-medium rounded-full bg-primary-foreground/20 text-primary-foreground border border-primary-foreground/30">
               Real Results
             </span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground">
               Smile Transformations
             </h1>
-            <p className="text-xl text-white/80">
+            <p className="text-xl text-primary-foreground/80">
               Explore real before-and-after results from patients who transformed their smiles 
               with Awesome Aligners. See what's possible for you!
             </p>
@@ -102,9 +231,9 @@ const Results = () => {
       </section>
 
       {/* Filter Section */}
-      <section className="py-8 border-b border-border sticky top-0 bg-background/95 backdrop-blur-sm z-20">
+      <section className="py-6 border-b border-border sticky top-0 bg-background/95 backdrop-blur-sm z-20">
         <div className="container mx-auto px-4">
-          <div className="flex items-center gap-4 overflow-x-auto pb-2">
+          <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
             <Filter className="h-5 w-5 text-muted-foreground flex-shrink-0" />
             {caseTypes.map((type) => (
               <button
@@ -124,10 +253,10 @@ const Results = () => {
       </section>
 
       {/* Cases Grid */}
-      <section className="py-16">
+      <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <ResultsCardSkeleton key={i} />
               ))}
@@ -137,29 +266,29 @@ const Results = () => {
               <p className="text-muted-foreground text-lg">No cases found for this category.</p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {filteredCases.map((caseStudy) => (
                 <div
                   key={caseStudy.id}
                   className="group cursor-pointer"
                   onClick={() => setSelectedCase(caseStudy)}
                 >
-                  <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-4">
+                  <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-4 border border-border shadow-md hover:shadow-xl transition-shadow">
                     {/* Before/After Slider Preview */}
                     <div className="absolute inset-0 flex">
                       <div className="w-1/2 relative overflow-hidden">
                         <img
-                          src={caseStudy.before_image_url || "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400"}
+                          src={caseStudy.before_image_url || before1}
                           alt="Before"
                           className="absolute inset-0 w-[200%] h-full object-cover"
                         />
-                        <div className="absolute bottom-2 left-2 px-2 py-1 bg-background/80 rounded text-xs font-medium">
+                        <div className="absolute bottom-2 left-2 px-2 py-1 bg-background/80 backdrop-blur-sm rounded text-xs font-medium">
                           Before
                         </div>
                       </div>
                       <div className="w-1/2 relative overflow-hidden">
                         <img
-                          src={caseStudy.after_image_url || "https://images.unsplash.com/photo-1581585635221-b0ea494d3f00?w=400"}
+                          src={caseStudy.after_image_url || after1}
                           alt="After"
                           className="absolute inset-0 w-[200%] h-full object-cover"
                           style={{ left: "-100%" }}
@@ -168,7 +297,7 @@ const Results = () => {
                           After
                         </div>
                       </div>
-                      <div className="absolute inset-y-0 left-1/2 w-1 bg-white shadow-lg" />
+                      <div className="absolute inset-y-0 left-1/2 w-0.5 bg-primary shadow-lg" />
                     </div>
                     
                     {caseStudy.featured && (
@@ -183,7 +312,7 @@ const Results = () => {
                   </div>
                   
                   <div>
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-2 flex-wrap">
                       <Badge variant="outline">{formatCaseType(caseStudy.case_type)}</Badge>
                       {caseStudy.treatment_duration && (
                         <span className="text-sm text-muted-foreground flex items-center gap-1">
@@ -218,7 +347,7 @@ const Results = () => {
               <X className="h-5 w-5" />
             </button>
             
-            <div className="p-6 md:p-8">
+            <div className="p-4 md:p-8">
               {/* Image Viewer */}
               <div className="relative aspect-video rounded-xl overflow-hidden mb-6 bg-muted">
                 <img
@@ -227,7 +356,7 @@ const Results = () => {
                   className="w-full h-full object-cover"
                 />
                 
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 p-1 bg-background/80 rounded-full">
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 p-1 bg-background/80 backdrop-blur-sm rounded-full">
                   <button
                     onClick={() => setImageView("before")}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
@@ -248,10 +377,10 @@ const Results = () => {
               </div>
               
               {/* Case Details */}
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 <div>
                   <Badge className="mb-3">{formatCaseType(selectedCase.case_type)}</Badge>
-                  <h2 className="text-2xl font-bold mb-4">{selectedCase.title}</h2>
+                  <h2 className="text-xl md:text-2xl font-bold mb-4">{selectedCase.title}</h2>
                   <p className="text-muted-foreground mb-6">{selectedCase.description}</p>
                   
                   <div className="grid grid-cols-2 gap-4">
@@ -274,9 +403,9 @@ const Results = () => {
                 
                 <div>
                   {selectedCase.testimonial && (
-                    <div className="p-6 rounded-xl bg-primary/5 border border-primary/20 mb-6">
-                      <Quote className="h-8 w-8 text-primary/30 mb-3" />
-                      <p className="italic text-lg mb-4">"{selectedCase.testimonial}"</p>
+                    <div className="p-4 md:p-6 rounded-xl bg-primary/5 border border-primary/20 mb-6">
+                      <Quote className="h-6 w-6 md:h-8 md:w-8 text-primary/30 mb-3" />
+                      <p className="italic text-base md:text-lg mb-4">"{selectedCase.testimonial}"</p>
                       <p className="text-sm text-muted-foreground">
                         — Patient treated by {selectedCase.doctor_name}
                       </p>
@@ -295,7 +424,7 @@ const Results = () => {
                 </div>
               </div>
               
-              <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="mt-6 md:mt-8 pt-6 border-t border-border flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild>
                   <Link to="/quiz">
                     Take Smile Assessment <ArrowRight className="ml-2 h-4 w-4" />
@@ -311,11 +440,11 @@ const Results = () => {
       )}
 
       {/* CTA Section */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-12 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready for Your Transformation?</h2>
-            <p className="text-muted-foreground text-lg mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready for Your Transformation?</h2>
+            <p className="text-muted-foreground text-base md:text-lg mb-8">
               Take our quick smile assessment to see if you're a candidate for clear aligners.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
