@@ -86,26 +86,49 @@ const Admin = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [showCaseForm, setShowCaseForm] = useState(false);
 
+  const checkAdminRole = async (userId: string) => {
+    const { data, error } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    
+    return !error && data !== null;
+  };
+
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         
         if (!session) {
           navigate("/auth");
+        } else {
+          const isAdmin = await checkAdminRole(session.user.id);
+          if (!isAdmin) {
+            await supabase.auth.signOut();
+            navigate("/auth");
+          }
         }
       }
     );
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       
       if (!session) {
         navigate("/auth");
       } else {
-        fetchData();
+        const isAdmin = await checkAdminRole(session.user.id);
+        if (!isAdmin) {
+          await supabase.auth.signOut();
+          navigate("/auth");
+        } else {
+          fetchData();
+        }
       }
     });
 

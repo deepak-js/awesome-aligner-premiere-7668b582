@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import QuizModal from "@/components/quiz/QuizModal";
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/header-logo.png";
 
 const navLinks = [
   { href: "/", label: "Home" },
