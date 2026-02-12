@@ -17,12 +17,12 @@ import {
 import { Link } from "react-router-dom";
 
 // Import step images
-import consultationImg from "@/assets/doctor-patient-consultation.jpg";
-import scanImg from "@/assets/step-3d-scan.jpg";
-import fabricationImg from "@/assets/step-fabrication.jpg";
-import receiveImg from "@/assets/step-receive-aligners.jpg";
-import progressImg from "@/assets/step-progress-checkup.jpg";
-import smileImg from "@/assets/step-perfect-smile.jpg";
+import consultationImg from "@/assets/stage-1-consultation.png";
+import scanImg from "@/assets/stage-2-3d-scan.png";
+import fabricationImg from "@/assets/stage-3-fabrication.png";
+import receiveImg from "@/assets/stage-4-receive-aligners.png";
+import progressImg from "@/assets/stage-5-progress.png";
+import smileImg from "@/assets/stage-6-perfect-smile.png";
 
 const steps = [
   {
