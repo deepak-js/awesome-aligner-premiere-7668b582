@@ -12,8 +12,8 @@ import {
   Cpu,
   Users,
   Clock,
-  Eye,
-} from "lucide-react";
+  Eye } from
+"lucide-react";
 import { Link } from "react-router-dom";
 
 // Import step images
@@ -26,123 +26,123 @@ import smileImg from "@/assets/stage-6-perfect-smile.png";
 import retentionImg from "@/assets/stage-7-retention.jpg";
 
 const steps = [
-  {
-    number: "01",
-    icon: Search,
-    title: "Consultation & Pre-Qualification",
-    description: "Clinical evaluation of teeth, bite, gums, and oral health. Alignment goals clarified. Case suitability confirmed.",
-    details: [
-      "Complete oral health assessment",
-      "Teeth, bite, and gum evaluation",
-      "Discuss your smile goals",
-      "Confirm case suitability",
-    ],
-    timeline: "Stage 1",
-    image: consultationImg,
-  },
-  {
-    number: "02",
-    icon: Scan,
-    title: "Digital Scan & Treatment Planning",
-    description: "High-precision 3D scans capture exact tooth positions. A customized, step-by-step movement plan is digitally designed and approved.",
-    details: [
-      "High-precision 3D scanning",
-      "Capture exact tooth positions",
-      "Customized movement plan design",
-      "Digital approval process",
-    ],
-    timeline: "Stage 2",
-    image: scanImg,
-  },
-  {
-    number: "03",
-    icon: Package,
-    title: "Aligner Fabrication",
-    description: "Custom clear aligners manufactured using advanced aligner technology based on the approved treatment plan.",
-    details: [
-      "Advanced manufacturing technology",
-      "Custom-fit for your teeth",
-      "Based on approved treatment plan",
-      "Medical-grade materials",
-    ],
-    timeline: "Stage 3",
-    image: fabricationImg,
-  },
-  {
-    number: "04",
-    icon: Clock,
-    title: "Receiving & Wearing Aligners",
-    description: "First set of aligners delivered. Aligners worn 20–22 hours per day. New sets changed every 1–2 weeks as prescribed.",
-    details: [
-      "First aligner set delivered",
-      "Wear 20–22 hours per day",
-      "Change sets every 1–2 weeks",
-      "Follow prescribed schedule",
-    ],
-    timeline: "Stage 4",
-    image: receiveImg,
-  },
-  {
-    number: "05",
-    icon: Eye,
-    title: "Follow-Up & Progress Monitoring",
-    description: "Periodic reviews track progress against the plan. Adjustments or refinements made if required to stay on course.",
-    details: [
-      "Periodic progress reviews",
-      "Track against treatment plan",
-      "Adjustments when needed",
-      "Stay on course to goals",
-    ],
-    timeline: "Stage 5",
-    image: progressImg,
-  },
-  {
-    number: "06",
-    icon: Sparkles,
-    title: "Finishing & Refinement",
-    description: "Final aligner stages complete tooth alignment and bite correction to the planned outcome.",
-    details: [
-      "Final alignment stages",
-      "Complete bite correction",
-      "Achieve planned outcome",
-      "Perfect your smile",
-    ],
-    timeline: "Stage 6",
-    image: smileImg,
-  },
-  {
-    number: "07",
-    icon: Sparkles,
-    title: "Retention Protocol",
-    description: "Custom retainers are provided to maintain your new smile. Follow the prescribed retention schedule to ensure long-lasting results.",
-    details: [
-      "Custom retainer fitting",
-      "Prescribed wear schedule",
-      "Periodic retention check-ups",
-      "Long-term smile maintenance",
-    ],
-    timeline: "Stage 7",
-    image: retentionImg,
-  },
-];
+{
+  number: "01",
+  icon: Search,
+  title: "Consultation & Pre-Qualification",
+  description: "Clinical evaluation of teeth, bite, gums, and oral health. Alignment goals clarified. Case suitability confirmed.",
+  details: [
+  "Complete oral health assessment",
+  "Teeth, bite, and gum evaluation",
+  "Discuss your smile goals",
+  "Confirm case suitability"],
+
+  timeline: "Stage 1",
+  image: consultationImg
+},
+{
+  number: "02",
+  icon: Scan,
+  title: "Digital Scan & Treatment Planning",
+  description: "High-precision 3D scans capture exact tooth positions. A customized, step-by-step movement plan is digitally designed and approved.",
+  details: [
+  "High-precision 3D scanning",
+  "Capture exact tooth positions",
+  "Customized movement plan design",
+  "Digital approval process"],
+
+  timeline: "Stage 2",
+  image: scanImg
+},
+{
+  number: "03",
+  icon: Package,
+  title: "Aligner Fabrication",
+  description: "Custom clear aligners manufactured using advanced aligner technology based on the approved treatment plan.",
+  details: [
+  "Advanced manufacturing technology",
+  "Custom-fit for your teeth",
+  "Based on approved treatment plan",
+  "Medical-grade materials"],
+
+  timeline: "Stage 3",
+  image: fabricationImg
+},
+{
+  number: "04",
+  icon: Clock,
+  title: "Receiving & Wearing Aligners",
+  description: "First set of aligners delivered. Aligners worn 20–22 hours per day. New sets changed every 1–2 weeks as prescribed.",
+  details: [
+  "First aligner set delivered",
+  "Wear 20–22 hours per day",
+  "Change sets every 1–2 weeks",
+  "Follow prescribed schedule"],
+
+  timeline: "Stage 4",
+  image: receiveImg
+},
+{
+  number: "05",
+  icon: Eye,
+  title: "Follow-Up & Progress Monitoring",
+  description: "Periodic reviews track progress against the plan. Adjustments or refinements made if required to stay on course.",
+  details: [
+  "Periodic progress reviews",
+  "Track against treatment plan",
+  "Adjustments when needed",
+  "Stay on course to goals"],
+
+  timeline: "Stage 5",
+  image: progressImg
+},
+{
+  number: "06",
+  icon: Sparkles,
+  title: "Finishing & Refinement",
+  description: "Final aligner stages complete tooth alignment and bite correction to the planned outcome.",
+  details: [
+  "Final alignment stages",
+  "Complete bite correction",
+  "Achieve planned outcome",
+  "Perfect your smile"],
+
+  timeline: "Stage 6",
+  image: smileImg
+},
+{
+  number: "07",
+  icon: Sparkles,
+  title: "Retention Protocol",
+  description: "Custom retainers are provided to maintain your new smile. Follow the prescribed retention schedule to ensure long-lasting results.",
+  details: [
+  "Custom retainer fitting",
+  "Prescribed wear schedule",
+  "Periodic retention check-ups",
+  "Long-term smile maintenance"],
+
+  timeline: "Stage 7",
+  image: retentionImg
+}];
+
 
 const technologies = [
-  {
-    icon: Scan,
-    title: "3D Scanning Technology",
-    description: "Our iTero-compatible scanners capture 6,000 images per second, creating a precise digital model of your teeth with sub-millimeter accuracy.",
-  },
-  {
-    icon: Cpu,
-    title: "AI Treatment Planning",
-    description: "Proprietary artificial intelligence analyzes millions of data points to create the most efficient path to your perfect smile.",
-  },
-  {
-    icon: Clock,
-    title: "SmartTrack Material",
-    description: "Our FDA-approved aligner material applies consistent, gentle force for faster, more comfortable tooth movement.",
-  },
-];
+{
+  icon: Scan,
+  title: "3D Scanning Technology",
+  description: "Our iTero-compatible scanners capture 6,000 images per second, creating a precise digital model of your teeth with sub-millimeter accuracy."
+},
+{
+  icon: Cpu,
+  title: "AI Treatment Planning",
+  description: "Proprietary artificial intelligence analyzes millions of data points to create the most efficient path to your perfect smile."
+},
+{
+  icon: Clock,
+  title: "SmartTrack Material",
+  description: "Our FDA-approved aligner material applies consistent, gentle force for faster, more comfortable tooth movement."
+}];
+
 
 const HowItWorks = () => {
   return (
@@ -194,13 +194,13 @@ const HowItWorks = () => {
 
             {/* Steps */}
             <div className="space-y-12 lg:space-y-0">
-              {steps.map((step, index) => (
-                <div
-                  key={step.number}
-                  className={`relative lg:grid lg:grid-cols-2 lg:gap-16 lg:py-12 ${
-                    index % 2 === 0 ? '' : 'lg:direction-rtl'
-                  }`}
-                >
+              {steps.map((step, index) =>
+              <div
+                key={step.number}
+                className={`relative lg:grid lg:grid-cols-2 lg:gap-16 lg:py-12 ${
+                index % 2 === 0 ? '' : 'lg:direction-rtl'}`
+                }>
+
                   {/* Timeline Node (Desktop) */}
                   <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                     <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg border-4 border-background">
@@ -212,10 +212,10 @@ const HowItWorks = () => {
                   <div className={`mb-6 lg:mb-0 ${index % 2 === 0 ? 'lg:pr-8' : 'lg:pl-8 lg:order-2'}`}>
                     <div className="relative rounded-2xl overflow-hidden shadow-xl group">
                       <img
-                        src={step.image}
-                        alt={step.title}
-                        className="w-full h-64 lg:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
+                      src={step.image}
+                      alt={step.title}
+                      className="w-full h-64 lg:h-80 object-cover transition-transform duration-500 group-hover:scale-105" />
+
                       <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
                       
                       {/* Mobile Step Number */}
@@ -236,16 +236,16 @@ const HowItWorks = () => {
                     <p className="text-muted-foreground mb-6 text-lg">{step.description}</p>
                     
                     <ul className={`space-y-3 ${index % 2 === 0 ? '' : 'lg:flex lg:flex-col lg:items-end'}`}>
-                      {step.details.map((detail, i) => (
-                        <li key={i} className={`flex items-center gap-3 ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>
+                      {step.details.map((detail, i) =>
+                    <li key={i} className={`flex items-center gap-3 ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>
                           <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
                           <span className="text-foreground">{detail}</span>
                         </li>
-                      ))}
+                    )}
                     </ul>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
@@ -267,19 +267,19 @@ const HowItWorks = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {technologies.map((tech, index) => (
-              <div
-                key={tech.title}
-                className="bg-card rounded-3xl p-8 shadow-sm hover-lift animate-fade-in-up"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
+            {technologies.map((tech, index) =>
+            <div
+              key={tech.title}
+              className="bg-card rounded-3xl p-8 shadow-sm hover-lift animate-fade-in-up"
+              style={{ animationDelay: `${index * 100}ms` }}>
+
                 <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
                   <tech.icon className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-3">{tech.title}</h3>
                 <p className="text-muted-foreground">{tech.description}</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -304,16 +304,16 @@ const HowItWorks = () => {
 
               <ul className="space-y-4 mb-8">
                 {[
-                  "500+ certified providers nationwide",
-                  "Regular progress monitoring",
-                  "Personalized adjustments as needed",
-                  "Expert support throughout treatment",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3">
+                "500+ certified providers nationwide",
+                "Regular progress monitoring",
+                "Personalized adjustments as needed",
+                "Expert support throughout treatment"].
+                map((item, i) =>
+                <li key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
                     <span className="text-foreground">{item}</span>
                   </li>
-                ))}
+                )}
               </ul>
 
               <Button asChild size="lg">
@@ -326,16 +326,16 @@ const HowItWorks = () => {
 
             <div className="grid grid-cols-2 gap-6">
               {[
-                { value: "500+", label: "Certified Providers" },
-                { value: "10K+", label: "Smiles Transformed" },
-                { value: "98%", label: "Patient Satisfaction" },
-                { value: "50+", label: "Countries Served" },
-              ].map((stat) => (
-                <div key={stat.label} className="glass-card rounded-2xl p-6 text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
+              { value: "500+", label: "Certified Providers" },
+              { value: "10K+", label: "Smiles Transformed" },
+              { value: "98%", label: "Patient Satisfaction" },
+              { value: "50+", label: "Countries Served" }].
+              map((stat) => {}
+
+
+
+
+              )}
             </div>
           </div>
         </div>
@@ -363,8 +363,8 @@ const HowItWorks = () => {
       </section>
 
       <Footer />
-    </main>
-  );
+    </main>);
+
 };
 
 export default HowItWorks;
