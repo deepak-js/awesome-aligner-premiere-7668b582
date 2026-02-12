@@ -2,9 +2,9 @@ import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, Linkedin } from "luc
 import { Link } from "react-router-dom";
 
 const locations = [
-  { city: "New York", address: "123 Manhattan Ave, NY 10001" },
-  { city: "Los Angeles", address: "456 Beverly Hills Blvd, CA 90210" },
-  { city: "Chicago", address: "789 Michigan Ave, IL 60611" },
+  { city: "🇬🇧 United Kingdom", address: "3rd Floor, Warwick Wing, Sun Clinics UK Ltd, 701 Chester Road, Stretford, Manchester M32 0RW, United Kingdom" },
+  { city: "🇮🇳 Chennai, India", address: "63, Balaji Nagar, 4th Street, Alwarthirunagar, Chennai – 600087, Tamil Nadu, India" },
+  { city: "🇮🇳 Thanjavur, India", address: "B-19, 6th Cross Road, Arulanandha Nagar Main Road, Arulanthar Nagar, Thanjavur – 613007, Tamil Nadu, India" },
 ];
 
 const links = {
