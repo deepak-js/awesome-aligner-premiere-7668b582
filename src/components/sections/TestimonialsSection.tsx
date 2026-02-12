@@ -100,23 +100,6 @@ const TestimonialsSection = () => {
           </p>
         </div>
 
-        {/* Stats Row */}
-        <div className={cn(
-          "grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 transition-all duration-700 delay-100",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        )}>
-          {[
-            { value: '10,000+', label: 'Happy Patients' },
-            { value: '4.9/5', label: 'Average Rating' },
-            { value: '98%', label: 'Would Recommend' },
-            { value: '500+', label: 'Verified Reviews' },
-          ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
-            </div>
-          ))}
-        </div>
 
         {/* Main Testimonial Card */}
         <div className={cn(
@@ -209,22 +192,6 @@ const TestimonialsSection = () => {
           </div>
         </div>
 
-        {/* Google Reviews Badge */}
-        <div className={cn(
-          "mt-12 text-center transition-all duration-700 delay-300",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        )}>
-          <div className="inline-flex items-center gap-4 px-6 py-3 bg-card border border-border rounded-full">
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 text-yellow-500 fill-current" />
-              ))}
-            </div>
-            <span className="text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">4.9</span> from 500+ Google Reviews
-            </span>
-          </div>
-        </div>
       </div>
     </section>
   );
