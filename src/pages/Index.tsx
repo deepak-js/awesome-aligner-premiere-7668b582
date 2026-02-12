@@ -3,7 +3,7 @@ import HeroSection from "@/components/sections/HeroSection";
 import ValueProposition from "@/components/sections/ValueProposition";
 import TrustBadgesSection from "@/components/sections/TrustBadgesSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import BeforeAfter from "@/components/sections/BeforeAfter";
+
 import QuizCTA from "@/components/sections/QuizCTA";
 import Footer from "@/components/layout/Footer";
 
@@ -14,7 +14,7 @@ const Index = () => {
       <HeroSection />
       <ValueProposition />
       <TrustBadgesSection />
-      <BeforeAfter />
+      
       <TestimonialsSection />
       <QuizCTA />
       <Footer />
