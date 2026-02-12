@@ -22,6 +22,11 @@ const Header = () => {
   const [isQuizOpen, setIsQuizOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  
+  // Pages with dark hero backgrounds where transparent header works
+  const darkHeroPages = ["/", "/how-it-works", "/about", "/for-doctors"];
+  const hasDarkHero = darkHeroPages.includes(location.pathname);
+  const showSolidHeader = !hasDarkHero || isScrolled;
   const headerRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
 
@@ -59,7 +64,7 @@ const Header = () => {
     <header 
       ref={headerRef}
       className={`fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-3 transition-all duration-500 ${
-        isScrolled 
+        showSolidHeader 
           ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border/50" 
           : "bg-transparent"
       }`}
@@ -82,7 +87,7 @@ const Header = () => {
               key={link.href}
               to={link.href}
               className={`relative text-sm font-medium transition-colors duration-300 group ${
-                isScrolled
+                showSolidHeader
                   ? location.pathname === link.href
                     ? "text-primary"
                     : "text-foreground/80 hover:text-primary"
@@ -95,7 +100,7 @@ const Header = () => {
               {/* Animated underline */}
               <span 
                 className={`absolute -bottom-1 left-0 h-0.5 transition-all duration-300 ease-out ${
-                  isScrolled ? 'bg-primary' : 'bg-primary-foreground'
+                  showSolidHeader ? 'bg-primary' : 'bg-primary-foreground'
                 } ${
                   location.pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}
@@ -106,7 +111,7 @@ const Header = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
-          {isScrolled ? (
+          {showSolidHeader ? (
             <>
               <Button variant="outline" size="sm" onClick={() => setIsQuizOpen(true)}>
                 Take Quiz
@@ -130,7 +135,7 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <button
           className={`md:hidden p-2 transition-colors ${
-            isScrolled ? "text-foreground" : "text-primary-foreground"
+            showSolidHeader ? "text-foreground" : "text-primary-foreground"
           }`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
@@ -141,7 +146,7 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className={`md:hidden absolute top-full left-0 right-0 backdrop-blur-lg border-t p-6 animate-fade-in ${
-          isScrolled 
+          showSolidHeader 
             ? "bg-background/95 border-border" 
             : "bg-primary/95 border-primary-foreground/10"
         }`}>
@@ -151,7 +156,7 @@ const Header = () => {
                 key={link.href}
                 to={link.href}
                 className={`py-2 text-lg ${
-                  isScrolled
+                  showSolidHeader
                     ? location.pathname === link.href
                       ? "text-primary font-medium"
                       : "text-foreground/80"
@@ -165,7 +170,7 @@ const Header = () => {
               </Link>
             ))}
             <div className="flex flex-col gap-3 mt-4">
-              {isScrolled ? (
+              {showSolidHeader ? (
                 <>
                   <Button variant="outline" className="w-full" onClick={() => { setIsMobileMenuOpen(false); setIsQuizOpen(true); }}>
                     Take Quiz
