@@ -39,7 +39,7 @@ const BrandLogosSlider = () => {
               key={brand.name}
               className="flex-shrink-0 px-8 md:px-12"
             >
-              <div className="h-12 md:h-14 w-auto flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+              <div className="h-12 md:h-14 w-auto flex items-center justify-center opacity-80 hover:opacity-100 hover:scale-110 hover:drop-shadow-lg transition-all duration-300 cursor-pointer">
                 <img
                   src={brand.logo}
                   alt={brand.name}
@@ -54,7 +54,7 @@ const BrandLogosSlider = () => {
               key={`${brand.name}-duplicate`}
               className="flex-shrink-0 px-8 md:px-12"
             >
-              <div className="h-12 md:h-14 w-auto flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+              <div className="h-12 md:h-14 w-auto flex items-center justify-center opacity-80 hover:opacity-100 hover:scale-110 hover:drop-shadow-lg transition-all duration-300 cursor-pointer">
                 <img
                   src={brand.logo}
                   alt={brand.name}
