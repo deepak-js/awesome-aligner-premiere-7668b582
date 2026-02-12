@@ -6,37 +6,37 @@ import { useScrollReveal, useStaggerCards, useParallax } from "@/hooks/useGSAPAn
 import FloatingShapes from "@/components/decorative/FloatingShapes";
 
 const features = [
-  {
-    icon: Scan,
-    title: "Advanced 3D Scanning",
-    description: "State-of-the-art digital impressions for perfect fit",
-  },
-  {
-    icon: Clock,
-    title: "Faster Treatment Planning",
-    description: "AI-powered planning reduces time to your perfect smile",
-  },
-  {
-    icon: UserCheck,
-    title: "Doctor-Led Monitoring",
-    description: "Expert oversight at every step of your journey",
-  },
-  {
-    icon: Heart,
-    title: "Designed for Comfort",
-    description: "Ultra-thin aligners you'll barely notice",
-  },
-  {
-    icon: Shield,
-    title: "100% Safe Materials",
-    description: "Medical-grade, BPA-free aligners for your health",
-  },
-  {
-    icon: Award,
-    title: "Guaranteed Results",
-    description: "Money-back guarantee if you're not satisfied",
-  },
-];
+{
+  icon: Scan,
+  title: "Advanced 3D Scanning",
+  description: "State-of-the-art digital impressions for perfect fit"
+},
+{
+  icon: Clock,
+  title: "Faster Treatment Planning",
+  description: "AI-powered planning reduces time to your perfect smile"
+},
+{
+  icon: UserCheck,
+  title: "Doctor-Led Monitoring",
+  description: "Expert oversight at every step of your journey"
+},
+{
+  icon: Heart,
+  title: "Designed for Comfort",
+  description: "Ultra-thin aligners you'll barely notice"
+},
+{
+  icon: Shield,
+  title: "100% Safe Materials",
+  description: "Medical-grade, BPA-free aligners for your health"
+},
+{
+  icon: Award,
+  title: "Guaranteed Results",
+  description: "Money-back guarantee if you're not satisfied"
+}];
+
 
 const ValueProposition = () => {
   const headerRef = useScrollReveal({ y: 40 });
@@ -70,11 +70,11 @@ const ValueProposition = () => {
             </div>
           </div>
           <div ref={imageRef} className="relative">
-            <img 
-              src={doctorPatientConsultation} 
-              alt="Doctor consulting with patient about clear aligners" 
-              className="rounded-2xl shadow-xl w-full transform hover:scale-[1.02] transition-transform duration-500"
-            />
+            <img
+
+              alt="Doctor consulting with patient about clear aligners"
+              className="rounded-2xl shadow-xl w-full transform hover:scale-[1.02] transition-transform duration-500" src="/lovable-uploads/b901a9aa-6523-4891-835e-e25d1560adef.png" />
+
             <div className="absolute -bottom-6 -left-6 bg-card p-4 rounded-xl shadow-lg border border-border hover:scale-105 transition-transform duration-300">
               <p className="text-2xl font-bold text-primary">500+</p>
               <p className="text-sm text-muted-foreground">Certified Doctors</p>
@@ -83,12 +83,12 @@ const ValueProposition = () => {
         </div>
 
         <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              data-animate-card
-              className="group glass-card rounded-2xl p-6 hover-lift cursor-pointer"
-            >
+          {features.map((feature) =>
+          <div
+            key={feature.title}
+            data-animate-card
+            className="group glass-card rounded-2xl p-6 hover-lift cursor-pointer">
+
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
                 <feature.icon className="w-7 h-7 text-primary" strokeWidth={1.5} />
               </div>
@@ -99,11 +99,11 @@ const ValueProposition = () => {
                 {feature.description}
               </p>
             </div>
-          ))}
+          )}
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default ValueProposition;
