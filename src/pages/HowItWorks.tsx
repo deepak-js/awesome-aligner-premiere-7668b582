@@ -330,12 +330,12 @@ const HowItWorks = () => {
               { value: "10K+", label: "Smiles Transformed" },
               { value: "98%", label: "Patient Satisfaction" },
               { value: "50+", label: "Countries Served" }].
-              map((stat) => {}
-
-
-
-
-              )}
+              map((stat) => (
+                <div key={stat.label} className="text-center p-4 bg-background/50 rounded-xl">
+                  <div className="text-2xl font-bold text-primary">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
