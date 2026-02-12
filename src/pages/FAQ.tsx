@@ -86,12 +86,12 @@ const faqs = {
       answer: "Some complex orthodontic cases may require traditional braces or additional treatments. Patients with certain dental conditions, severe bite issues, or specific jaw problems may need alternative solutions. Your doctor will assess your suitability during the consultation.",
     },
     {
-      question: "Do I need to see a doctor to get Awesome Aligners?",
-      answer: "Yes, Awesome Aligners treatment is always supervised by a certified dental professional. This ensures proper diagnosis, treatment planning, and monitoring for safe, effective results. We don't offer direct-to-consumer aligners without professional oversight.",
+      question: "Do I need to see an orthodontist to get Awesome Aligners?",
+      answer: "Yes, Awesome Aligners treatment is always supervised by a certified orthodontist. This ensures proper diagnosis, treatment planning, and monitoring for safe, effective results. We don't offer direct-to-consumer aligners without professional oversight.",
     },
     {
-      question: "Is treatment available through dentists, orthodontists, or both?",
-      answer: "Both! Our certified provider network includes general dentists and orthodontists who have completed our specialized training. You can choose the type of provider that best suits your needs and convenience.",
+      question: "Is treatment available through orthodontists?",
+      answer: "Yes! Our certified provider network includes orthodontists who have completed our specialized training. You can choose the provider that best suits your needs and convenience.",
     },
   ],
   comparison: [

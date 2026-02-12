@@ -4,6 +4,7 @@ import fabricationImg from "@/assets/stage-3-fabrication.png";
 import receiveImg from "@/assets/stage-4-receive-aligners.png";
 import progressImg from "@/assets/stage-5-progress.png";
 import smileImg from "@/assets/stage-6-perfect-smile.png";
+import retentionImg from "@/assets/stage-7-retention.jpg";
 
 const steps = [
   {
@@ -41,6 +42,12 @@ const steps = [
     title: "Perfect Smile",
     description: "Complete your transformation and reveal your beautiful new smile!",
     image: smileImg,
+  },
+  {
+    step: "07",
+    title: "Retention Protocol",
+    description: "Custom retainers maintain your new smile. Follow the prescribed schedule for lasting results.",
+    image: retentionImg,
   },
 ];
 

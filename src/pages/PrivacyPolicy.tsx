@@ -61,7 +61,7 @@ const PrivacyPolicy = () => {
           <h2>4. Information Sharing</h2>
           <p>We may share your information with:</p>
           <ul>
-            <li><strong>Healthcare Providers:</strong> Your treating dentist or orthodontist</li>
+            <li><strong>Healthcare Providers:</strong> Your treating orthodontist</li>
             <li><strong>Service Providers:</strong> Third parties that help us operate our business</li>
             <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
           </ul>
