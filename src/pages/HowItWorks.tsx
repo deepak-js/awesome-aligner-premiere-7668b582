@@ -23,6 +23,7 @@ import fabricationImg from "@/assets/stage-3-fabrication.png";
 import receiveImg from "@/assets/stage-4-receive-aligners.png";
 import progressImg from "@/assets/stage-5-progress.png";
 import smileImg from "@/assets/stage-6-perfect-smile.png";
+import retentionImg from "@/assets/stage-7-retention.jpg";
 
 const steps = [
   {
@@ -108,6 +109,20 @@ const steps = [
     ],
     timeline: "Stage 6",
     image: smileImg,
+  },
+  {
+    number: "07",
+    icon: Sparkles,
+    title: "Retention Protocol",
+    description: "Custom retainers are provided to maintain your new smile. Follow the prescribed retention schedule to ensure long-lasting results.",
+    details: [
+      "Custom retainer fitting",
+      "Prescribed wear schedule",
+      "Periodic retention check-ups",
+      "Long-term smile maintenance",
+    ],
+    timeline: "Stage 7",
+    image: retentionImg,
   },
 ];
 

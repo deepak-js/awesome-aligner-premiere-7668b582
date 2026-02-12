@@ -486,7 +486,7 @@ const DoctorPartnership = () => {
                   <Input 
                     id="specialty" 
                     name="specialty" 
-                    placeholder="e.g., General Dentistry, Orthodontics"
+                    placeholder="e.g., Orthodontics"
                     value={formData.specialty}
                     onChange={handleInputChange}
                   />

@@ -55,10 +55,10 @@ const TermsOfService = () => {
 
           <h2>5. Treatment Terms</h2>
           <h3>Eligibility</h3>
-          <p>
-            Not everyone is a candidate for clear aligner treatment. Eligibility is determined by your treating 
-            dentist or orthodontist during your consultation.
-          </p>
+           <p>
+             Not everyone is a candidate for clear aligner treatment. Eligibility is determined by your treating 
+             orthodontist during your consultation.
+           </p>
 
           <h3>Compliance</h3>
           <p>

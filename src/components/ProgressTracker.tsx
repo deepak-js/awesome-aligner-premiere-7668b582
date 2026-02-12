@@ -1,4 +1,4 @@
-import { Check, Calendar, Scan, Package, Smile, Clock, Sparkles } from 'lucide-react';
+import { Check, Calendar, Scan, Package, Smile, Clock, Sparkles, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ProgressStep {
@@ -55,6 +55,13 @@ const steps: ProgressStep[] = [
     title: 'Perfect Smile',
     description: 'Reveal your transformed smile!',
     icon: Smile,
+    status: 'upcoming',
+  },
+  {
+    id: 7,
+    title: 'Retention Protocol',
+    description: 'Maintain your new smile long-term',
+    icon: Shield,
     status: 'upcoming',
   },
 ];
