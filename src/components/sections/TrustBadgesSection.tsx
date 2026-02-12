@@ -82,50 +82,6 @@ const TrustBadgesSection = () => {
           </p>
         </div>
 
-        {/* Stats Row - Single consolidated location for all KPIs */}
-        <div className={cn(
-          "mb-12 transition-all duration-700 delay-100",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        )}>
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-            {stats.map((stat, index) => (
-              <StatCard 
-                key={stat.label}
-                value={stat.value} 
-                suffix={stat.suffix} 
-                label={stat.label}
-                icon={stat.icon}
-                decimals={stat.decimals}
-                delay={index * 100} 
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Certifications */}
-        <div className={cn(
-          "mb-12 transition-all duration-700 delay-200",
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-        )}>
-          <h3 className="text-center text-lg font-semibold text-foreground mb-6">
-            Certifications & Compliance
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-4xl mx-auto">
-            {certifications.map((cert, index) => (
-              <div
-                key={cert.label}
-                className="flex flex-col items-center p-4 md:p-6 rounded-2xl bg-muted/50 border border-border hover:bg-muted transition-colors"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3">
-                  <cert.icon className="w-6 h-6 md:w-7 md:h-7 text-primary" />
-                </div>
-                <div className="text-sm font-semibold text-foreground text-center">{cert.label}</div>
-                <div className="text-xs text-muted-foreground text-center">{cert.description}</div>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* As Seen In - Auto-scrolling slider */}
         <div className={cn(
