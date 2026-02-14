@@ -30,24 +30,8 @@ const Auth = () => {
   };
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (session?.user) {
-          const isAdmin = await checkAdminRole(session.user.id);
-          if (isAdmin) {
-            navigate("/admin");
-          } else {
-            await supabase.auth.signOut();
-            toast({
-              title: "Access Denied",
-              description: "You don't have admin privileges.",
-              variant: "destructive"
-            });
-          }
-        }
-      }
-    );
-
+    // Only check existing session on mount - don't listen to auth changes
+    // to avoid race conditions with handleSubmit
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session?.user) {
         const isAdmin = await checkAdminRole(session.user.id);
@@ -58,9 +42,7 @@ const Auth = () => {
         }
       }
     });
-
-    return () => subscription.unsubscribe();
-  }, [navigate, toast]);
+  }, [navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -85,12 +67,12 @@ const Auth = () => {
           await supabase.auth.signOut();
           throw new Error("Access denied. Admin privileges required.");
         }
+        toast({
+          title: "Welcome back!",
+          description: "You've been logged in successfully."
+        });
+        navigate("/admin");
       }
-
-      toast({
-        title: "Welcome back!",
-        description: "You've been logged in successfully."
-      });
     } catch (error: any) {
       toast({
         title: "Login failed",
