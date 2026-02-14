@@ -30,9 +30,11 @@ Deno.serve(async (req) => {
       );
     }
 
-    const { message, session_id } = await req.json();
+    const { message, session_id, webhook_url: requestWebhookUrl } = await req.json();
 
-    if (!settings.webhook_url) {
+    const webhookUrl = requestWebhookUrl || settings.webhook_url;
+
+    if (!webhookUrl) {
       return new Response(
         JSON.stringify({ reply: settings.fallback_message }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -41,7 +43,7 @@ Deno.serve(async (req) => {
 
     // Forward to webhook
     try {
-      const webhookResponse = await fetch(settings.webhook_url, {
+      const webhookResponse = await fetch(webhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
