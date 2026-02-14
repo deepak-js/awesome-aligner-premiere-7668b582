@@ -76,8 +76,8 @@ const ValueProposition = () => {
               className="rounded-2xl shadow-xl w-full transform hover:scale-[1.02] transition-transform duration-500" src="/lovable-uploads/b901a9aa-6523-4891-835e-e25d1560adef.png" />
 
             <div className="absolute -bottom-6 -left-6 bg-card p-4 rounded-xl shadow-lg border border-border hover:scale-105 transition-transform duration-300">
-              <p className="text-2xl font-bold text-primary">500+</p>
-              <p className="text-sm text-muted-foreground">Certified Doctors</p>
+              <p className="text-2xl font-bold text-primary">Certified Orthodontists</p>
+              <p className="text-sm text-muted-foreground">Monitoring done by Authorized Certified Doctors          </p>
             </div>
           </div>
         </div>
