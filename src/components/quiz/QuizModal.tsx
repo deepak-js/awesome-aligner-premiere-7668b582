@@ -18,14 +18,7 @@ import {
   Baby
 } from "lucide-react";
 
-// Import dental condition images
-import crowdedTeethImg from "@/assets/quiz-crowded-teeth.png";
-import gapTeethImg from "@/assets/quiz-gap-teeth.png";
-import overbiteImg from "@/assets/quiz-overbite.png";
-import underbiteImg from "@/assets/quiz-underbite.png";
-import crossbiteImg from "@/assets/quiz-crossbite.png";
-import openbiteImg from "@/assets/quiz-openbite.png";
-import straightenImg from "@/assets/quiz-straighten.png";
+import DentalConditionIcon from "@/components/quiz/DentalConditionIcon";
 
 interface QuizModalProps {
   isOpen: boolean;
@@ -55,13 +48,13 @@ const questions = [
     type: "multiple",
     hasImages: true,
     options: [
-      { value: "crowded", label: "Crowded teeth", image: crowdedTeethImg },
-      { value: "gaps", label: "Gap between teeth", image: gapTeethImg },
-      { value: "overbite", label: "Overbite", image: overbiteImg },
-      { value: "underbite", label: "Underbite", image: underbiteImg },
-      { value: "crossbite", label: "Crossbite", image: crossbiteImg },
-      { value: "open_bite", label: "Open bite", image: openbiteImg },
-      { value: "straighten", label: "Generally straighten", image: straightenImg },
+      { value: "crowded", label: "Crowded teeth" },
+      { value: "gaps", label: "Gap between teeth" },
+      { value: "overbite", label: "Overbite" },
+      { value: "underbite", label: "Underbite" },
+      { value: "crossbite", label: "Crossbite" },
+      { value: "open_bite", label: "Open bite" },
+      { value: "straighten", label: "Generally straighten" },
     ]
   },
   {
@@ -298,12 +291,8 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
                             : "border-border hover:border-primary/50 bg-card"
                         }`}
                       >
-                        <div className="relative w-full aspect-square mb-2 rounded-lg overflow-hidden bg-muted">
-                          <img
-                            src={option.image}
-                            alt={option.label}
-                            className="w-full h-full object-contain p-1"
-                          />
+                        <div className="relative w-full aspect-square mb-2 rounded-lg overflow-hidden">
+                          <DentalConditionIcon condition={option.value} />
                           {isSelected && (
                             <div className="absolute top-1 right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
                               <CheckCircle className="h-3 w-3 text-primary-foreground" />
