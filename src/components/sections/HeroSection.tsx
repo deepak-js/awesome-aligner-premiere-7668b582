@@ -31,11 +31,11 @@ const HeroSection = () => {
     <section className="relative min-h-screen overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <img 
-          src={heroGradientBg} 
-          alt="" 
-          className="w-full h-full object-cover"
-        />
+        <img
+          src={heroGradientBg}
+          alt=""
+          className="w-full h-full object-cover" />
+
       </div>
 
       {/* Floating decorative elements */}
@@ -48,29 +48,29 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[calc(100vh-200px)]">
           {/* Left Content */}
           <div className="space-y-8">
-            <div 
+            <div
               data-hero-badge
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 rounded-full border border-primary-foreground/20 backdrop-blur-sm"
-            >
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 rounded-full border border-primary-foreground/20 backdrop-blur-sm">
+
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
               <span className="text-primary-foreground/90 text-sm font-medium">
                 Premium Clear Aligner Technology
               </span>
             </div>
 
-            <h1 
+            <h1
               data-hero-title
-              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight"
-            >
+              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight">
+
               Your Smile,
               <br />
               <span className="text-gradient">Aligned to Perfection.</span>
             </h1>
 
-            <p 
+            <p
               data-hero-text
-              className="text-lg md:text-xl text-primary-foreground/80 max-w-lg leading-relaxed"
-            >
+              className="text-lg md:text-xl text-primary-foreground/80 max-w-lg leading-relaxed">
+
               World-class clear aligners designed for comfort, precision, and confidence. Experience the future of orthodontic care.
             </p>
 
@@ -86,11 +86,11 @@ const HeroSection = () => {
               </Button>
             </div>
 
-            <button 
+            <button
               data-hero-cta
               onClick={() => setIsQuizOpen(true)}
-              className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors group"
-            >
+              className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors group">
+
               <div className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center group-hover:bg-primary-foreground/20 transition-colors group-hover:scale-110 duration-300">
                 <Play className="w-4 h-4 fill-current" />
               </div>
@@ -109,8 +109,8 @@ const HeroSection = () => {
                 loop
                 muted
                 playsInline
-                onEnded={() => setIsPlaying(false)}
-              />
+                onEnded={() => setIsPlaying(false)} />
+
               {/* Gradient overlay - fades when playing */}
               <div className={`absolute inset-0 bg-gradient-to-t from-primary/40 via-primary/10 to-transparent transition-opacity duration-500 ${isPlaying ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} />
               
@@ -118,19 +118,19 @@ const HeroSection = () => {
               <button
                 onClick={toggleVideo}
                 className={`absolute bottom-5 right-5 z-20 flex items-center gap-3 px-5 py-3 rounded-full backdrop-blur-md border transition-all duration-300 group ${
-                  isPlaying 
-                    ? 'bg-primary-foreground/10 border-primary-foreground/20 hover:bg-primary-foreground/20' 
-                    : 'bg-primary-foreground/15 border-primary-foreground/30 hover:bg-primary-foreground/25 hover:scale-105'
-                }`}
-              >
+                isPlaying ?
+                'bg-primary-foreground/10 border-primary-foreground/20 hover:bg-primary-foreground/20' :
+                'bg-primary-foreground/15 border-primary-foreground/30 hover:bg-primary-foreground/25 hover:scale-105'}`
+                }>
+
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  isPlaying ? 'bg-primary-foreground/20' : 'bg-accent'
-                }`}>
-                  {isPlaying ? (
-                    <Pause className="w-4 h-4 text-primary-foreground fill-current" />
-                  ) : (
-                    <Play className="w-4 h-4 text-primary-foreground fill-current ml-0.5" />
-                  )}
+                isPlaying ? 'bg-primary-foreground/20' : 'bg-accent'}`
+                }>
+                  {isPlaying ?
+                  <Pause className="w-4 h-4 text-primary-foreground fill-current" /> :
+
+                  <Play className="w-4 h-4 text-primary-foreground fill-current ml-0.5" />
+                  }
                 </div>
                 <span className="text-primary-foreground text-sm font-medium pr-1">
                   {isPlaying ? 'Pause' : 'Watch Video'}
@@ -139,21 +139,21 @@ const HeroSection = () => {
             </div>
 
             {/* Floating feature cards */}
-            <div 
+            <div
               data-hero-float
-              className="absolute -bottom-6 -left-6 glass-card rounded-2xl p-4 hover:scale-105 transition-transform duration-300"
-            >
+              className="absolute -bottom-6 -left-6 glass-card rounded-2xl p-4 hover:scale-105 transition-transform duration-300">
+
               <div className="text-2xl font-bold text-primary">FDA Cleared</div>
               <div className="text-sm text-muted-foreground">Safe & Approved</div>
             </div>
 
-            <div 
-              data-hero-float
-              className="absolute -top-6 -right-6 glass-card rounded-2xl p-4 hover:scale-105 transition-transform duration-300"
-            >
-              <div className="text-2xl font-bold text-secondary">6-12 mo</div>
-              <div className="text-sm text-muted-foreground">Average Treatment</div>
-            </div>
+            
+
+
+
+
+
+
           </div>
         </div>
 
@@ -161,11 +161,11 @@ const HeroSection = () => {
         <div className="mt-16 pt-16 border-t border-primary-foreground/10">
           <div className="flex flex-col lg:flex-row items-center gap-8">
             <div className="flex-shrink-0">
-              <img 
-                src={diverseSmiles} 
-                alt="Diverse group of happy patients" 
-                className="w-64 h-40 object-cover rounded-2xl shadow-lg"
-              />
+              <img
+                src={diverseSmiles}
+                alt="Diverse group of happy patients"
+                className="w-64 h-40 object-cover rounded-2xl shadow-lg" />
+
             </div>
             <div className="text-center lg:text-left">
               <p className="text-primary-foreground/60 text-sm mb-2">Join our global community</p>
@@ -191,8 +191,8 @@ const HeroSection = () => {
 
       {/* Quiz Modal */}
       <QuizModal isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} />
-    </section>
-  );
+    </section>);
+
 };
 
 export default HeroSection;
