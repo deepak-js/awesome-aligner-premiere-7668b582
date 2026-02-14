@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, Pause } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-smile-main.jpg";
 import diverseSmiles from "@/assets/diverse-smiles.jpg";
 import heroGradientBg from "@/assets/hero-gradient-bg.jpeg";
+import heroVideo from "@/assets/hero-video.mp4";
 import QuizModal from "@/components/quiz/QuizModal";
 import FloatingShapes from "@/components/decorative/FloatingShapes";
 import ParticleField from "@/components/decorative/ParticleField";
@@ -12,7 +12,20 @@ import { useHeroAnimation } from "@/hooks/useGSAPAnimations";
 
 const HeroSection = () => {
   const [isQuizOpen, setIsQuizOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const heroRef = useHeroAnimation();
+
+  const toggleVideo = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
 
   return (
     <section className="relative min-h-screen overflow-hidden">
@@ -88,13 +101,41 @@ const HeroSection = () => {
 
           {/* Right Content - Image */}
           <div data-hero-image className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
-              <img
-                src={heroImage}
-                alt="Happy patient with beautiful smile wearing clear aligners"
-                className="w-full h-auto object-cover"
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <video
+                ref={videoRef}
+                src={heroVideo}
+                className="w-full h-auto object-cover aspect-[4/3] rounded-3xl"
+                loop
+                muted
+                playsInline
+                onEnded={() => setIsPlaying(false)}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
+              {/* Gradient overlay - fades when playing */}
+              <div className={`absolute inset-0 bg-gradient-to-t from-primary/40 via-primary/10 to-transparent transition-opacity duration-500 ${isPlaying ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} />
+              
+              {/* Play/Pause button - bottom right */}
+              <button
+                onClick={toggleVideo}
+                className={`absolute bottom-5 right-5 z-20 flex items-center gap-3 px-5 py-3 rounded-full backdrop-blur-md border transition-all duration-300 group ${
+                  isPlaying 
+                    ? 'bg-primary-foreground/10 border-primary-foreground/20 hover:bg-primary-foreground/20' 
+                    : 'bg-primary-foreground/15 border-primary-foreground/30 hover:bg-primary-foreground/25 hover:scale-105'
+                }`}
+              >
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  isPlaying ? 'bg-primary-foreground/20' : 'bg-accent'
+                }`}>
+                  {isPlaying ? (
+                    <Pause className="w-4 h-4 text-primary-foreground fill-current" />
+                  ) : (
+                    <Play className="w-4 h-4 text-primary-foreground fill-current ml-0.5" />
+                  )}
+                </div>
+                <span className="text-primary-foreground text-sm font-medium pr-1">
+                  {isPlaying ? 'Pause' : 'Watch Video'}
+                </span>
+              </button>
             </div>
 
             {/* Floating feature cards */}
