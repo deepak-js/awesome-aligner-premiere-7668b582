@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useToast } from "@/hooks/use-toast";
 import type { User, Session } from "@supabase/supabase-js";
 import CaseStudyForm from "@/components/admin/CaseStudyForm";
+import ChatbotSettings from "@/components/admin/ChatbotSettings";
 import {
   LogOut,
   Users,
@@ -23,7 +24,8 @@ import {
   RefreshCw,
   Image,
   Plus,
-  Trash2
+  Trash2,
+  MessageSquare
 } from "lucide-react";
 
 interface QuizLead {
@@ -85,7 +87,7 @@ const Admin = () => {
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [showCaseForm, setShowCaseForm] = useState(false);
-
+  const [chatbotActive, setChatbotActive] = useState<boolean | null>(null);
   const checkAdminRole = async (userId: string) => {
     const { data, error } = await supabase
       .from("user_roles")
@@ -138,15 +140,17 @@ const Admin = () => {
   const fetchData = async () => {
     setRefreshing(true);
     try {
-      const [leadsRes, appsRes, casesRes] = await Promise.all([
+      const [leadsRes, appsRes, casesRes, chatbotRes] = await Promise.all([
         supabase.from("quiz_leads").select("*").order("created_at", { ascending: false }),
         supabase.from("doctor_applications").select("*").order("created_at", { ascending: false }),
-        supabase.from("case_studies").select("*").order("featured", { ascending: false }).order("created_at", { ascending: false })
+        supabase.from("case_studies").select("*").order("featured", { ascending: false }).order("created_at", { ascending: false }),
+        (supabase as any).from("chatbot_settings").select("is_active").limit(1).single(),
       ]);
 
       if (leadsRes.data) setQuizLeads(leadsRes.data);
       if (appsRes.data) setDoctorApps(appsRes.data);
       if (casesRes.data) setCaseStudies(casesRes.data);
+      if (chatbotRes.data) setChatbotActive(chatbotRes.data.is_active);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -232,7 +236,7 @@ const Admin = () => {
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           <div className="p-6 rounded-xl bg-card border border-border">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -276,6 +280,18 @@ const Admin = () => {
             </p>
             <p className="text-sm text-muted-foreground">Premium Tier Apps</p>
           </div>
+
+          <div className="p-6 rounded-xl bg-card border border-border">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <MessageSquare className="h-5 w-5 text-primary" />
+              </div>
+            </div>
+            <p className="text-2xl font-bold">
+              {chatbotActive === null ? "—" : chatbotActive ? "Active" : "Inactive"}
+            </p>
+            <p className="text-sm text-muted-foreground">Chatbot Status</p>
+          </div>
         </div>
 
         {/* Tabs */}
@@ -290,6 +306,9 @@ const Admin = () => {
               </TabsTrigger>
               <TabsTrigger value="cases" className="gap-2">
                 <Image className="h-4 w-4" /> Case Studies
+              </TabsTrigger>
+              <TabsTrigger value="chatbot" className="gap-2">
+                <MessageSquare className="h-4 w-4" /> Chatbot
               </TabsTrigger>
             </TabsList>
             
@@ -562,6 +581,10 @@ const Admin = () => {
                 ))}
               </div>
             )}
+          </TabsContent>
+
+          <TabsContent value="chatbot">
+            <ChatbotSettings />
           </TabsContent>
         </Tabs>
 
