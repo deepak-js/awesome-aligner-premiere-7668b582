@@ -117,35 +117,18 @@ const HeroSection = () => {
               {/* Play/Pause button - bottom right */}
               <button
                 onClick={toggleVideo}
-                className={`absolute bottom-5 right-5 z-20 flex items-center gap-3 px-5 py-3 rounded-full backdrop-blur-md border transition-all duration-300 group ${
+                className={`absolute bottom-5 right-5 z-20 w-12 h-12 rounded-full backdrop-blur-md border flex items-center justify-center transition-all duration-300 ${
                 isPlaying ?
                 'bg-primary-foreground/10 border-primary-foreground/20 hover:bg-primary-foreground/20' :
                 'bg-primary-foreground/15 border-primary-foreground/30 hover:bg-primary-foreground/25 hover:scale-105'}`
                 }>
-
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                isPlaying ? 'bg-primary-foreground/20' : 'bg-accent'}`
-                }>
                   {isPlaying ?
                   <Pause className="w-4 h-4 text-primary-foreground fill-current" /> :
-
                   <Play className="w-4 h-4 text-primary-foreground fill-current ml-0.5" />
                   }
-                </div>
-                <span className="text-primary-foreground text-sm font-medium pr-1">
-                  {isPlaying ? 'Pause' : 'Watch Video'}
-                </span>
               </button>
             </div>
 
-            {/* Floating feature cards */}
-            <div
-              data-hero-float
-              className="absolute -bottom-6 -left-6 glass-card rounded-2xl p-4 hover:scale-105 transition-transform duration-300">
-
-              <div className="text-2xl font-bold text-primary">FDA Cleared</div>
-              <div className="text-sm text-muted-foreground">Safe & Approved</div>
-            </div>
 
             
 
