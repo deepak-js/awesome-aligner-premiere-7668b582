@@ -2,3 +2,6 @@ project_id = "vszuiyqbnbfneccxpdko"
 
 [functions.send-notification-email]
 verify_jwt = false
+
+[functions.chat-webhook]
+verify_jwt = false

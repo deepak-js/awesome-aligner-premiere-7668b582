@@ -65,6 +65,39 @@ export type Database = {
         }
         Relationships: []
       }
+      chatbot_settings: {
+        Row: {
+          bot_name: string | null
+          fallback_message: string | null
+          id: string
+          is_active: boolean | null
+          quick_replies: Json | null
+          updated_at: string | null
+          webhook_url: string | null
+          welcome_message: string | null
+        }
+        Insert: {
+          bot_name?: string | null
+          fallback_message?: string | null
+          id?: string
+          is_active?: boolean | null
+          quick_replies?: Json | null
+          updated_at?: string | null
+          webhook_url?: string | null
+          welcome_message?: string | null
+        }
+        Update: {
+          bot_name?: string | null
+          fallback_message?: string | null
+          id?: string
+          is_active?: boolean | null
+          quick_replies?: Json | null
+          updated_at?: string | null
+          webhook_url?: string | null
+          welcome_message?: string | null
+        }
+        Relationships: []
+      }
       doctor_applications: {
         Row: {
           city: string | null
