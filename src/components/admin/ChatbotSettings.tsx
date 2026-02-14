@@ -100,7 +100,7 @@ const ChatbotSettings = () => {
 
     try {
       const response = await supabase.functions.invoke("chat-webhook", {
-        body: { message: "Test message from admin panel", session_id: "admin-test" },
+        body: { message: "Test message from admin panel", session_id: "admin-test", webhook_url: settings.webhook_url },
       });
 
       if (response.error) throw response.error;
