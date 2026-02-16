@@ -9,103 +9,103 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+  AccordionTrigger } from
+"@/components/ui/accordion";
 
 const pricingPlans = [
-  {
-    name: "Lite",
-    description: "For minor corrections",
-    price: 1895,
-    duration: "3-6 months",
-    popular: false,
-    features: [
-      "Up to 10 aligners",
-      "Minor spacing or crowding",
-      "Retainers included",
-      "Virtual check-ins",
-      "90-day refinement guarantee",
-    ],
-  },
-  {
-    name: "Complete",
-    description: "Most popular choice",
-    price: 3495,
-    duration: "6-12 months",
-    popular: true,
-    features: [
-      "Unlimited aligners",
-      "Moderate to complex cases",
-      "Premium retainers included",
-      "Bi-weekly virtual check-ins",
-      "Lifetime refinement guarantee",
-      "Whitening kit included",
-      "Priority support",
-    ],
-  },
-  {
-    name: "Premium",
-    description: "Comprehensive transformation",
-    price: 4995,
-    duration: "12-18 months",
-    popular: false,
-    features: [
-      "Unlimited aligners",
-      "Complex cases & bite correction",
-      "Premium retainers included",
-      "Weekly virtual check-ins",
-      "Lifetime refinement guarantee",
-      "Professional whitening treatment",
-      "Dedicated care coordinator",
-      "In-person consultations included",
-    ],
-  },
-];
+{
+  name: "Lite",
+  description: "For minor corrections",
+  price: 1895,
+  duration: "3-6 months",
+  popular: false,
+  features: [
+  "Up to 10 aligners",
+  "Minor spacing or crowding",
+  "Retainers included",
+  "Virtual check-ins",
+  "90-day refinement guarantee"]
+
+},
+{
+  name: "Complete",
+  description: "Most popular choice",
+  price: 3495,
+  duration: "6-12 months",
+  popular: true,
+  features: [
+  "Unlimited aligners",
+  "Moderate to complex cases",
+  "Premium retainers included",
+  "Bi-weekly virtual check-ins",
+  "Lifetime refinement guarantee",
+  "Whitening kit included",
+  "Priority support"]
+
+},
+{
+  name: "Premium",
+  description: "Comprehensive transformation",
+  price: 4995,
+  duration: "12-18 months",
+  popular: false,
+  features: [
+  "Unlimited aligners",
+  "Complex cases & bite correction",
+  "Premium retainers included",
+  "Weekly virtual check-ins",
+  "Lifetime refinement guarantee",
+  "Professional whitening treatment",
+  "Dedicated care coordinator",
+  "In-person consultations included"]
+
+}];
+
 
 const paymentOptions = [
-  {
-    title: "Pay in Full",
-    description: "Save 10% when you pay upfront",
-    details: "One-time payment with maximum savings",
-  },
-  {
-    title: "Monthly Payments",
-    description: "As low as $89/month",
-    details: "0% APR financing available for qualified applicants. Split into 12-24 monthly payments.",
-  },
-  {
-    title: "FSA/HSA Accepted",
-    description: "Use pre-tax dollars",
-    details: "Awesome Aligners is an eligible expense for most FSA and HSA accounts.",
-  },
-];
+{
+  title: "Pay in Full",
+  description: "Save 10% when you pay upfront",
+  details: "One-time payment with maximum savings"
+},
+{
+  title: "Monthly Payments",
+  description: "As low as $89/month",
+  details: "0% APR financing available for qualified applicants. Split into 12-24 monthly payments."
+},
+{
+  title: "FSA/HSA Accepted",
+  description: "Use pre-tax dollars",
+  details: "Awesome Aligners is an eligible expense for most FSA and HSA accounts."
+}];
+
 
 const insuranceFAQ = [
-  {
-    question: "Does insurance cover clear aligners?",
-    answer: "Many dental insurance plans cover clear aligners as they would cover traditional braces. Typically, orthodontic coverage can range from $1,000 to $3,000. We recommend checking with your insurance provider for specific coverage details.",
-  },
-  {
-    question: "How do I know if my insurance covers Awesome Aligners?",
-    answer: "Contact your insurance provider and ask about orthodontic benefits. Our team can also help verify your benefits and provide documentation for claims submission.",
-  },
-  {
-    question: "Can I use my FSA or HSA?",
-    answer: "Yes! Clear aligners are considered a qualified medical expense. You can use your Flexible Spending Account (FSA) or Health Savings Account (HSA) to pay for treatment with pre-tax dollars.",
-  },
-  {
-    question: "Do you offer payment plans?",
-    answer: "Absolutely! We offer flexible payment plans starting as low as $89/month with 0% APR financing for qualified applicants. You can split your treatment cost into 12, 18, or 24 monthly payments.",
-  },
-  {
-    question: "What if I need refinements?",
-    answer: "Our Complete and Premium plans include a lifetime refinement guarantee at no additional cost. The Lite plan includes a 90-day refinement guarantee. Refinements ensure you achieve your perfect smile.",
-  },
-  {
-    question: "Is there a money-back guarantee?",
-    answer: "We offer a satisfaction guarantee within the first 30 days of receiving your aligners. If you're not completely satisfied with the fit or quality, we'll work with you to make it right or provide a full refund.",
-  },
-];
+{
+  question: "Does insurance cover clear aligners?",
+  answer: "Many dental insurance plans cover clear aligners as they would cover traditional braces. Typically, orthodontic coverage can range from $1,000 to $3,000. We recommend checking with your insurance provider for specific coverage details."
+},
+{
+  question: "How do I know if my insurance covers Awesome Aligners?",
+  answer: "Contact your insurance provider and ask about orthodontic benefits. Our team can also help verify your benefits and provide documentation for claims submission."
+},
+{
+  question: "Can I use my FSA or HSA?",
+  answer: "Yes! Clear aligners are considered a qualified medical expense. You can use your Flexible Spending Account (FSA) or Health Savings Account (HSA) to pay for treatment with pre-tax dollars."
+},
+{
+  question: "Do you offer payment plans?",
+  answer: "Absolutely! We offer flexible payment plans starting as low as $89/month with 0% APR financing for qualified applicants. You can split your treatment cost into 12, 18, or 24 monthly payments."
+},
+{
+  question: "What if I need refinements?",
+  answer: "Our Complete and Premium plans include a lifetime refinement guarantee at no additional cost. The Lite plan includes a 90-day refinement guarantee. Refinements ensure you achieve your perfect smile."
+},
+{
+  question: "Is there a money-back guarantee?",
+  answer: "We offer a satisfaction guarantee within the first 30 days of receiving your aligners. If you're not completely satisfied with the fit or quality, we'll work with you to make it right or provide a full refund."
+}];
+
 
 const Pricing = () => {
   return (
@@ -115,16 +115,16 @@ const Pricing = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-to-b from-primary/5 to-background">
         <div className="max-w-7xl mx-auto px-4 md:px-8 text-center">
-          <Badge variant="secondary" className="mb-4">
-            Transparent Pricing
+          <Badge variant="secondary" className="mb-4">Pricing
+
           </Badge>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
             Invest in Your Smile
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Premium clear aligners at fair prices. No hidden fees, no surprises. 
-            Just beautiful results.
-          </p>
+          
+
+
+
         </div>
       </section>
 
@@ -132,19 +132,19 @@ const Pricing = () => {
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid md:grid-cols-3 gap-8">
-            {pricingPlans.map((plan) => (
-              <Card 
-                key={plan.name} 
-                className={`relative flex flex-col ${plan.popular ? 'border-primary shadow-lg scale-105' : ''}`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+            {pricingPlans.map((plan) =>
+            <Card
+              key={plan.name}
+              className={`relative flex flex-col ${plan.popular ? 'border-primary shadow-lg scale-105' : ''}`}>
+
+                {plan.popular &&
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                     <Badge className="bg-primary text-primary-foreground px-4 py-1">
                       <Sparkles className="w-3 h-3 mr-1" />
                       Most Popular
                     </Badge>
                   </div>
-                )}
+              }
                 <CardHeader className="text-center pb-2">
                   <CardTitle className="text-2xl">{plan.name}</CardTitle>
                   <CardDescription>{plan.description}</CardDescription>
@@ -160,26 +160,26 @@ const Pricing = () => {
                     </p>
                   </div>
                   <ul className="space-y-3">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
+                    {plan.features.map((feature) =>
+                  <li key={feature} className="flex items-start gap-3">
                         <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                         <span className="text-muted-foreground">{feature}</span>
                       </li>
-                    ))}
+                  )}
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button 
-                    className="w-full" 
-                    variant={plan.popular ? "default" : "outline"}
-                    size="lg"
-                    asChild
-                  >
+                  <Button
+                  className="w-full"
+                  variant={plan.popular ? "default" : "outline"}
+                  size="lg"
+                  asChild>
+
                     <Link to="/quiz">Get Started</Link>
                   </Button>
                 </CardFooter>
               </Card>
-            ))}
+            )}
           </div>
           <p className="text-center text-sm text-muted-foreground mt-8">
             All plans include free shipping, a custom treatment plan, and dedicated support.
@@ -199,8 +199,8 @@ const Pricing = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            {paymentOptions.map((option) => (
-              <Card key={option.title} className="text-center">
+            {paymentOptions.map((option) =>
+            <Card key={option.title} className="text-center">
                 <CardHeader>
                   <CardTitle className="text-xl">{option.title}</CardTitle>
                   <CardDescription className="text-primary font-semibold">
@@ -211,7 +211,7 @@ const Pricing = () => {
                   <p className="text-muted-foreground text-sm">{option.details}</p>
                 </CardContent>
               </Card>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -299,8 +299,8 @@ const Pricing = () => {
             </p>
           </div>
           <Accordion type="single" collapsible className="w-full">
-            {insuranceFAQ.map((item, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
+            {insuranceFAQ.map((item, index) =>
+            <AccordionItem key={index} value={`item-${index}`}>
                 <AccordionTrigger className="text-left">
                   {item.question}
                 </AccordionTrigger>
@@ -308,7 +308,7 @@ const Pricing = () => {
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
-            ))}
+            )}
           </Accordion>
         </div>
       </section>
@@ -334,8 +334,8 @@ const Pricing = () => {
       </section>
 
       <Footer />
-    </main>
-  );
+    </main>);
+
 };
 
 export default Pricing;
