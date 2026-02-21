@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -15,7 +16,7 @@ import {
 } from "lucide-react";
 
 const treatmentTypes = [
-  { id: "mild", label: "Mild Alignment", description: "Minor spacing or crowding", basePrice: 45000, duration: "4-6 months" },
+  { id: "mild", label: "Mild Alignment", description: "Minor spacing or crowding", basePrice: 25000, duration: "4-6 months" },
   { id: "moderate", label: "Moderate Correction", description: "Noticeable gaps or overlap", basePrice: 65000, duration: "8-12 months" },
   { id: "complex", label: "Complex Treatment", description: "Significant bite issues", basePrice: 95000, duration: "12-18 months" },
 ];
@@ -67,6 +68,11 @@ const CostCalculator = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Cost Calculator | Estimate Your Aligner Treatment Cost"
+        description="Get a personalized cost estimate for your clear aligner treatment. Choose your treatment type, add-ons, and explore flexible EMI options."
+        canonical="https://awesome-aligner-premiere.lovable.app/cost-calculator"
+      />
       <Header />
       
       {/* Hero */}

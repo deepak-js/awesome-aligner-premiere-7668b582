@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
@@ -316,6 +317,11 @@ const Results = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Before & After Results | Real Smile Transformations | Awesome Aligners"
+        description="See real before-and-after clear aligner results. Explore smile transformations for crowding, spacing, overbite, underbite, and more."
+        canonical="https://awesome-aligner-premiere.lovable.app/results"
+      />
       <Header />
       
       {/* Hero Section */}
@@ -458,7 +464,7 @@ const Results = () => {
                       <Quote className="h-6 w-6 md:h-8 md:w-8 text-primary/30 mb-3" />
                       <p className="italic text-base md:text-lg mb-4">"{selectedCase.testimonial}"</p>
                       <p className="text-sm text-muted-foreground">
-                        — Patient treated by {selectedCase.doctor_name}
+                        Patient treated by {selectedCase.doctor_name}
                       </p>
                     </div>
                   )}

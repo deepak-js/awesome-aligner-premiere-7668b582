@@ -1,15 +1,21 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import SEOHead from '@/components/SEOHead';
 
 const PrivacyPolicy = () => {
   return (
     <main className="min-h-screen">
+      <SEOHead
+        title="Privacy Policy | Awesome Aligners"
+        description="Learn how Awesome Aligners collects, uses, and protects your personal information. Read our complete privacy policy."
+        canonical="https://awesome-aligner-premiere.lovable.app/privacy-policy"
+      />
       <Header />
       
       <section className="pt-32 pb-20 bg-muted/30">
         <div className="max-w-4xl mx-auto px-4 md:px-8">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Privacy Policy</h1>
-          <p className="text-muted-foreground">Last updated: December 2024</p>
+          <p className="text-muted-foreground">Last updated: January 2025</p>
         </div>
       </section>
 

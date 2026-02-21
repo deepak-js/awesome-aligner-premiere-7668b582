@@ -95,10 +95,10 @@ const About = () => {
                   Awesome Aligners was established with a clear goal: making premium clear aligner treatment accessible, affordable, and orthodontist-supervised for every Indian patient.
                 </p>
                 <p>
-                  Inspired by global leaders like <span className="font-semibold text-foreground">Invisalign</span> and <span className="font-semibold text-foreground">Spark Aligners</span>, we combine world-class aligner technology with the expertise of Indian orthodontists who understand local dental needs. Our aligners are crafted using advanced digital workflows, 3D scanning, and medical-grade BPA-free materials — delivering results comparable to international brands at a fraction of the cost.
+                  Inspired by global leaders like <span className="font-semibold text-foreground">Invisalign</span> and <span className="font-semibold text-foreground">Spark Aligners</span>, we combine world-class aligner technology with the expertise of Indian orthodontists who understand local dental needs. Our aligners are crafted using advanced digital workflows, 3D scanning, and medical-grade BPA-free materials, delivering results comparable to international brands at a fraction of the cost.
                 </p>
                 <p>
-                  What sets us apart is our orthodontist-first approach. Unlike many aligner brands that rely on general dentists or remote monitoring alone, every Awesome Aligners case is <span className="font-semibold text-foreground">planned, supervised, and monitored by a qualified orthodontist</span> throughout the entire treatment duration — from your first consultation to your final retainer.
+                  What sets us apart is our orthodontist-first approach. Unlike many aligner brands that rely on general dentists or remote monitoring alone, every Awesome Aligners case is <span className="font-semibold text-foreground">planned, supervised, and monitored by a qualified orthodontist</span> throughout the entire treatment duration, from your first consultation to your final retainer.
                 </p>
               </div>
             </div>

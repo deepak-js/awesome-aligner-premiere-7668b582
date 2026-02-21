@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import SEOHead from "@/components/SEOHead";
 import heroGradientBg from "@/assets/hero-gradient-bg.jpeg";
 import { 
   TrendingUp, 
@@ -162,6 +163,11 @@ const DoctorPartnership = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Partner With Awesome Aligners | Doctor Partnership Program"
+        description="Join India's fastest-growing clear aligner network. Expand your dental practice with our partnership program, training, and patient referrals."
+        canonical="https://awesome-aligner-premiere.lovable.app/for-doctors"
+      />
       <Header />
       
       {/* Hero Section */}

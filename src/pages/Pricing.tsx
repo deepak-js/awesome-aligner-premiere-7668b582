@@ -1,5 +1,6 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -14,33 +15,17 @@ import {
 import heroGradientBg from '@/assets/hero-gradient-bg.jpeg';
 
 const emiOptions = [
-  {
-    duration: "6 Months",
-    monthly: "₹5,000",
-    total: "₹30,000",
-  },
-  {
-    duration: "9 Months",
-    monthly: "₹3,889",
-    total: "₹35,000",
-  },
-  {
-    duration: "12 Months",
-    monthly: "₹3,333",
-    total: "₹40,000",
-  },
-  {
-    duration: "18 Months",
-    monthly: "₹2,778",
-    total: "₹50,000",
-  },
+  { duration: "6 Months", monthly: "₹5,000", total: "₹30,000" },
+  { duration: "9 Months", monthly: "₹3,889", total: "₹35,000" },
+  { duration: "12 Months", monthly: "₹3,333", total: "₹40,000" },
+  { duration: "18 Months", monthly: "₹2,778", total: "₹50,000" },
 ];
 
 const benefits = [
   {
     icon: BadgeIndianRupee,
     title: "Transparent Pricing",
-    description: "No hidden charges. The price you see is the price you pay — inclusive of aligners, retainers, and follow-ups.",
+    description: "No hidden charges. The price you see is the price you pay, inclusive of aligners, retainers, and follow-ups.",
   },
   {
     icon: CreditCard,
@@ -89,6 +74,30 @@ const faqs = [
 const Pricing = () => {
   return (
     <main className="min-h-screen">
+      <SEOHead
+        title="Clear Aligner Pricing & EMI Plans | Awesome Aligners"
+        description="Affordable clear aligner treatment starting from ₹25,000. Flexible EMI options, insurance coordination, and 30-day money-back guarantee."
+        canonical="https://awesome-aligner-premiere.lovable.app/pricing"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Awesome Aligners Clear Aligner Treatment",
+          "provider": { "@type": "Organization", "name": "Awesome Aligners" },
+          "description": "Premium clear aligner treatment starting from ₹25,000",
+          "areaServed": "India",
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "INR",
+            "price": "25000",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": "25000",
+              "maxPrice": "80000",
+              "priceCurrency": "INR"
+            }
+          }
+        }}
+      />
       <Header />
 
       {/* Hero Section - Dark Blue Gradient */}
@@ -167,7 +176,7 @@ const Pricing = () => {
               </div>
               <div className="text-center mt-8">
                 <Button size="lg" asChild>
-                  <Link to="/contact">Get Your Exact Quote — Free</Link>
+                  <Link to="/contact">Get Your Exact Quote (Free)</Link>
                 </Button>
               </div>
             </CardContent>
@@ -241,7 +250,7 @@ const Pricing = () => {
             100% Money-Back Guarantee
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
-            We're confident you'll love your aligners. If you're not completely satisfied within 30 days of receiving your first set, we'll refund your full payment — no questions asked.
+            We're confident you'll love your aligners. If you're not completely satisfied within 30 days of receiving your first set, we'll refund your full payment. No questions asked.
           </p>
           <Button variant="outline" size="lg" asChild>
             <Link to="/contact">Learn More</Link>
@@ -287,7 +296,7 @@ const Pricing = () => {
             Ready to Start Your Smile Journey?
           </h2>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Book a free consultation today. Get your 3D scan, exact pricing, and personalised treatment plan — all at no cost.
+            Book a free consultation today. Get your 3D scan, exact pricing, and personalised treatment plan, all at no cost.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="hero" asChild>

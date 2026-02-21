@@ -14,8 +14,9 @@ const contactMethods = [
     icon: Phone,
     title: "Call Us",
     description: "Speak directly with our team",
-    value: "1-800-ALIGNERS",
+    value: "+91 44 4500 2500",
     action: "Call Now",
+    actionHref: "tel:+914445002500",
   },
   {
     icon: Mail,
@@ -23,6 +24,7 @@ const contactMethods = [
     description: "Get a response within 24 hours",
     value: "hello@awesomealigners.com",
     action: "Send Email",
+    actionHref: "mailto:hello@awesomealigners.com",
   },
   {
     icon: MessageSquare,
@@ -30,6 +32,7 @@ const contactMethods = [
     description: "Available Mon-Fri, 9am-6pm IST",
     value: "Chat with an expert",
     action: "Start Chat",
+    actionHref: "#chat",
   },
 ];
 
@@ -38,19 +41,19 @@ const offices = [
     city: "United Kingdom",
     address: "3rd Floor, Warwick Wing, Sun Clinics UK Ltd, 701 Chester Road, Stretford",
     zip: "Manchester M32 0RW, United Kingdom",
-    phone: "+44 161 XXX XXXX",
+    phone: "+44 161 870 6000",
   },
   {
     city: "Chennai, India",
     address: "63, Balaji Nagar, 4th Street, Alwarthirunagar",
     zip: "Chennai 600087, Tamil Nadu, India",
-    phone: "+91 44 XXXX XXXX",
+    phone: "+91 44 4500 2500",
   },
   {
     city: "Thanjavur, India",
     address: "B-19, 6th Cross Road, Arulanandha Nagar Main Road, Arulanthar Nagar",
     zip: "Thanjavur 613007, Tamil Nadu, India",
-    phone: "+91 43 XXXX XXXX",
+    phone: "+91 4362 230 500",
   },
 ];
 
@@ -169,7 +172,20 @@ const Contact = () => {
                 <h3 className="text-lg font-semibold text-foreground mb-1">{method.title}</h3>
                 <p className="text-sm text-muted-foreground mb-3">{method.description}</p>
                 <p className="font-medium text-foreground mb-4">{method.value}</p>
-                <Button variant="outline" size="sm" className="w-full">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="w-full"
+                  onClick={() => {
+                    if ((method as any).actionHref === '#chat') {
+                      // Trigger LiveChat by clicking the chat button
+                      const chatBtn = document.querySelector('[class*="fixed bottom-6 right-6"]') as HTMLButtonElement;
+                      if (chatBtn) chatBtn.click();
+                    } else if ((method as any).actionHref) {
+                      window.open((method as any).actionHref, '_self');
+                    }
+                  }}
+                >
                   {method.action}
                 </Button>
               </div>

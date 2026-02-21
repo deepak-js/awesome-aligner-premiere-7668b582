@@ -28,10 +28,10 @@ const links = {
 };
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
+  { icon: Facebook, href: "https://facebook.com/awesomealigners", label: "Facebook" },
+  { icon: Instagram, href: "https://instagram.com/awesomealigners", label: "Instagram" },
+  { icon: Twitter, href: "https://x.com/awesomealigners", label: "Twitter" },
+  { icon: Linkedin, href: "https://linkedin.com/company/awesomealigners", label: "LinkedIn" },
 ];
 
 const Footer = () => {
