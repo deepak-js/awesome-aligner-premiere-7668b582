@@ -9,23 +9,13 @@ import { useToast } from "@/hooks/use-toast";
 import type { User, Session } from "@supabase/supabase-js";
 import CaseStudyForm from "@/components/admin/CaseStudyForm";
 import ChatbotSettings from "@/components/admin/ChatbotSettings";
+import ContactSubmissions from "@/components/admin/ContactSubmissions";
+import BlogManager from "@/components/admin/BlogManager";
+import SEOSettings from "@/components/admin/SEOSettings";
 import {
-  LogOut,
-  Users,
-  Stethoscope,
-  Calendar,
-  Mail,
-  Phone,
-  Building,
-  Clock,
-  TrendingUp,
-  Target,
-  DollarSign,
-  RefreshCw,
-  Image,
-  Plus,
-  Trash2,
-  MessageSquare
+  LogOut, Users, Stethoscope, Calendar, Mail, Phone, Building, Clock,
+  TrendingUp, Target, DollarSign, RefreshCw, Image, Plus, Trash2,
+  MessageSquare, Inbox, FileText, Globe
 } from "lucide-react";
 
 interface QuizLead {
@@ -88,6 +78,7 @@ const Admin = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [showCaseForm, setShowCaseForm] = useState(false);
   const [chatbotActive, setChatbotActive] = useState<boolean | null>(null);
+
   const checkAdminRole = async (userId: string) => {
     const { data, error } = await supabase
       .from("user_roles")
@@ -168,12 +159,10 @@ const Admin = () => {
       
       toast({
         title: "Case study deleted",
-        description: "The case study has been removed.",
       });
       
       fetchData();
     } catch (error) {
-      console.error("Error deleting case:", error);
       toast({
         title: "Error",
         description: "Failed to delete case study.",
@@ -254,7 +243,7 @@ const Admin = () => {
               </div>
             </div>
             <p className="text-2xl font-bold">{doctorApps.length}</p>
-            <p className="text-sm text-muted-foreground">Doctor Applications</p>
+            <p className="text-sm text-muted-foreground">Doctor Apps</p>
           </div>
           
           <div className="p-6 rounded-xl bg-card border border-border">
@@ -278,7 +267,7 @@ const Admin = () => {
             <p className="text-2xl font-bold">
               {doctorApps.filter(a => a.partnership_tier === "professional" || a.partnership_tier === "elite").length}
             </p>
-            <p className="text-sm text-muted-foreground">Premium Tier Apps</p>
+            <p className="text-sm text-muted-foreground">Premium Tier</p>
           </div>
 
           <div className="p-6 rounded-xl bg-card border border-border">
@@ -288,24 +277,33 @@ const Admin = () => {
               </div>
             </div>
             <p className="text-2xl font-bold">
-              {chatbotActive === null ? "—" : chatbotActive ? "Active" : "Inactive"}
+              {chatbotActive === null ? "—" : chatbotActive ? "Active" : "Off"}
             </p>
-            <p className="text-sm text-muted-foreground">Chatbot Status</p>
+            <p className="text-sm text-muted-foreground">Chatbot</p>
           </div>
         </div>
 
         {/* Tabs */}
         <Tabs defaultValue="leads" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <TabsList>
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <TabsList className="flex-wrap h-auto">
               <TabsTrigger value="leads" className="gap-2">
-                <Users className="h-4 w-4" /> Quiz Leads
+                <Users className="h-4 w-4" /> Leads
               </TabsTrigger>
               <TabsTrigger value="doctors" className="gap-2">
-                <Stethoscope className="h-4 w-4" /> Doctor Applications
+                <Stethoscope className="h-4 w-4" /> Doctors
+              </TabsTrigger>
+              <TabsTrigger value="contact" className="gap-2">
+                <Inbox className="h-4 w-4" /> Contact
               </TabsTrigger>
               <TabsTrigger value="cases" className="gap-2">
-                <Image className="h-4 w-4" /> Case Studies
+                <Image className="h-4 w-4" /> Cases
+              </TabsTrigger>
+              <TabsTrigger value="blog" className="gap-2">
+                <FileText className="h-4 w-4" /> Blog
+              </TabsTrigger>
+              <TabsTrigger value="seo" className="gap-2">
+                <Globe className="h-4 w-4" /> SEO
               </TabsTrigger>
               <TabsTrigger value="chatbot" className="gap-2">
                 <MessageSquare className="h-4 w-4" /> Chatbot
@@ -490,6 +488,10 @@ const Admin = () => {
             )}
           </TabsContent>
 
+          <TabsContent value="contact">
+            <ContactSubmissions />
+          </TabsContent>
+
           <TabsContent value="cases" className="space-y-4">
             <div className="flex justify-end mb-4">
               <Button onClick={() => setShowCaseForm(true)}>
@@ -581,6 +583,14 @@ const Admin = () => {
                 ))}
               </div>
             )}
+          </TabsContent>
+
+          <TabsContent value="blog">
+            <BlogManager />
+          </TabsContent>
+
+          <TabsContent value="seo">
+            <SEOSettings />
           </TabsContent>
 
           <TabsContent value="chatbot">

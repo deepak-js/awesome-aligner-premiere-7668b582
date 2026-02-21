@@ -5,10 +5,10 @@ import { cn } from '@/lib/utils';
 import BrandLogosSlider from '@/components/BrandLogosSlider';
 
 const certifications = [
-  { icon: Shield, label: 'FDA Cleared', description: 'Safe & Approved' },
+  { icon: Shield, label: 'Medical-Grade', description: 'Quality Materials' },
   { icon: Award, label: 'ISO 13485', description: 'Quality Certified' },
   { icon: CheckCircle, label: 'CE Marked', description: 'European Standard' },
-  { icon: BadgeCheck, label: 'BPA Free', description: 'Medical Grade' },
+  { icon: BadgeCheck, label: 'BPA Free', description: 'Safe & Tested' },
 ];
 
 const stats = [
@@ -75,10 +75,10 @@ const TrustBadgesSection = () => {
             Trusted & Certified
           </span>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Why Millions Trust Awesome Aligners
+            Why Patients Trust Awesome Aligners
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Backed by science, approved by regulators, and trusted by dental professionals worldwide.
+            Backed by science, quality-certified, and trusted by dental professionals across India and the UK.
           </p>
         </div>
 
@@ -100,7 +100,7 @@ const TrustBadgesSection = () => {
             <Shield className="w-5 h-5 text-primary flex-shrink-0" />
             <span className="text-sm md:text-base text-foreground">
               <span className="font-semibold">100% Satisfaction Guarantee</span>
-              <span className="text-muted-foreground hidden sm:inline"> — Love your smile or get your money back</span>
+              <span className="text-muted-foreground hidden sm:inline"> Love your smile or get your money back</span>
             </span>
           </div>
         </div>

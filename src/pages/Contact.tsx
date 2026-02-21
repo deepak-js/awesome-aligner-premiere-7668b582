@@ -1,11 +1,13 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Clock, MessageSquare, Send } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const contactMethods = [
   {
@@ -25,7 +27,7 @@ const contactMethods = [
   {
     icon: MessageSquare,
     title: "Live Chat",
-    description: "Available Mon-Fri, 9am-6pm EST",
+    description: "Available Mon-Fri, 9am-6pm IST",
     value: "Chat with an expert",
     action: "Start Chat",
   },
@@ -33,27 +35,28 @@ const contactMethods = [
 
 const offices = [
   {
-    city: "New York",
-    address: "123 Manhattan Ave, Suite 500",
-    zip: "NY 10001",
-    phone: "(212) 555-0100",
+    city: "United Kingdom",
+    address: "3rd Floor, Warwick Wing, Sun Clinics UK Ltd, 701 Chester Road, Stretford",
+    zip: "Manchester M32 0RW, United Kingdom",
+    phone: "+44 161 XXX XXXX",
   },
   {
-    city: "Los Angeles",
-    address: "456 Beverly Hills Blvd, Floor 3",
-    zip: "CA 90210",
-    phone: "(310) 555-0200",
+    city: "Chennai, India",
+    address: "63, Balaji Nagar, 4th Street, Alwarthirunagar",
+    zip: "Chennai 600087, Tamil Nadu, India",
+    phone: "+91 44 XXXX XXXX",
   },
   {
-    city: "Chicago",
-    address: "789 Michigan Ave, Suite 800",
-    zip: "IL 60611",
-    phone: "(312) 555-0300",
+    city: "Thanjavur, India",
+    address: "B-19, 6th Cross Road, Arulanandha Nagar Main Road, Arulanthar Nagar",
+    zip: "Thanjavur 613007, Tamil Nadu, India",
+    phone: "+91 43 XXXX XXXX",
   },
 ];
 
 const Contact = () => {
   const { toast } = useToast();
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -62,17 +65,67 @@ const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
+      toast({ title: "Please fill all required fields", variant: "destructive" });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      // Save to database
+      const { error } = await (supabase as any)
+        .from("contact_submissions")
+        .insert({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim() || null,
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+        });
+
+      if (error) throw error;
+
+      // Send confirmation email
+      try {
+        await supabase.functions.invoke("send-notification-email", {
+          body: {
+            type: "contact_form",
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            subject: formData.subject.trim(),
+          },
+        });
+      } catch (emailError) {
+        console.error("Email notification failed:", emailError);
+        // Don't block form submission if email fails
+      }
+
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you within 24 hours.",
+      });
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <main className="min-h-screen">
+      <SEOHead
+        title="Contact Awesome Aligners | Book Free Consultation"
+        description="Get in touch with Awesome Aligners. Book a free consultation, ask questions, or visit our offices in the UK, Chennai, and Thanjavur."
+        canonical="https://awesome-aligner-premiere.lovable.app/contact"
+      />
       <Header />
 
       {/* Hero Section */}
@@ -139,22 +192,24 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">Name</label>
+                    <label className="text-sm font-medium text-foreground mb-2 block">Name *</label>
                     <Input
                       placeholder="Your name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       required
+                      maxLength={100}
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">Email</label>
+                    <label className="text-sm font-medium text-foreground mb-2 block">Email *</label>
                     <Input
                       type="email"
                       placeholder="your@email.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       required
+                      maxLength={255}
                     />
                   </div>
                 </div>
@@ -164,36 +219,39 @@ const Contact = () => {
                     <label className="text-sm font-medium text-foreground mb-2 block">Phone</label>
                     <Input
                       type="tel"
-                      placeholder="(123) 456-7890"
+                      placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      maxLength={20}
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">Subject</label>
+                    <label className="text-sm font-medium text-foreground mb-2 block">Subject *</label>
                     <Input
                       placeholder="How can we help?"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       required
+                      maxLength={200}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Message</label>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Message *</label>
                   <Textarea
                     placeholder="Tell us more about your inquiry..."
                     rows={5}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
+                    maxLength={2000}
                   />
                 </div>
 
-                <Button type="submit" className="w-full" size="lg">
+                <Button type="submit" className="w-full" size="lg" disabled={submitting}>
                   <Send className="w-4 h-4 mr-2" />
-                  Send Message
+                  {submitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </div>
@@ -231,7 +289,7 @@ const Contact = () => {
                 </div>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Monday - Friday</span>
+                    <span className="text-muted-foreground">Monday to Friday</span>
                     <span className="text-foreground font-medium">9:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between">

@@ -1,5 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Users, Target, Heart, Shield, Sparkles, CheckCircle, Star } from "lucide-react";
 import heroGradientBg from "@/assets/hero-gradient-bg.jpeg";
 
@@ -22,7 +23,7 @@ const values = [
   {
     icon: Shield,
     title: "Trust",
-    description: "Founded and supervised by qualified orthodontists — your treatment is in expert hands from start to finish.",
+    description: "Founded and supervised by qualified orthodontists. Your treatment is in expert hands from start to finish.",
   },
 ];
 
@@ -38,6 +39,11 @@ const whyChooseUs = [
 const About = () => {
   return (
     <main className="min-h-screen">
+      <SEOHead
+        title="About Awesome Aligners | Orthodontist-Supervised Clear Aligners India"
+        description="Learn about Awesome Aligners, founded and supervised by orthodontists. Premium clear aligner treatment inspired by Invisalign and Spark Aligners, made affordable for India."
+        canonical="https://awesome-aligner-premiere.lovable.app/about"
+      />
       <Header />
 
       {/* Hero Section */}
@@ -68,7 +74,7 @@ const About = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-primary-foreground/80 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-100">
-            At Awesome Aligners, every treatment is planned, guided, and supervised by qualified orthodontists — ensuring expert care throughout your entire smile transformation journey.
+            At Awesome Aligners, every treatment is planned, guided, and supervised by qualified orthodontists. You get expert care throughout your entire smile transformation journey.
           </p>
         </div>
       </section>
@@ -86,7 +92,7 @@ const About = () => {
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Awesome Aligners was established with a singular vision — to make premium clear aligner treatment accessible, affordable, and orthodontist-supervised for every Indian patient.
+                  Awesome Aligners was established with a clear goal: making premium clear aligner treatment accessible, affordable, and orthodontist-supervised for every Indian patient.
                 </p>
                 <p>
                   Inspired by global leaders like <span className="font-semibold text-foreground">Invisalign</span> and <span className="font-semibold text-foreground">Spark Aligners</span>, we combine world-class aligner technology with the expertise of Indian orthodontists who understand local dental needs. Our aligners are crafted using advanced digital workflows, 3D scanning, and medical-grade BPA-free materials — delivering results comparable to international brands at a fraction of the cost.
@@ -104,7 +110,7 @@ const About = () => {
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">Our Mission</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  To democratise orthodontic care across India by providing premium, orthodontist-supervised clear aligner treatment at affordable prices — because a confident smile shouldn't be a luxury.
+                  To democratise orthodontic care across India by providing premium, orthodontist-supervised clear aligner treatment at affordable prices. A confident smile shouldn't be a luxury.
                 </p>
               </div>
 
@@ -114,7 +120,7 @@ const About = () => {
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">Our Vision</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  To become India's most trusted clear aligner brand — known for clinical excellence, orthodontist involvement, and life-changing smile transformations.
+                  To become India's most trusted clear aligner brand, known for clinical excellence, orthodontist involvement, and life-changing smile transformations.
                 </p>
               </div>
             </div>

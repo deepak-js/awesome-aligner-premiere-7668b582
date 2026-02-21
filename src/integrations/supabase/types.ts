@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      blog_posts: {
+        Row: {
+          author_name: string
+          author_role: string
+          category: string | null
+          content: string | null
+          created_at: string
+          excerpt: string | null
+          featured_image_url: string | null
+          id: string
+          is_published: boolean
+          published_at: string | null
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_name?: string
+          author_role?: string
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          excerpt?: string | null
+          featured_image_url?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string | null
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_name?: string
+          author_role?: string
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          excerpt?: string | null
+          featured_image_url?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       case_studies: {
         Row: {
           after_image_url: string | null
@@ -95,6 +143,36 @@ export type Database = {
           updated_at?: string | null
           webhook_url?: string | null
           welcome_message?: string | null
+        }
+        Relationships: []
+      }
+      contact_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          phone: string | null
+          subject: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+          subject: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+          subject?: string
         }
         Relationships: []
       }
@@ -206,6 +284,33 @@ export type Database = {
           quiz_score?: number | null
           recommendation?: string | null
           treatment_timeline?: string | null
+        }
+        Relationships: []
+      }
+      seo_settings: {
+        Row: {
+          custom_head_scripts: string | null
+          facebook_pixel_id: string | null
+          google_analytics_id: string | null
+          id: string
+          search_console_code: string | null
+          updated_at: string
+        }
+        Insert: {
+          custom_head_scripts?: string | null
+          facebook_pixel_id?: string | null
+          google_analytics_id?: string | null
+          id?: string
+          search_console_code?: string | null
+          updated_at?: string
+        }
+        Update: {
+          custom_head_scripts?: string | null
+          facebook_pixel_id?: string | null
+          google_analytics_id?: string | null
+          id?: string
+          search_console_code?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
