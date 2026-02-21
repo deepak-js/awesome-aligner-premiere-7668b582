@@ -1,6 +1,30 @@
 import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
+// Whitelist of allowed script domains for analytics/tracking
+const ALLOWED_SCRIPT_DOMAINS = [
+  "www.googletagmanager.com",
+  "www.google-analytics.com",
+  "connect.facebook.net",
+  "snap.licdn.com",
+  "static.hotjar.com",
+  "cdn.segment.com",
+  "plausible.io",
+  "cdn.mxpnl.com",
+];
+
+const isAllowedScriptSrc = (src: string): boolean => {
+  try {
+    const url = new URL(src);
+    return ALLOWED_SCRIPT_DOMAINS.some((domain) => url.hostname === domain || url.hostname.endsWith("." + domain));
+  } catch {
+    return false;
+  }
+};
+
+const ALLOWED_GA_ID = /^G-[A-Z0-9]+$/;
+const ALLOWED_FB_PIXEL = /^[0-9]+$/;
+
 const SEOInjector = () => {
   useEffect(() => {
     const injectSEO = async () => {
@@ -13,14 +37,14 @@ const SEOInjector = () => {
 
         if (!data) return;
 
-        // Google Analytics
-        if (data.google_analytics_id) {
+        // Google Analytics - validate ID format
+        if (data.google_analytics_id && ALLOWED_GA_ID.test(data.google_analytics_id)) {
           const existing = document.getElementById("ga-script");
           if (!existing) {
             const s1 = document.createElement("script");
             s1.id = "ga-script";
             s1.async = true;
-            s1.src = `https://www.googletagmanager.com/gtag/js?id=${data.google_analytics_id}`;
+            s1.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(data.google_analytics_id)}`;
             document.head.appendChild(s1);
 
             const s2 = document.createElement("script");
@@ -41,8 +65,8 @@ const SEOInjector = () => {
           }
         }
 
-        // Facebook Pixel
-        if (data.facebook_pixel_id) {
+        // Facebook Pixel - validate ID format
+        if (data.facebook_pixel_id && ALLOWED_FB_PIXEL.test(data.facebook_pixel_id)) {
           const existing = document.getElementById("fb-pixel");
           if (!existing) {
             const s = document.createElement("script");
@@ -52,19 +76,36 @@ const SEOInjector = () => {
           }
         }
 
-        // Custom head scripts
+        // Custom head scripts - only allow whitelisted external script sources, no inline scripts
         if (data.custom_head_scripts) {
           const existing = document.getElementById("custom-head-scripts");
           if (!existing) {
             const container = document.createElement("div");
             container.id = "custom-head-scripts";
-            container.innerHTML = data.custom_head_scripts;
-            const scripts = container.querySelectorAll("script");
+            // Parse safely using DOMParser instead of innerHTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data.custom_head_scripts, "text/html");
+            
+            // Only allow script tags with whitelisted src domains; skip inline scripts
+            const scripts = doc.querySelectorAll("script");
             scripts.forEach((script) => {
-              const newScript = document.createElement("script");
-              if (script.src) newScript.src = script.src;
-              if (script.textContent) newScript.textContent = script.textContent;
-              document.head.appendChild(newScript);
+              if (script.src && isAllowedScriptSrc(script.src)) {
+                const newScript = document.createElement("script");
+                newScript.src = script.src;
+                newScript.async = true;
+                document.head.appendChild(newScript);
+              }
+              // Inline scripts from custom_head_scripts are blocked for security
+            });
+
+            // Allow meta tags (safe)
+            const metas = doc.querySelectorAll("meta");
+            metas.forEach((meta) => {
+              const newMeta = document.createElement("meta");
+              Array.from(meta.attributes).forEach((attr) => {
+                newMeta.setAttribute(attr.name, attr.value);
+              });
+              document.head.appendChild(newMeta);
             });
           }
         }
