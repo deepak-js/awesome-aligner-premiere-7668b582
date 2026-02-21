@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Pause } from "lucide-react";
 import { Link } from "react-router-dom";
 import diverseSmiles from "@/assets/diverse-smiles.jpg";
-import heroGradientBg from "@/assets/hero-gradient-bg.jpeg";
+import heroGradientBg from "@/assets/hero-gradient-bg-optimized.jpeg";
 import heroVideo from "@/assets/hero-video.mp4";
 import QuizModal from "@/components/quiz/QuizModal";
 import FloatingShapes from "@/components/decorative/FloatingShapes";
