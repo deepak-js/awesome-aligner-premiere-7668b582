@@ -13,13 +13,6 @@ import ContactSubmissions from "@/components/admin/ContactSubmissions";
 import BlogManager from "@/components/admin/BlogManager";
 import SEOSettings from "@/components/admin/SEOSettings";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   LogOut, Users, Stethoscope, Calendar, Mail, Phone, Building, Clock,
   TrendingUp, Target, DollarSign, RefreshCw, Image, Plus, Trash2,
   MessageSquare, Inbox, FileText, Globe
@@ -175,20 +168,6 @@ const Admin = () => {
         description: "Failed to delete case study.",
         variant: "destructive",
       });
-    }
-  };
-
-  const handleUpdateDoctorStatus = async (id: string, status: string) => {
-    try {
-      const { error } = await supabase
-        .from("doctor_applications")
-        .update({ status })
-        .eq("id", id);
-      if (error) throw error;
-      toast({ title: "Status updated", description: `Application marked as ${status}.` });
-      setDoctorApps(prev => prev.map(app => app.id === id ? { ...app, status } : app));
-    } catch (error) {
-      toast({ title: "Error", description: "Failed to update status.", variant: "destructive" });
     }
   };
 
@@ -445,20 +424,9 @@ const Admin = () => {
                               {app.partnership_tier.charAt(0).toUpperCase() + app.partnership_tier.slice(1)}
                             </Badge>
                           )}
-                          <Select
-                            value={app.status || "pending"}
-                            onValueChange={(value) => handleUpdateDoctorStatus(app.id, value)}
-                          >
-                            <SelectTrigger className="w-[140px] h-8 text-xs">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="pending">Pending</SelectItem>
-                              <SelectItem value="contacted">Contacted</SelectItem>
-                              <SelectItem value="approved">Approved</SelectItem>
-                              <SelectItem value="rejected">Rejected</SelectItem>
-                            </SelectContent>
-                          </Select>
+                          {app.status && (
+                            <Badge variant="outline">{app.status}</Badge>
+                          )}
                         </div>
                         
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">

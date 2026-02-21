@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import BlogCardSkeleton from '@/components/skeletons/BlogCardSkeleton';
 import { supabase } from '@/integrations/supabase/client';
-import heroGradientBg from '@/assets/hero-gradient-bg-optimized.jpeg';
+import heroGradientBg from '@/assets/hero-gradient-bg.jpeg';
 import { useToast } from '@/hooks/use-toast';
 
 interface BlogPost {

@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import SEOHead from "@/components/SEOHead";
-import heroGradientBg from "@/assets/hero-gradient-bg-optimized.jpeg";
+import heroGradientBg from "@/assets/hero-gradient-bg.jpeg";
 import { 
   TrendingUp, 
   Users, 

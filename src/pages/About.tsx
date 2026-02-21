@@ -2,7 +2,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Users, Target, Heart, Shield, Sparkles, CheckCircle, Star } from "lucide-react";
-import heroGradientBg from "@/assets/hero-gradient-bg-optimized.jpeg";
+import heroGradientBg from "@/assets/hero-gradient-bg.jpeg";
 
 const values = [
   {

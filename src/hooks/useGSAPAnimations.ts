@@ -21,10 +21,9 @@ export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
     const element = ref.current;
     if (!element) return;
 
-    const targets = element.children.length > 1 ? Array.from(element.children) : [element];
-    if (targets.length === 0) return;
+    const children = element.children;
     
-    gsap.set(targets, {
+    gsap.set(children.length > 1 ? children : element, {
       y,
       opacity: 0,
     });
@@ -38,7 +37,7 @@ export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
       },
     });
 
-    tl.to(targets, {
+    tl.to(children.length > 1 ? children : element, {
       y: 0,
       opacity: 1,
       duration,
@@ -118,7 +117,6 @@ export const useStaggerCards = (staggerAmount: number = 0.15) => {
     if (!element) return;
 
     const cards = element.querySelectorAll('[data-animate-card]');
-    if (cards.length === 0) return;
     
     gsap.set(cards, {
       y: 80,
@@ -157,25 +155,42 @@ export const useHeroAnimation = () => {
 
     const tl = gsap.timeline();
 
-    const query = (sel: string) => {
-      const els = container.querySelectorAll(sel);
-      return els.length > 0 ? els : null;
-    };
-
     // Animate hero elements on load
-    const badge = query('[data-hero-badge]');
-    const title = query('[data-hero-title]');
-    const text = query('[data-hero-text]');
-    const cta = query('[data-hero-cta]');
-    const image = query('[data-hero-image]');
-    const float = query('[data-hero-float]');
-
-    if (badge) tl.fromTo(badge, { opacity: 0, y: 20, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'back.out(1.7)' });
-    if (title) tl.fromTo(title, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3');
-    if (text) tl.fromTo(text, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4');
-    if (cta) tl.fromTo(cta, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }, '-=0.3');
-    if (image) tl.fromTo(image, { opacity: 0, scale: 0.95, x: 30 }, { opacity: 1, scale: 1, x: 0, duration: 1, ease: 'power3.out' }, '-=0.8');
-    if (float) tl.fromTo(float, { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.15, ease: 'back.out(1.5)' }, '-=0.5');
+    tl.fromTo(
+      container.querySelectorAll('[data-hero-badge]'),
+      { opacity: 0, y: 20, scale: 0.9 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'back.out(1.7)' }
+    )
+    .fromTo(
+      container.querySelectorAll('[data-hero-title]'),
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+      '-=0.3'
+    )
+    .fromTo(
+      container.querySelectorAll('[data-hero-text]'),
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
+      '-=0.4'
+    )
+    .fromTo(
+      container.querySelectorAll('[data-hero-cta]'),
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' },
+      '-=0.3'
+    )
+    .fromTo(
+      container.querySelectorAll('[data-hero-image]'),
+      { opacity: 0, scale: 0.95, x: 30 },
+      { opacity: 1, scale: 1, x: 0, duration: 1, ease: 'power3.out' },
+      '-=0.8'
+    )
+    .fromTo(
+      container.querySelectorAll('[data-hero-float]'),
+      { opacity: 0, y: 30, scale: 0.9 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.15, ease: 'back.out(1.5)' },
+      '-=0.5'
+    );
 
     return () => {
       tl.kill();
