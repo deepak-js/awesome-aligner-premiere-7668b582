@@ -1,15 +1,21 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import SEOHead from '@/components/SEOHead';
 
 const CookiePolicy = () => {
   return (
     <main className="min-h-screen">
+      <SEOHead
+        title="Cookie Policy | Awesome Aligners"
+        description="Understand how Awesome Aligners uses cookies and similar technologies on our website."
+        canonical="https://awesome-aligner-premiere.lovable.app/cookie-policy"
+      />
       <Header />
       
       <section className="pt-32 pb-20 bg-muted/30">
         <div className="max-w-4xl mx-auto px-4 md:px-8">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Cookie Policy</h1>
-          <p className="text-muted-foreground">Last updated: December 2024</p>
+          <p className="text-muted-foreground">Last updated: January 2025</p>
         </div>
       </section>
 

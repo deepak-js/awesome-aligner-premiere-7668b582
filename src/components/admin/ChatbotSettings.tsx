@@ -193,7 +193,7 @@ const ChatbotSettings = () => {
                 {testResult === "success" ? (
                   <><CheckCircle className="h-4 w-4" /> Webhook is reachable and responding</>
                 ) : (
-                  <><AlertCircle className="h-4 w-4" /> Webhook test failed — check the URL</>
+                  <><AlertCircle className="h-4 w-4" /> Webhook test failed. Check the URL.</>
                 )}
               </div>
             )}

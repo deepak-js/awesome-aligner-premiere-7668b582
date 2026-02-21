@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import BlogCardSkeleton from '@/components/skeletons/BlogCardSkeleton';
 import { supabase } from '@/integrations/supabase/client';
+import heroGradientBg from '@/assets/hero-gradient-bg.jpeg';
+import { useToast } from '@/hooks/use-toast';
 
 interface BlogPost {
   id: string;
@@ -31,6 +33,48 @@ const fallbackPosts: BlogPost[] = [
   { id: "treatment-timeline", title: "What to Expect: Your Clear Aligner Treatment Timeline", slug: "treatment-timeline", excerpt: "A month-by-month breakdown of what happens during your clear aligner journey.", category: "Treatment Options", featured_image_url: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&auto=format&fit=crop", author_name: "Awesome Aligners Team", published_at: "2026-01-12T00:00:00Z", created_at: "2026-01-12T00:00:00Z" },
   { id: "adult-orthodontics", title: "Never Too Late: Adult Orthodontics on the Rise", slug: "adult-orthodontics", excerpt: "Why more adults than ever are choosing clear aligners and what makes modern treatment ideal for busy professionals.", category: "Lifestyle", featured_image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop", author_name: "Awesome Aligners Team", published_at: "2026-01-18T00:00:00Z", created_at: "2026-01-18T00:00:00Z" },
 ];
+
+const NewsletterForm = () => {
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setSubmitting(true);
+    try {
+      await (supabase as any).from("contact_submissions").insert({
+        name: "Newsletter Subscriber",
+        email: email.trim(),
+        subject: "Newsletter Subscription",
+        message: "Subscribed to blog newsletter.",
+      });
+      toast({ title: "Subscribed!", description: "You'll receive our latest articles and offers." });
+      setEmail("");
+    } catch {
+      toast({ title: "Something went wrong", description: "Please try again.", variant: "destructive" });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+      <input
+        type="email"
+        required
+        placeholder="Enter your email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="flex-1 px-4 py-3 rounded-md bg-primary-foreground text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-foreground/50"
+      />
+      <Button size="lg" variant="secondary" type="submit" disabled={submitting}>
+        {submitting ? "Subscribing..." : "Subscribe"}
+      </Button>
+    </form>
+  );
+};
 
 const Blog = () => {
   const [loading, setLoading] = useState(true);
@@ -67,11 +111,12 @@ const Blog = () => {
       />
       <Header />
 
-      <section className="pt-32 pb-16 bg-gradient-to-b from-primary/5 to-background">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 text-center">
-          <Badge variant="secondary" className="mb-4">Resources & Insights</Badge>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">Smile Blog</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Expert advice, treatment insights, and tips to help you achieve and maintain your perfect smile.</p>
+      <section className="relative pt-32 pb-16 overflow-hidden" style={{ backgroundImage: `url(${heroGradientBg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/60" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 text-center">
+          <Badge variant="secondary" className="mb-4 bg-white/10 text-white border-white/20">Resources & Insights</Badge>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Smile Blog</h1>
+          <p className="text-xl text-white/80 max-w-2xl mx-auto">Expert advice, treatment insights, and tips to help you achieve and maintain your perfect smile.</p>
         </div>
       </section>
 
@@ -117,10 +162,7 @@ const Blog = () => {
         <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">Stay Informed</h2>
           <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">Subscribe to our newsletter for the latest tips, trends, and exclusive offers.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <input type="email" placeholder="Enter your email" className="flex-1 px-4 py-3 rounded-md bg-primary-foreground text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-foreground/50" />
-            <Button size="lg" variant="secondary">Subscribe</Button>
-          </div>
+          <NewsletterForm />
         </div>
       </section>
 
