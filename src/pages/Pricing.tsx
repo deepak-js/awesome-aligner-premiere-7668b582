@@ -12,7 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import heroGradientBg from '@/assets/hero-gradient-bg.jpeg';
+import heroGradientBg from '@/assets/hero-gradient-bg-optimized.jpeg';
 
 const emiOptions = [
   { duration: "6 Months", monthly: "₹5,000", total: "₹30,000" },

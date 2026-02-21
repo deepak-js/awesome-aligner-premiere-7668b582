@@ -129,13 +129,13 @@ const LiveChat = () => {
 
       {isOpen && (
         <Card className="fixed bottom-6 right-6 z-50 w-[360px] max-w-[calc(100vw-48px)] shadow-2xl animate-scale-in">
-          <CardHeader className="flex flex-row items-center justify-between bg-primary text-primary-foreground rounded-t-lg p-4">
+          <CardHeader className="flex flex-row items-center justify-between bg-primary text-primary-foreground rounded-t-lg p-4" role="banner" aria-label="Chat with us">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-primary-foreground/20 flex items-center justify-center">
                 <Bot className="h-5 w-5" />
               </div>
               <div>
-                <CardTitle className="text-base">{settings.bot_name}</CardTitle>
+                <CardTitle className="text-base" role="heading" aria-level={2}>{settings.bot_name}</CardTitle>
                 <p className="text-xs text-primary-foreground/70">Usually replies instantly</p>
               </div>
             </div>
