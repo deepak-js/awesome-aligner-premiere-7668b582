@@ -6,12 +6,41 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+// Simple in-memory rate limiter (per IP, 20 requests per minute)
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 20;
+const RATE_WINDOW_MS = 60_000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return false;
+  }
+  entry.count++;
+  return entry.count > RATE_LIMIT;
+}
+
+function sanitize(input: unknown, maxLen = 1000): string {
+  return String(input || "").trim().slice(0, maxLen);
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    // Rate limiting
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (isRateLimited(clientIp)) {
+      return new Response(
+        JSON.stringify({ reply: "Too many requests. Please wait a moment." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
@@ -30,9 +59,12 @@ Deno.serve(async (req) => {
       );
     }
 
-    const { message, session_id, webhook_url: requestWebhookUrl } = await req.json();
+    const body = await req.json();
+    const message = sanitize(body.message, 2000);
+    const session_id = sanitize(body.session_id, 100);
 
-    const webhookUrl = requestWebhookUrl || settings.webhook_url;
+    // Only use webhook_url from database settings, never from request body
+    const webhookUrl = settings.webhook_url;
 
     if (!webhookUrl) {
       return new Response(
@@ -61,7 +93,7 @@ Deno.serve(async (req) => {
       const reply = webhookData.reply || webhookData.output || webhookData.text || webhookData.message || settings.fallback_message;
 
       return new Response(
-        JSON.stringify({ reply }),
+        JSON.stringify({ reply: String(reply).slice(0, 5000) }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     } catch (webhookError) {

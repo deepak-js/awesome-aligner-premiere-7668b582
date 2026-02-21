@@ -1,11 +1,38 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
+
+// Simple in-memory rate limiter (per IP, 10 requests per minute)
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 10;
+const RATE_WINDOW_MS = 60_000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return false;
+  }
+  entry.count++;
+  return entry.count > RATE_LIMIT;
+}
+
+// Validate email format
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 255;
+}
+
+// Sanitize string input
+function sanitize(input: string, maxLen = 500): string {
+  return String(input || "").trim().slice(0, maxLen);
+}
 
 async function sendEmail(to: string, subject: string, html: string) {
   const response = await fetch("https://api.resend.com/emails", {
@@ -33,30 +60,71 @@ const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
+    // Rate limiting
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (isRateLimited(clientIp)) {
+      return new Response(JSON.stringify({ success: false, error: "Too many requests. Please try again later." }), {
+        status: 429, headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
     const payload = await req.json();
-    console.log("Received email request:", payload.type);
+    
+    // Validate required type field
+    const validTypes = ["quiz_completion", "doctor_application", "contact_form"];
+    if (!payload.type || !validTypes.includes(payload.type)) {
+      return new Response(JSON.stringify({ success: false, error: "Invalid request type." }), {
+        status: 400, headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
     let emailResponse;
 
     if (payload.type === "quiz_completion") {
-      const { firstName, lastName, email, recommendation, quizScore } = payload;
+      const firstName = sanitize(payload.firstName, 100);
+      const lastName = sanitize(payload.lastName, 100);
+      const email = sanitize(payload.email, 255);
+      const recommendation = sanitize(payload.recommendation, 500);
+      const quizScore = Math.max(0, Math.min(100, Number(payload.quizScore) || 0));
+      if (!isValidEmail(email)) {
+        return new Response(JSON.stringify({ success: false, error: "Invalid email." }), {
+          status: 400, headers: { "Content-Type": "application/json", ...corsHeaders },
+        });
+      }
       const html = quizCompletionEmail(firstName, lastName, quizScore, recommendation);
       emailResponse = await sendEmail(email, "Your Personalised Smile Assessment Results", html);
     } else if (payload.type === "doctor_application") {
-      const { firstName, lastName, email, clinicName, phone } = payload;
+      const firstName = sanitize(payload.firstName, 100);
+      const lastName = sanitize(payload.lastName, 100);
+      const email = sanitize(payload.email, 255);
+      const clinicName = sanitize(payload.clinicName, 200);
+      const phone = sanitize(payload.phone, 20);
+      if (!isValidEmail(email)) {
+        return new Response(JSON.stringify({ success: false, error: "Invalid email." }), {
+          status: 400, headers: { "Content-Type": "application/json", ...corsHeaders },
+        });
+      }
       const html = doctorApplicationEmail(firstName, lastName, clinicName, email, phone);
       emailResponse = await sendEmail(email, "Thank You for Your Partnership Application", html);
     } else if (payload.type === "contact_form") {
-      const { name, email, subject } = payload;
+      const name = sanitize(payload.name, 100);
+      const email = sanitize(payload.email, 255);
+      const subject = sanitize(payload.subject, 200);
+      if (!isValidEmail(email)) {
+        return new Response(JSON.stringify({ success: false, error: "Invalid email." }), {
+          status: 400, headers: { "Content-Type": "application/json", ...corsHeaders },
+        });
+      }
       const html = contactFormEmail(name, subject);
       emailResponse = await sendEmail(email, "Thanks for Contacting Awesome Aligners", html);
     }
 
-    return new Response(JSON.stringify({ success: true, data: emailResponse }), {
+    return new Response(JSON.stringify({ success: true }), {
       status: 200, headers: { "Content-Type": "application/json", ...corsHeaders },
     });
   } catch (error: any) {
     console.error("Error in send-notification-email:", error);
-    return new Response(JSON.stringify({ success: false, error: error.message }), {
+    return new Response(JSON.stringify({ success: false, error: "An error occurred." }), {
       status: 500, headers: { "Content-Type": "application/json", ...corsHeaders },
     });
   }
