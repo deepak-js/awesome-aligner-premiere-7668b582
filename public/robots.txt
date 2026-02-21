@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://awesome-aligner-premiere.lovable.app/sitemap.xml

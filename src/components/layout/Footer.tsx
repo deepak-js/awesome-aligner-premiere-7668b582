@@ -10,9 +10,9 @@ const locations = [
 const links = {
   company: [
     { label: "About Us", href: "/about" },
-    { label: "Careers", href: "#" },
-    { label: "Press", href: "#" },
-    { label: "Blog", href: "#" },
+    { label: "Careers", href: "/contact" },
+    { label: "Press", href: "/contact" },
+    { label: "Blog", href: "/blog" },
   ],
   support: [
     { label: "Help Center", href: "/faq" },
@@ -134,7 +134,7 @@ const Footer = () => {
       <div className="border-t border-primary-foreground/10">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-primary-foreground/60 text-sm">
-            © 2024 Awesome Aligners. All rights reserved.
+            © 2025 Awesome Aligners. All rights reserved.
           </p>
           <div className="flex gap-6">
             {links.legal.map((link) => (

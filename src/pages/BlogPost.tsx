@@ -1,210 +1,147 @@
 import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Calendar, Clock, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Share2, Facebook, Twitter, Linkedin, Loader2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
-const blogPostsData: Record<string, {
+interface BlogPostData {
+  id: string;
   title: string;
-  category: string;
-  date: string;
-  readTime: string;
-  image: string;
-  content: string[];
-  author: { name: string; role: string; avatar: string };
-}> = {
+  slug: string;
+  excerpt: string | null;
+  content: string | null;
+  category: string | null;
+  featured_image_url: string | null;
+  author_name: string;
+  author_role: string;
+  published_at: string | null;
+  created_at: string;
+}
+
+// Fallback hardcoded posts
+const fallbackPosts: Record<string, BlogPostData> = {
   "clear-aligners-vs-braces": {
-    title: "Clear Aligners vs. Traditional Braces: Which Is Right for You?",
-    category: "Treatment Options",
-    date: "December 20, 2024",
-    readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1200&auto=format&fit=crop",
-    author: {
-      name: "Dr. Sarah Mitchell",
-      role: "Lead Orthodontist",
-      avatar: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&auto=format&fit=crop",
-    },
-    content: [
-      "Choosing between clear aligners and traditional braces is one of the most important decisions you'll make in your orthodontic journey. Both options have their advantages, and the right choice depends on your specific needs, lifestyle, and treatment goals.",
-      "## Understanding Traditional Braces",
-      "Traditional metal braces have been the gold standard in orthodontics for decades. They consist of metal brackets bonded to each tooth, connected by wires that gradually move teeth into position. Modern braces are smaller and more comfortable than ever before.",
-      "**Advantages of Traditional Braces:**\n- Effective for complex cases and severe misalignment\n- No compliance required - they work 24/7\n- Often faster for complex movements\n- Lower upfront cost in some cases",
-      "## The Clear Aligner Revolution",
-      "Clear aligners represent a revolutionary approach to orthodontics. These custom-made, removable trays apply gentle pressure to shift teeth gradually. Each set of aligners is worn for about two weeks before moving to the next set in the series.",
-      "**Advantages of Clear Aligners:**\n- Virtually invisible when worn\n- Removable for eating, drinking, and oral hygiene\n- More comfortable with no metal irritation\n- Fewer office visits required\n- Better for maintaining oral hygiene",
-      "## Making Your Decision",
-      "Consider clear aligners if you:\n- Have mild to moderate alignment issues\n- Value aesthetics and discretion\n- Can commit to wearing aligners 20-22 hours daily\n- Want the flexibility to remove them for special occasions",
-      "Consider traditional braces if you:\n- Have complex orthodontic issues\n- Prefer a \"set it and forget it\" approach\n- Have concerns about compliance\n- Need significant bite correction",
-      "## The Awesome Aligners Difference",
-      "At Awesome Aligners, we combine the benefits of clear aligner technology with professional orthodontic oversight. Our aligners are crafted from premium materials that resist staining and provide superior comfort. Plus, our virtual monitoring ensures your treatment stays on track.",
-      "Ready to find out which option is right for you? Take our free assessment quiz to get a personalized recommendation based on your unique smile goals.",
-    ],
+    id: "1", title: "Clear Aligners vs. Traditional Braces: Which Is Right for You?", slug: "clear-aligners-vs-braces",
+    excerpt: "Discover the key differences.", category: "Treatment Options",
+    featured_image_url: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1200&auto=format&fit=crop",
+    author_name: "Dr. Sarah Mitchell", author_role: "Lead Orthodontist",
+    published_at: "2025-12-20T00:00:00Z", created_at: "2025-12-20T00:00:00Z",
+    content: "Choosing between clear aligners and traditional braces is one of the most important decisions in your orthodontic journey. Both options have their advantages, and the right choice depends on your needs, lifestyle, and treatment goals.\n\n## Understanding Traditional Braces\n\nTraditional metal braces have been the gold standard in orthodontics for decades. They consist of metal brackets bonded to each tooth, connected by wires that gradually move teeth into position.\n\n## The Clear Aligner Revolution\n\nClear aligners represent a modern approach to orthodontics. These custom-made, removable trays apply gentle pressure to shift teeth gradually. Each set is worn for about two weeks.\n\n## The Awesome Aligners Difference\n\nAt Awesome Aligners, we combine clear aligner technology with professional orthodontic oversight. Our aligners are crafted from premium materials that resist staining and provide superior comfort.",
   },
   "caring-for-clear-aligners": {
-    title: "The Complete Guide to Caring for Your Clear Aligners",
-    category: "Care Tips",
-    date: "December 15, 2024",
-    readTime: "4 min read",
-    image: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=1200&auto=format&fit=crop",
-    author: {
-      name: "Emily Chen",
-      role: "Patient Care Specialist",
-      avatar: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=100&auto=format&fit=crop",
-    },
-    content: [
-      "Proper care of your clear aligners is essential for achieving the best results and maintaining your oral health throughout treatment. Follow these expert tips to keep your aligners clean, clear, and effective.",
-      "## Daily Cleaning Routine",
-      "Clean your aligners every time you remove them. Rinse them with lukewarm water (never hot, which can warp the plastic) and gently brush with a soft-bristled toothbrush. Avoid using toothpaste, as it can be abrasive and cause scratches where bacteria can hide.",
-      "**Recommended cleaning products:**\n- Clear, unscented antibacterial soap\n- Specialized aligner cleaning crystals\n- Denture cleaning tablets (occasional deep clean)\n- Hydrogen peroxide solution (diluted)",
-      "## Storage Best Practices",
-      "Always store your aligners in their protective case when not in use. Never wrap them in a napkin or tissue - this is the #1 way aligners get accidentally thrown away! Keep a backup case with you at all times.",
-      "## What to Avoid",
-      "**Never do the following:**\n- Eat or drink anything besides water while wearing aligners\n- Use hot water to clean aligners\n- Leave aligners exposed to direct sunlight\n- Use colored or scented soaps\n- Chew gum while wearing aligners",
-      "## Maintaining Fresh Breath",
-      "To avoid bad breath while wearing aligners:\n- Brush and floss after every meal before reinserting aligners\n- Stay hydrated throughout the day\n- Use an alcohol-free mouthwash\n- Clean aligners thoroughly each time you remove them",
-      "## When to Contact Support",
-      "Reach out to our care team if:\n- Your aligners crack or break\n- Aligners cause persistent pain or discomfort\n- You lose a set of aligners\n- Aligners don't seem to fit properly\n- You notice any changes in your bite",
-      "Following these care guidelines will help ensure your treatment progresses smoothly and you achieve the beautiful smile you deserve!",
-    ],
+    id: "2", title: "The Complete Guide to Caring for Your Clear Aligners", slug: "caring-for-clear-aligners",
+    excerpt: "Essential tips for keeping your aligners clean.", category: "Care Tips",
+    featured_image_url: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=1200&auto=format&fit=crop",
+    author_name: "Emily Chen", author_role: "Patient Care Specialist",
+    published_at: "2025-12-15T00:00:00Z", created_at: "2025-12-15T00:00:00Z",
+    content: "Proper care of your clear aligners is essential for achieving the best results. Follow these tips to keep your aligners clean, clear, and effective.\n\n## Daily Cleaning Routine\n\nClean your aligners every time you remove them. Rinse with lukewarm water and gently brush with a soft-bristled toothbrush. Avoid toothpaste, as it can scratch the surface.\n\n## Storage Best Practices\n\nAlways store your aligners in their protective case when not in use. Never wrap them in a napkin. Keep a backup case with you at all times.\n\n## When to Contact Support\n\nReach out if your aligners crack, cause persistent pain, or don't fit properly.",
   },
-};
-
-const defaultPost = {
-  title: "Article Not Found",
-  category: "Blog",
-  date: "N/A",
-  readTime: "N/A",
-  image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1200&auto=format&fit=crop",
-  author: { name: "Awesome Aligners Team", role: "Editorial", avatar: "" },
-  content: ["This article could not be found. Please check back later or explore our other articles."],
 };
 
 const BlogPost = () => {
   const { postId } = useParams<{ postId: string }>();
-  const post = postId && blogPostsData[postId] ? blogPostsData[postId] : defaultPost;
+  const [post, setPost] = useState<BlogPostData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      if (!postId) { setLoading(false); return; }
+      try {
+        const { data, error } = await (supabase as any)
+          .from("blog_posts")
+          .select("*")
+          .eq("slug", postId)
+          .eq("is_published", true)
+          .maybeSingle();
+
+        if (error) throw error;
+        setPost(data || fallbackPosts[postId] || null);
+      } catch {
+        setPost(fallbackPosts[postId] || null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPost();
+  }, [postId]);
+
+  const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+
+  if (loading) {
+    return (
+      <main className="min-h-screen"><Header />
+        <div className="pt-32 pb-20 flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-muted-foreground" /></div>
+        <Footer />
+      </main>
+    );
+  }
+
+  if (!post) {
+    return (
+      <main className="min-h-screen"><Header />
+        <div className="pt-32 pb-20 text-center"><h1 className="text-3xl font-bold text-foreground mb-4">Article Not Found</h1><p className="text-muted-foreground mb-6">This article could not be found.</p><Button asChild><Link to="/blog"><ArrowLeft className="w-4 h-4 mr-2" />Back to Blog</Link></Button></div>
+        <Footer />
+      </main>
+    );
+  }
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "author": { "@type": "Person", "name": post.author_name },
+    "datePublished": post.published_at || post.created_at,
+    "publisher": { "@type": "Organization", "name": "Awesome Aligners" },
+    ...(post.featured_image_url ? { "image": post.featured_image_url } : {}),
+  };
+
+  const renderContent = (content: string) => {
+    return content.split("\n\n").map((block, i) => {
+      if (block.startsWith("## ")) return <h2 key={i} className="text-2xl font-bold mt-8 mb-4">{block.replace("## ", "")}</h2>;
+      return <p key={i} className="text-muted-foreground leading-relaxed mb-4">{block}</p>;
+    });
+  };
 
   return (
     <main className="min-h-screen">
+      <SEOHead title={`${post.title} | Awesome Aligners Blog`} description={post.excerpt || post.title} canonical={`https://awesome-aligner-premiere.lovable.app/blog/${post.slug}`} ogImage={post.featured_image_url || undefined} ogType="article" structuredData={structuredData} />
       <Header />
-      
-      {/* Hero */}
+
       <section className="pt-32 pb-8 bg-gradient-to-b from-primary/5 to-background">
         <div className="max-w-4xl mx-auto px-4 md:px-8">
-          <Button variant="ghost" size="sm" className="mb-6" asChild>
-            <Link to="/blog">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Blog
-            </Link>
-          </Button>
-          <Badge variant="secondary" className="mb-4">{post.category}</Badge>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            {post.title}
-          </h1>
+          <Button variant="ghost" size="sm" className="mb-6" asChild><Link to="/blog"><ArrowLeft className="w-4 h-4 mr-2" />Back to Blog</Link></Button>
+          {post.category && <Badge variant="secondary" className="mb-4">{post.category}</Badge>}
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">{post.title}</h1>
           <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
-            <div className="flex items-center gap-2">
-              {post.author.avatar && (
-                <img 
-                  src={post.author.avatar} 
-                  alt={post.author.name}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-              )}
-              <div>
-                <p className="font-medium text-foreground">{post.author.name}</p>
-                <p className="text-sm">{post.author.role}</p>
-              </div>
-            </div>
-            <span className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              {post.date}
-            </span>
-            <span className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              {post.readTime}
-            </span>
+            <div><p className="font-medium text-foreground">{post.author_name}</p><p className="text-sm">{post.author_role}</p></div>
+            <span className="flex items-center gap-1"><Calendar className="w-4 h-4" />{formatDate(post.published_at || post.created_at)}</span>
           </div>
         </div>
       </section>
 
-      {/* Featured Image */}
-      <section className="pb-8 bg-background">
-        <div className="max-w-5xl mx-auto px-4 md:px-8">
-          <div className="aspect-video rounded-xl overflow-hidden">
-            <img 
-              src={post.image} 
-              alt={post.title}
-              className="w-full h-full object-cover"
-            />
+      {post.featured_image_url && (
+        <section className="pb-8 bg-background">
+          <div className="max-w-5xl mx-auto px-4 md:px-8">
+            <div className="aspect-video rounded-xl overflow-hidden"><img src={post.featured_image_url} alt={post.title} className="w-full h-full object-cover" /></div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* Content */}
       <section className="py-12 bg-background">
         <div className="max-w-4xl mx-auto px-4 md:px-8">
           <div className="grid lg:grid-cols-[1fr_250px] gap-12">
-            {/* Article Content */}
             <article className="prose prose-slate dark:prose-invert max-w-none">
-              {post.content.map((paragraph, index) => {
-                if (paragraph.startsWith('## ')) {
-                  return <h2 key={index}>{paragraph.replace('## ', '')}</h2>;
-                }
-                if (paragraph.startsWith('**') && paragraph.includes('\n')) {
-                  const lines = paragraph.split('\n');
-                  const title = lines[0].replace(/\*\*/g, '');
-                  const items = lines.slice(1).map(l => l.replace('- ', ''));
-                  return (
-                    <div key={index}>
-                      <p><strong>{title}</strong></p>
-                      <ul>
-                        {items.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                }
-                return <p key={index}>{paragraph}</p>;
-              })}
+              {post.content ? renderContent(post.content) : <p className="text-muted-foreground">Content coming soon.</p>}
             </article>
-
-            {/* Sidebar */}
             <aside className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <Share2 className="w-4 h-4" />
-                    Share Article
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="flex gap-2">
-                  <Button variant="outline" size="icon">
-                    <Facebook className="w-4 h-4" />
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <Twitter className="w-4 h-4" />
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <Linkedin className="w-4 h-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-primary text-primary-foreground">
-                <CardHeader>
-                  <CardTitle className="text-lg">Ready to Start?</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-primary-foreground/80">
-                    Take our free assessment to see if clear aligners are right for you.
-                  </p>
-                  <Button variant="secondary" className="w-full" asChild>
-                    <Link to="/quiz">Take Free Quiz</Link>
-                  </Button>
-                </CardContent>
-              </Card>
+              <Card><CardHeader><CardTitle className="text-lg flex items-center gap-2"><Share2 className="w-4 h-4" />Share</CardTitle></CardHeader><CardContent className="flex gap-2"><Button variant="outline" size="icon"><Facebook className="w-4 h-4" /></Button><Button variant="outline" size="icon"><Twitter className="w-4 h-4" /></Button><Button variant="outline" size="icon"><Linkedin className="w-4 h-4" /></Button></CardContent></Card>
+              <Card className="bg-primary text-primary-foreground"><CardHeader><CardTitle className="text-lg">Ready to Start?</CardTitle></CardHeader><CardContent className="space-y-4"><p className="text-sm text-primary-foreground/80">Take our free assessment to see if clear aligners are right for you.</p><Button variant="secondary" className="w-full" asChild><Link to="/contact">Book Free Consultation</Link></Button></CardContent></Card>
             </aside>
           </div>
         </div>

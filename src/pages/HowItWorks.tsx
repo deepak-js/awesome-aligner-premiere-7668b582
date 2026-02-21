@@ -1,5 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEOHead from "@/components/SEOHead";
 import ComparisonSection from "@/components/sections/ComparisonSection";
 import { Button } from "@/components/ui/button";
 import {
@@ -72,11 +73,11 @@ const steps = [
   number: "04",
   icon: Clock,
   title: "Receiving & Wearing Aligners",
-  description: "First set of aligners delivered. Aligners worn 20–22 hours per day. New sets changed every 1–2 weeks as prescribed.",
+  description: "First set of aligners delivered. Aligners worn 20 to 22 hours per day. New sets changed every 1 to 2 weeks as prescribed.",
   details: [
   "First aligner set delivered",
-  "Wear 20–22 hours per day",
-  "Change sets every 1–2 weeks",
+  "Wear 20 to 22 hours per day",
+  "Change sets every 1 to 2 weeks",
   "Follow prescribed schedule"],
 
   timeline: "Stage 4",
@@ -140,13 +141,26 @@ const technologies = [
 {
   icon: Clock,
   title: "SmartTrack Material",
-  description: "Our FDA-approved aligner material applies consistent, gentle force for faster, more comfortable tooth movement."
+  description: "Our medical-grade aligner material applies consistent, gentle force for faster, more comfortable tooth movement."
 }];
 
 
 const HowItWorks = () => {
   return (
     <main className="min-h-screen">
+      <SEOHead
+        title="How Clear Aligners Work | Awesome Aligners Treatment Process"
+        description="Discover the step-by-step Awesome Aligners treatment process. From consultation and 3D scanning to your perfect smile, guided by certified orthodontists."
+        canonical="https://awesome-aligner-premiere.lovable.app/how-it-works"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Awesome Aligners Clear Aligner Treatment",
+          "provider": { "@type": "Organization", "name": "Awesome Aligners" },
+          "description": "End-to-end orthodontist-supervised clear aligner treatment in India",
+          "areaServed": "India"
+        }}
+      />
       <Header />
 
       {/* Hero Section */}
