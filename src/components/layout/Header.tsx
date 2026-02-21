@@ -24,7 +24,7 @@ const Header = () => {
   const location = useLocation();
   
   // Pages with dark hero backgrounds where transparent header works
-  const darkHeroPages = ["/", "/how-it-works", "/about", "/for-doctors"];
+  const darkHeroPages = ["/", "/how-it-works", "/about", "/for-doctors", "/pricing"];
   const hasDarkHero = darkHeroPages.includes(location.pathname);
   const showSolidHeader = !hasDarkHero || isScrolled;
   const headerRef = useRef<HTMLElement>(null);
