@@ -107,7 +107,8 @@ const Blog = () => {
       <SEOHead
         title="Blog | Clear Aligner Tips & Insights | Awesome Aligners"
         description="Read expert advice, treatment insights, and tips about clear aligners. Stay informed about the latest in orthodontic care."
-        canonical="https://awesome-aligner-premiere.lovable.app/blog"
+        canonical="https://awesomealigners.in/blog"
+        ogImage="https://awesomealigners.in/og-image.jpg"
       />
       <Header />
 

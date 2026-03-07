@@ -166,7 +166,8 @@ const DoctorPartnership = () => {
       <SEOHead
         title="Partner With Awesome Aligners | Doctor Partnership Program"
         description="Join India's fastest-growing clear aligner network. Expand your dental practice with our partnership program, training, and patient referrals."
-        canonical="https://awesome-aligner-premiere.lovable.app/for-doctors"
+        canonical="https://awesomealigners.in/for-doctors"
+        ogImage="https://awesomealigners.in/og-image.jpg"
       />
       <Header />
       

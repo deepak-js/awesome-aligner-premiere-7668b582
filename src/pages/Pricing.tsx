@@ -77,7 +77,8 @@ const Pricing = () => {
       <SEOHead
         title="Clear Aligner Pricing & EMI Plans | Awesome Aligners"
         description="Affordable clear aligner treatment starting from ₹25,000. Flexible EMI options, insurance coordination, and 30-day money-back guarantee."
-        canonical="https://awesome-aligner-premiere.lovable.app/pricing"
+        canonical="https://awesomealigners.in/pricing"
+        ogImage="https://awesomealigners.in/og-image.jpg"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "Service",

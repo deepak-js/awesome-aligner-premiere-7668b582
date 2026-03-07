@@ -151,7 +151,8 @@ const HowItWorks = () => {
       <SEOHead
         title="How Clear Aligners Work | Awesome Aligners Treatment Process"
         description="Discover the step-by-step Awesome Aligners treatment process. From consultation and 3D scanning to your perfect smile, guided by certified orthodontists."
-        canonical="https://awesome-aligner-premiere.lovable.app/how-it-works"
+        canonical="https://awesomealigners.in/how-it-works"
+        ogImage="https://awesomealigners.in/og-image.jpg"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "Service",

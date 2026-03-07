@@ -8,7 +8,8 @@ const CookiePolicy = () => {
       <SEOHead
         title="Cookie Policy | Awesome Aligners"
         description="Understand how Awesome Aligners uses cookies and similar technologies on our website."
-        canonical="https://awesome-aligner-premiere.lovable.app/cookie-policy"
+        canonical="https://awesomealigners.in/cookie-policy"
+        ogImage="https://awesomealigners.in/og-image.jpg"
       />
       <Header />
       

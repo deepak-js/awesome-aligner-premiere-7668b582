@@ -13,13 +13,14 @@ const Index = () => {
       <SEOHead
         title="Awesome Aligners | Premium Clear Aligners for Your Perfect Smile"
         description="Transform your smile with Awesome Aligners. Orthodontist-supervised clear aligners designed for comfort, precision, and confidence. Book your free consultation today."
-        canonical="https://awesome-aligner-premiere.lovable.app/"
+        canonical="https://awesomealigners.in/"
+        ogImage="https://awesomealigners.in/og-image.jpg"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           "name": "Awesome Aligners",
           "description": "Premium clear aligners for teeth straightening, orthodontist-supervised",
-          "url": "https://awesome-aligner-premiere.lovable.app",
+          "url": "https://awesomealigners.in",
           "telephone": "+914445002500",
           "address": [
             {

@@ -42,7 +42,8 @@ const About = () => {
       <SEOHead
         title="About Awesome Aligners | Orthodontist-Supervised Clear Aligners India"
         description="Learn about Awesome Aligners, founded and supervised by orthodontists. Premium clear aligner treatment inspired by Invisalign and Spark Aligners, made affordable for India."
-        canonical="https://awesome-aligner-premiere.lovable.app/about"
+        canonical="https://awesomealigners.in/about"
+        ogImage="https://awesomealigners.in/og-image.jpg"
       />
       <Header />
 

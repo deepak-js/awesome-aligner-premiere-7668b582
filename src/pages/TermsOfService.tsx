@@ -8,7 +8,8 @@ const TermsOfService = () => {
       <SEOHead
         title="Terms of Service | Awesome Aligners"
         description="Read the terms and conditions governing the use of Awesome Aligners services, treatment, and website."
-        canonical="https://awesome-aligner-premiere.lovable.app/terms-of-service"
+        canonical="https://awesomealigners.in/terms-of-service"
+        ogImage="https://awesomealigners.in/og-image.jpg"
       />
       <Header />
       
