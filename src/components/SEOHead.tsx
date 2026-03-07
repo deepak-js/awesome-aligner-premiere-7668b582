@@ -37,6 +37,10 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", s
       setMeta("twitter:image", ogImage);
     }
 
+    if (canonical) {
+      setMeta("og:url", canonical, true);
+    }
+
     // Canonical
     let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (canonical) {
