@@ -28,18 +28,22 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", s
     setMeta("og:title", title, true);
     setMeta("og:description", description, true);
     setMeta("og:type", ogType, true);
+    setMeta("og:site_name", "Awesome Aligners", true);
+    setMeta("og:locale", "en_IN", true);
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", title);
     setMeta("twitter:description", description);
 
-    if (ogImage) {
-      setMeta("og:image", ogImage, true);
-      setMeta("twitter:image", ogImage);
-    }
+    // Always set og:image and twitter:image with fallback
+    const imageUrl = ogImage || "https://awesomealigners.in/og-image.jpg";
+    setMeta("og:image", imageUrl, true);
+    setMeta("og:image:width", "1200", true);
+    setMeta("og:image:height", "630", true);
+    setMeta("twitter:image", imageUrl);
 
-    if (canonical) {
-      setMeta("og:url", canonical, true);
-    }
+    // Always set og:url with fallback
+    const pageUrl = canonical || "https://awesomealigners.in/";
+    setMeta("og:url", pageUrl, true);
 
     // Canonical
     let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;

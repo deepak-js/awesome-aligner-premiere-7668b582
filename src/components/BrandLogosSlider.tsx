@@ -43,6 +43,7 @@ const BrandLogosSlider = () => {
                 <img
                   src={brand.logo}
                   alt={brand.name}
+                  loading="lazy"
                   className="h-full w-auto max-w-[160px] md:max-w-[180px] object-contain"
                 />
               </div>
@@ -58,6 +59,7 @@ const BrandLogosSlider = () => {
                 <img
                   src={brand.logo}
                   alt={brand.name}
+                  loading="lazy"
                   className="h-full w-auto max-w-[160px] md:max-w-[180px] object-contain"
                 />
               </div>
