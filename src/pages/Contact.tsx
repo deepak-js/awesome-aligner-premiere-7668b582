@@ -127,7 +127,8 @@ const Contact = () => {
       <SEOHead
         title="Contact Awesome Aligners | Book Free Consultation"
         description="Get in touch with Awesome Aligners. Book a free consultation, ask questions, or visit our offices in the UK, Chennai, and Thanjavur."
-        canonical="https://awesome-aligner-premiere.lovable.app/contact"
+        canonical="https://awesomealigners.in/contact"
+        ogImage="https://awesomealigners.in/og-image.jpg"
       />
       <Header />
 

@@ -110,7 +110,7 @@ const BlogPost = () => {
 
   return (
     <main className="min-h-screen">
-      <SEOHead title={`${post.title} | Awesome Aligners Blog`} description={post.excerpt || post.title} canonical={`https://awesome-aligner-premiere.lovable.app/blog/${post.slug}`} ogImage={post.featured_image_url || undefined} ogType="article" structuredData={structuredData} />
+      <SEOHead title={`${post.title} | Awesome Aligners Blog`} description={post.excerpt || post.title} canonical={`https://awesomealigners.in/blog/${post.slug}`} ogImage={post.featured_image_url || "https://awesomealigners.in/og-image.jpg"} ogType="article" structuredData={structuredData} />
       <Header />
 
       <section className="pt-32 pb-8 bg-gradient-to-b from-primary/5 to-background">

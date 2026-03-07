@@ -8,7 +8,8 @@ const PrivacyPolicy = () => {
       <SEOHead
         title="Privacy Policy | Awesome Aligners"
         description="Learn how Awesome Aligners collects, uses, and protects your personal information. Read our complete privacy policy."
-        canonical="https://awesome-aligner-premiere.lovable.app/privacy-policy"
+        canonical="https://awesomealigners.in/privacy-policy"
+        ogImage="https://awesomealigners.in/og-image.jpg"
       />
       <Header />
       

@@ -71,7 +71,8 @@ const CostCalculator = () => {
       <SEOHead
         title="Cost Calculator | Estimate Your Aligner Treatment Cost"
         description="Get a personalized cost estimate for your clear aligner treatment. Choose your treatment type, add-ons, and explore flexible EMI options."
-        canonical="https://awesome-aligner-premiere.lovable.app/cost-calculator"
+        canonical="https://awesomealigners.in/cost-calculator"
+        ogImage="https://awesomealigners.in/og-image.jpg"
       />
       <Header />
       

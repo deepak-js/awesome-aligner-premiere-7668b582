@@ -320,7 +320,8 @@ const Results = () => {
       <SEOHead
         title="Before & After Results | Real Smile Transformations | Awesome Aligners"
         description="See real before-and-after clear aligner results. Explore smile transformations for crowding, spacing, overbite, underbite, and more."
-        canonical="https://awesome-aligner-premiere.lovable.app/results"
+        canonical="https://awesomealigners.in/results"
+        ogImage="https://awesomealigners.in/og-image.jpg"
       />
       <Header />
       

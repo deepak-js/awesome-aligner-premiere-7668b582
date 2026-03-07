@@ -201,7 +201,8 @@ const FAQ = () => {
       <SEOHead
         title="FAQ | Clear Aligner Questions Answered | Awesome Aligners"
         description="Get answers to common questions about clear aligner treatment, pricing, care, and more. Everything you need to know about Awesome Aligners."
-        canonical="https://awesome-aligner-premiere.lovable.app/faq"
+        canonical="https://awesomealigners.in/faq"
+        ogImage="https://awesomealigners.in/og-image.jpg"
         structuredData={faqStructuredData}
       />
       <Header />
