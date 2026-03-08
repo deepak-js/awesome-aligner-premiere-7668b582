@@ -32,6 +32,7 @@ const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/awesome_aligners/", label: "Instagram" },
   { icon: Twitter, href: "https://x.com/awesomealigners", label: "Twitter" },
   { icon: Linkedin, href: "https://linkedin.com/company/awesomealigners", label: "LinkedIn" },
+  { icon: Youtube, href: "https://www.youtube.com/channel/UCImKOXPepSJ-2FWjnnHsi8g", label: "YouTube" },
 ];
 
 const Footer = () => {
