@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, Linkedin, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const locations = [
