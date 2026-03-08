@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.chat-webhook]
 verify_jwt = false
+
+[functions.form-webhook]
+verify_jwt = false
