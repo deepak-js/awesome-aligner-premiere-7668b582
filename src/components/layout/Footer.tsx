@@ -28,8 +28,8 @@ const links = {
 };
 
 const socialLinks = [
-  { icon: Facebook, href: "https://facebook.com/awesomealigners", label: "Facebook" },
-  { icon: Instagram, href: "https://instagram.com/awesomealigners", label: "Instagram" },
+  { icon: Facebook, href: "https://www.facebook.com/awesomealigners/", label: "Facebook" },
+  { icon: Instagram, href: "https://www.instagram.com/awesome_aligners/", label: "Instagram" },
   { icon: Twitter, href: "https://x.com/awesomealigners", label: "Twitter" },
   { icon: Linkedin, href: "https://linkedin.com/company/awesomealigners", label: "LinkedIn" },
 ];

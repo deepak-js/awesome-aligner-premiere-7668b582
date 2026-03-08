@@ -46,9 +46,9 @@ const Index = () => {
             }
           ],
           "sameAs": [
-            "https://facebook.com/awesomealigners",
-            "https://instagram.com/awesomealigners",
-            "https://x.com/awesomealigners",
+            "https://www.facebook.com/awesomealigners/",
+            "https://www.instagram.com/awesome_aligners/",
+            "https://www.youtube.com/channel/UCImKOXPepSJ-2FWjnnHsi8g",
             "https://linkedin.com/company/awesomealigners"
           ]
         }}
