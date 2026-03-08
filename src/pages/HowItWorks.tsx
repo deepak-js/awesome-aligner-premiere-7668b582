@@ -18,6 +18,7 @@ import {
 import { Link } from "react-router-dom";
 
 // Import step images
+import orthodontistImg from "@/assets/orthodontist-expert.jpg";
 import consultationImg from "@/assets/stage-1-consultation.png";
 import scanImg from "@/assets/stage-2-3d-scan.png";
 import fabricationImg from "@/assets/stage-3-fabrication.png";
@@ -319,7 +320,6 @@ const HowItWorks = () => {
 
               <ul className="space-y-4 mb-8">
                 {[
-                "500+ certified providers nationwide",
                 "Regular progress monitoring",
                 "Personalized adjustments as needed",
                 "Expert support throughout treatment"].
@@ -339,18 +339,13 @@ const HowItWorks = () => {
               </Button>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
-              {[
-              { value: "500+", label: "Certified Providers" },
-              { value: "10K+", label: "Smiles Transformed" },
-              { value: "98%", label: "Patient Satisfaction" },
-              { value: "50+", label: "Countries Served" }].
-              map((stat) => (
-                <div key={stat.label} className="text-center p-4 bg-background/50 rounded-xl">
-                  <div className="text-2xl font-bold text-primary">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src={orthodontistImg}
+                alt="Certified orthodontist holding clear aligners in a modern dental clinic"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
