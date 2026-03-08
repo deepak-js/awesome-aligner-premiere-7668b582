@@ -72,19 +72,19 @@ const Header = () => {
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center group relative h-12 md:h-14 lg:h-16">
+        <Link to="/" className="flex items-center group relative h-16 md:h-20 lg:h-24">
           <img 
             ref={logoRef}
             src={logo} 
             alt="Awesome Aligners" 
-            className={`h-12 md:h-14 lg:h-16 w-auto transition-all duration-500 group-hover:scale-105 absolute left-0 top-0 ${
+            className={`h-16 md:h-20 lg:h-24 w-auto transition-all duration-500 group-hover:scale-105 absolute left-0 top-0 ${
               showSolidHeader ? 'opacity-0' : 'opacity-100'
             }`} 
           />
           <img 
             src={logoDark} 
             alt="Awesome Aligners" 
-            className={`h-12 md:h-14 lg:h-16 w-auto transition-all duration-500 group-hover:scale-105 ${
+            className={`h-16 md:h-20 lg:h-24 w-auto transition-all duration-500 group-hover:scale-105 ${
               showSolidHeader ? 'opacity-100' : 'opacity-0'
             }`} 
           />
