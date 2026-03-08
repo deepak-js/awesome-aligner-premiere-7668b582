@@ -141,8 +141,8 @@ const technologies = [
 },
 {
   icon: Clock,
-  title: "SmartTrack Material",
-  description: "Our medical-grade aligner material applies consistent, gentle force for faster, more comfortable tooth movement."
+  title: "Single Layer vs Multilayer Material",
+  description: "Our aligners use advanced multilayer material that provides optimal force delivery, flexibility, and durability compared to single-layer alternatives."
 }];
 
 
