@@ -18,6 +18,7 @@ import {
 import { Link } from "react-router-dom";
 
 // Import step images
+import orthodontistImg from "@/assets/orthodontist-expert.jpg";
 import consultationImg from "@/assets/stage-1-consultation.png";
 import scanImg from "@/assets/stage-2-3d-scan.png";
 import fabricationImg from "@/assets/stage-3-fabrication.png";
