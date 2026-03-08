@@ -33,8 +33,8 @@ const features = [
 },
 {
   icon: Award,
-  title: "Guaranteed Results",
-  description: "Money-back guarantee if you're not satisfied"
+  title: "Precise Digital Workflow",
+  description: "End-to-end digital planning for predictable, accurate results"
 }];
 
 
