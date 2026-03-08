@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import QuizModal from "@/components/quiz/QuizModal";
 import logo from "@/assets/header-logo.png";
+import logoWhite from "@/assets/header-logo-white.png";
 import gsap from "gsap";
 
 const navLinks = [
@@ -74,9 +75,9 @@ const Header = () => {
         <Link to="/" className="flex items-center group">
           <img 
             ref={logoRef}
-            src={logo} 
+            src={showSolidHeader ? logo : logoWhite} 
             alt="Awesome Aligners" 
-            className="h-12 md:h-14 lg:h-16 w-auto transition-transform duration-300 group-hover:scale-105" 
+            className="h-12 md:h-14 lg:h-16 w-auto transition-all duration-500 group-hover:scale-105" 
           />
         </Link>
 
