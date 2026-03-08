@@ -195,16 +195,19 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
         ? "You're a good candidate for clear aligners."
         : "We recommend scheduling a consultation.";
 
-      supabase.functions.invoke("send-notification-email", {
+      supabase.functions.invoke("form-webhook", {
         body: {
           type: "quiz_completion",
           firstName: formData.firstName,
           lastName: formData.lastName,
           email: formData.email,
+          phone: formData.phone || null,
           recommendation: recommendationText,
-          quizScore: score
+          quizScore: score,
+          primaryConcern: alignmentIssues?.[0] || null,
+          timeline,
         }
-      }).catch(err => console.error("Email notification failed:", err));
+      }).catch(err => console.error("Webhook notification failed:", err));
 
       onClose();
       navigate("/quiz-results", { 

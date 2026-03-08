@@ -90,20 +90,17 @@ const Contact = () => {
 
       if (error) throw error;
 
-      // Send confirmation email
-      try {
-        await supabase.functions.invoke("send-notification-email", {
-          body: {
-            type: "contact_form",
-            name: formData.name.trim(),
-            email: formData.email.trim(),
-            subject: formData.subject.trim(),
-          },
-        });
-      } catch (emailError) {
-        console.error("Email notification failed:", emailError);
-        // Don't block form submission if email fails
-      }
+      // Forward to webhook for n8n processing
+      supabase.functions.invoke("form-webhook", {
+        body: {
+          type: "contact_form",
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim() || null,
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+        },
+      }).catch(err => console.error("Webhook notification failed:", err));
 
       toast({
         title: "Message sent!",

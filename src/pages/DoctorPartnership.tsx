@@ -128,16 +128,21 @@ const DoctorPartnership = () => {
 
       if (error) throw error;
 
-      supabase.functions.invoke("send-notification-email", {
+      supabase.functions.invoke("form-webhook", {
         body: {
           type: "doctor_application",
           firstName: formData.firstName,
           lastName: formData.lastName,
           email: formData.email,
           clinicName: formData.clinicName,
-          phone: formData.phone
+          phone: formData.phone,
+          city: formData.city,
+          state: formData.state,
+          specialty: formData.specialty,
+          yearsExperience: formData.yearsExperience,
+          patientsPerMonth: formData.patientsPerMonth,
         }
-      }).catch(err => console.error("Email notification failed:", err));
+      }).catch(err => console.error("Webhook notification failed:", err));
 
       toast({
         title: "Application Submitted!",
