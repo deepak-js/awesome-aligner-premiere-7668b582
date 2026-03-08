@@ -138,13 +138,17 @@ const ComparisonSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Why Patients Choose{" "}
-            <span className="text-primary">Awesome Aligners</span>
+            Difference from{" "}
+            <span className="text-primary">Other Aligners</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            See the difference that premium materials and precision engineering
-            make in your smile journey.
-          </p>
+          <ul className="text-lg text-muted-foreground max-w-2xl mx-auto space-y-2 text-left sm:text-center">
+            <li>✦ Transparency / stain resistance</li>
+            <li>✦ Smooth edges and superior trimming</li>
+            <li>✦ Elasticity and force consistency</li>
+            <li>✦ Orthodontist supervision throughout your smile journey</li>
+            <li>✦ Highly precise digital workflow</li>
+            <li>✦ Efficient manufacturing and delivery process</li>
+          </ul>
         </div>
 
         <div className="space-y-8 md:space-y-12 max-w-5xl mx-auto">
