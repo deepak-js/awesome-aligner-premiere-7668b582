@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import QuizModal from "@/components/quiz/QuizModal";
 import logo from "@/assets/header-logo.png";
+import logoWhite from "@/assets/header-logo-white.png";
 import gsap from "gsap";
 
 const navLinks = [
