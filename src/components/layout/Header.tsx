@@ -75,9 +75,9 @@ const Header = () => {
         <Link to="/" className="flex items-center group">
           <img 
             ref={logoRef}
-            src={logo} 
+            src={showSolidHeader ? logo : logoWhite} 
             alt="Awesome Aligners" 
-            className="h-12 md:h-14 lg:h-16 w-auto transition-transform duration-300 group-hover:scale-105" 
+            className="h-12 md:h-14 lg:h-16 w-auto transition-all duration-500 group-hover:scale-105" 
           />
         </Link>
 
