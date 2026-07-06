@@ -165,8 +165,8 @@ const CookiePolicy = () => {
           <h2>7. Contact Us</h2>
           <p>If you have questions about our use of cookies, please contact us at:</p>
           <ul>
-            <li>Email: privacy@awesomealigners.com</li>
-            <li>Phone: 1-800-ALIGNERS</li>
+            <li>Email: support@awesomealigners.co.in</li>
+            <li>Phone: +91 91502 20394</li>
           </ul>
         </div>
       </section>
