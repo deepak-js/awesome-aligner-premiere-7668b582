@@ -47,7 +47,7 @@ const offices = [
     city: "Chennai, India",
     address: "63, Balaji Nagar, 4th Street, Alwarthirunagar",
     zip: "Chennai 600087, Tamil Nadu, India",
-    phone: "+91 44 4500 2500",
+    phone: "+91 91502 20394",
   },
   {
     city: "Thanjavur, India",
