@@ -233,7 +233,7 @@ const Contact = () => {
                     <label className="text-sm font-medium text-foreground mb-2 block">Phone</label>
                     <Input
                       type="tel"
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 91502 20394"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       maxLength={20}
