@@ -21,7 +21,7 @@ const Index = () => {
           "name": "Awesome Aligners",
           "description": "Premium clear aligners for teeth straightening, orthodontist-supervised",
           "url": "https://awesomealigners.in",
-          "telephone": "+914445002500",
+          "telephone": "+919150220394",
           "address": [
             {
               "@type": "PostalAddress",

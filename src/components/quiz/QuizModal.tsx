@@ -417,7 +417,7 @@ const QuizModal = ({ isOpen, onClose }: QuizModalProps) => {
                     id="phone"
                     name="phone"
                     type="tel"
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 91502 20394"
                     value={formData.phone}
                     onChange={handleInputChange}
                     className="mt-1"

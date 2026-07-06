@@ -114,9 +114,8 @@ const PrivacyPolicy = () => {
             If you have any questions about this Privacy Policy or our privacy practices, please contact us at:
           </p>
           <ul>
-            <li>Email: privacy@awesomealigners.com</li>
-            <li>Phone: 1-800-ALIGNERS</li>
-            <li>Address: 123 Manhattan Ave, New York, NY 10001</li>
+            <li>Email: support@awesomealigners.co.in</li>
+            <li>Phone: +91 91502 20394</li>
           </ul>
         </div>
       </section>

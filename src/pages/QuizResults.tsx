@@ -211,7 +211,7 @@ const QuizResults = () => {
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <a href="tel:+911234567890">
+                  <a href="tel:+919150220394">
                     <Phone className="mr-2 h-5 w-5" /> Call Now
                   </a>
                 </Button>

@@ -104,11 +104,11 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 mt-1 text-accent" />
-                <span className="text-primary-foreground/70 text-sm">1-800-ALIGNERS</span>
+                <span className="text-primary-foreground/70 text-sm">+91 91502 20394</span>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 mt-1 text-accent" />
-                <span className="text-primary-foreground/70 text-sm">hello@awesomealigners.com</span>
+                <span className="text-primary-foreground/70 text-sm">support@awesomealigners.co.in</span>
               </li>
             </ul>
           </div>

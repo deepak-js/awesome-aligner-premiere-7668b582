@@ -14,25 +14,25 @@ const contactMethods = [
     icon: Phone,
     title: "Call Us",
     description: "Speak directly with our team",
-    value: "+91 44 4500 2500",
+    value: "+91 91502 20394",
     action: "Call Now",
-    actionHref: "tel:+914445002500",
+    actionHref: "tel:+919150220394",
   },
   {
     icon: Mail,
     title: "Email Us",
     description: "Get a response within 24 hours",
-    value: "hello@awesomealigners.com",
+    value: "support@awesomealigners.co.in",
     action: "Send Email",
-    actionHref: "mailto:hello@awesomealigners.com",
+    actionHref: "mailto:support@awesomealigners.co.in",
   },
   {
     icon: MessageSquare,
-    title: "Live Chat",
-    description: "Available Mon-Fri, 9am-6pm IST",
-    value: "Chat with an expert",
-    action: "Start Chat",
-    actionHref: "#chat",
+    title: "WhatsApp",
+    description: "Chat with us on WhatsApp",
+    value: "+91 91502 20394",
+    action: "Chat on WhatsApp",
+    actionHref: "https://wa.me/919150220394",
   },
 ];
 
@@ -47,7 +47,7 @@ const offices = [
     city: "Chennai, India",
     address: "63, Balaji Nagar, 4th Street, Alwarthirunagar",
     zip: "Chennai 600087, Tamil Nadu, India",
-    phone: "+91 44 4500 2500",
+    phone: "+91 91502 20394",
   },
   {
     city: "Thanjavur, India",
@@ -233,7 +233,7 @@ const Contact = () => {
                     <label className="text-sm font-medium text-foreground mb-2 block">Phone</label>
                     <Input
                       type="tel"
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 91502 20394"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       maxLength={20}
